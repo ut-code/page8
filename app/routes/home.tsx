@@ -1,13 +1,22 @@
+import { useNavigate } from "react-router";
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "The Page 8" },
+    {
+      name: "description",
+      content: 'A website game inspired by the game "The Exit 8."',
+    },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  const navigate = useNavigate();
+  return (
+    <div>
+      <div>8番ページ(仮)</div>
+      <button onClick={() => navigate("/game/0")}>ゲームスタート</button>
+    </div>
+  );
 }
