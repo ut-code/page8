@@ -35,7 +35,7 @@ export default function End(){
         </div>
       </div>
 
-      <div className="mb-16 text-center">
+      <div className="mb-16 text-center text-xl">
         <div className="mb-4">クリアタイム : 12分34秒</div>
         <div className="mb-4">発見した異変 : 8個</div>
         <div>未発見の異変 : 12個</div>
