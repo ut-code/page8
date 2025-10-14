@@ -62,9 +62,9 @@ export default function End(){
       </div>
 
       <div className="text-center">
-        <button className="mb-16 bg-[#FF4500] text-2xl" onClick={() => navigate("../")}>もう一度遊ぶ</button>
+        <button className="mb-16 bg-[#FF4500] text-2xl cursor-pointer hover:opacity-80" onClick={() => navigate("../")}>もう一度遊ぶ</button>
       </div>
-      
+
     </div>
   )
 }
