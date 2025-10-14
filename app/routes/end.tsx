@@ -44,7 +44,12 @@ export default function End(){
       <div className="max-w-[1056px] m-auto mb-16">
         <h2 className="p-2 text-2xl">発見した異変の一覧</h2>
         <div className="grid grid-cols-4 gap-8 justify-center">
-          <div className="border w-[240px] h-[160px]"></div>
+          <a onClick={() => navigate("../")}>
+            <div className=" cursor-pointer border rounded-xl w-[240px] h-[160px] bg-[#F0F0F0] text-black flex flex-col items-center justify-center gap-4">
+              <div>hoge</div>
+              <div>詳細を見る</div>
+            </div>
+          </a>
           <div className="border w-[240px] h-[160px]"></div>
           <div className="border w-[240px] h-[160px]"></div>
           <div className="border w-[240px] h-[160px]"></div>
