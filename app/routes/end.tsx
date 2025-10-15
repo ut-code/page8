@@ -28,8 +28,65 @@ function StatsPanel({
   )
 }
 
+function AnomalyList({
+  anomalies,
+}: {
+  anomalies: { id: number; keyword: string; path: string }[];
+}){
+  return(
+    <div className="max-w-[1056px] m-auto mb-16">
+      <h2 className="p-2 text-2xl">発見した異変の一覧</h2>
+      <div className="grid grid-cols-4 gap-8 justify-center">
+        {anomalies.map((anomaly)=>(
+          <Card
+            keyword={anomaly.keyword}
+            path = {anomaly.path}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+  
+function Card({
+  keyword,
+  path
+}: {
+  keyword: string;
+  path: string;
+}){
+
+  const navigate = useNavigate();
+  return (
+    <a onClick={()=>navigate("../")}>{/*ここにpathを入れる*/}
+      <div className="border rounded-xl w-[240px] h-[160px] bg-[#F0F0F0] text-black flex flex-col items-center justify-center gap-4 cursor-pointer">
+        <div>{keyword}</div>
+        <div>詳細を見る</div>
+      </div>
+    </a>
+  )
+}
+
 export default function End(){
   const navigate = useNavigate();
+
+  const anomalies = [
+  { id: 1, keyword: "ボタン無反応", path: "hoge" },
+  { id: 2, keyword: "レイアウト崩れ", path: "hoge" },
+  { id: 3, keyword: "リンク飛び先誤り", path: "hoge" },
+  { id: 4, keyword: "フォントが変わる", path: "hoge" },
+  { id: 5, keyword: "背景色が不自然", path: "hoge" },
+  { id: 6, keyword: "画像が表示されない", path: "hoge" },
+  { id: 7, keyword: "カーソル形状異常", path: "hoge" },
+  { id: 8, keyword: "テキスト重なり", path: "hoge" },
+  { id: 9, keyword: "スクロール異常", path: "hoge" },
+  { id: 10, keyword: "アニメーション暴走", path: "hoge" },
+  { id: 11, keyword: "メニュー非表示", path: "hoge" },
+  { id: 12, keyword: "ボタン位置ずれ", path: "hoge" },
+  { id: 13, keyword: "画像サイズ不揃い", path: "hoge" },
+];//一例
+
+
   return(
     <div className="w-full min-h-screen bg-[#091b0c] text-white font-serif">
 
@@ -59,30 +116,9 @@ export default function End(){
         notFoundCount = {12}
       />
 
-      <div className="max-w-[1056px] m-auto mb-16">
-        <h2 className="p-2 text-2xl">発見した異変の一覧</h2>
-        <div className="grid grid-cols-4 gap-8 justify-center">
-          <a onClick={() => navigate("../")}>
-            <div className=" cursor-pointer border rounded-xl w-[240px] h-[160px] bg-[#F0F0F0] text-black flex flex-col items-center justify-center gap-4">
-              <div>hoge</div>
-              <div>詳細を見る</div>
-            </div>
-          </a>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-          <div className="border w-[240px] h-[160px]"></div>
-        </div>
-      </div>
+      <AnomalyList
+        anomalies = {anomalies}
+      />
 
       <div className="text-center">
         <button className="mb-16 bg-[#FF4500] text-2xl cursor-pointer hover:opacity-80" onClick={() => navigate("../")}>もう一度遊ぶ</button>
