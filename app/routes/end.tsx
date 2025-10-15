@@ -95,7 +95,7 @@ export default function End(){
       </header>
 
       <div className="mb-16 text-center">
-        <h2 className="mb-3 text-3xl">
+        <h2 className="mb-8 text-3xl">
           <span className="underline decoration-[#FF4500]">8/8</span><br/>
           クリアおめでとう
         </h2>
