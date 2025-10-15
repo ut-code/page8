@@ -10,6 +10,24 @@ import { useNavigate } from "react-router";
   );
 }*/
 
+function StatsPanel({
+  clearTime,
+  foundCount,
+  notFoundCount
+}: {
+  clearTime: number;
+  foundCount: number;
+  notFoundCount: number;
+}){
+  return(
+    <div className="mb-16 text-center text-xl">
+      <div className="mb-4">クリアタイム : {Math.floor(clearTime/60)}分{clearTime%60}秒</div>
+      <div className="mb-4">発見した異変 : {foundCount}個</div>
+      <div>未発見の異変 : {notFoundCount}個</div>
+    </div>
+  )
+}
+
 export default function End(){
   const navigate = useNavigate();
   return(
@@ -35,11 +53,11 @@ export default function End(){
         </div>
       </div>
 
-      <div className="mb-16 text-center text-xl">
-        <div className="mb-4">クリアタイム : 12分34秒</div>
-        <div className="mb-4">発見した異変 : 8個</div>
-        <div>未発見の異変 : 12個</div>
-      </div>
+      <StatsPanel
+        clearTime = {760}
+        foundCount = {8}
+        notFoundCount = {12}
+      />
 
       <div className="max-w-[1056px] m-auto mb-16">
         <h2 className="p-2 text-2xl">発見した異変の一覧</h2>
