@@ -59,9 +59,11 @@ function Card({
   const navigate = useNavigate();
   return (
     <a onClick={()=>navigate("../")}>{/*ここにpathを入れる*/}
-      <div className="border rounded-xl w-[240px] h-[160px] bg-[#F0F0F0] text-black flex flex-col items-center justify-center gap-4 cursor-pointer">
-        <div>{keyword}</div>
-        <div>詳細を見る</div>
+      <div className="rounded-xl w-[240px] h-[160px] bg-[#F8F8F8] text-black flex flex-col items-start justify-center px-4 py-3 gap-2 cursor-pointer
+      hover:bg-[#5C0A0A] hover:text-white duration-300 ease-in-out shadow-sm">
+        <div className="text-sm text-gray-500">発見した異変</div>
+        <div className="text-lg font-bold">{keyword}</div>
+        <div className="mt-auto text-sm underline self-end">詳細を見る</div>
       </div>
     </a>
   )
