@@ -112,16 +112,10 @@ function Popup({
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
       onClick={onClose}
     >
-      <div
-        className="bg-white rounded-lg p-6 w-96 relative text-black"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="bg-white rounded-lg p-6 h-[500px] w-[1000px] relative text-black" onClick={(e) => e.stopPropagation()} > 
         <h2 className="text-xl font-bold mb-4">{anomaly.keyword || "キーワードなし"}</h2>
-        <p className="mb-4">{anomaly.detail}</p>
-        <button
-          onClick={onClose}
-          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-        >
+        <p className="mb-4">{anomaly.detail}</p> 
+        <button onClick={onClose} className="px-4 py-2 bg-[#FF4500] text-white rounded hover:bg-[#CC3700] absolute bottom-4 right-4" > 
           閉じる
         </button>
       </div>
