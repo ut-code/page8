@@ -1,4 +1,15 @@
 import { useNavigate } from "react-router";
+import { useState } from "react";
+import { stages } from "~/stages";
+type StageType = {
+  id: number;
+  path: string;
+  keyword: string;
+  detail: string;
+  code: string;
+  image: string;
+  state: "isDetected" | "isNotDetected" | "isNotEncountered";
+};
 
 /*export default function end() {
   const navigate = useNavigate();
@@ -31,62 +42,124 @@ function StatsPanel({
 function AnomalyList({
   anomalies,
 }: {
-  anomalies: { id: number; keyword: string; path: string }[];
+  anomalies: StageType[];
 }){
+const [selectedAnomaly, setSelectedAnomaly] = useState<StageType | null>(null);
+
+  const detectedAnomalies = anomalies.filter((anomaly) => anomaly.state === "isDetected");
+  const notDetectedAnomalies = anomalies.filter((anomaly) => anomaly.state === "isNotDetected");
+  const notEncounteredAnomalies = anomalies.filter((anomaly) => anomaly.state === "isNotEncountered");
   return(
-    <div className="max-w-[1056px] m-auto mb-16">
-      <h2 className="p-2 text-2xl">発見した異変の一覧</h2>
-      <div className="grid grid-cols-4 gap-8 justify-center">
-        {anomalies.map((anomaly)=>(
-          <Card
-            keyword={anomaly.keyword}
-            path = {anomaly.path}
-          />
-        ))}
+    <>
+      <div className="max-w-[1056px] m-auto mb-16">
+        <h2 className="p-2 text-2xl">発見した異変の一覧</h2>
+        <div className="grid grid-cols-4 gap-8 justify-center">
+          {detectedAnomalies.map((anomaly)=>(
+            <DetectedCard
+              key = { anomaly.id}
+              keyword={anomaly.keyword}
+              detail = {anomaly.detail}
+              code = {anomaly.code}
+              image = {anomaly.image}
+              onClick={() => setSelectedAnomaly(anomaly)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+      <Popup
+        isOpen={selectedAnomaly !== null}
+        onClose={() => setSelectedAnomaly(null)}
+        keyword={selectedAnomaly?.keyword ?? ""}
+        detail={selectedAnomaly?.detail ?? ""}
+      />
+
+      <div className="max-w-[1056px] m-auto mb-16">
+        <h2 className="p-2 text-2xl">未発見の異変の一覧</h2>
+        <div className="grid grid-cols-4 gap-8 justify-center">
+          {detectedAnomalies.map((anomaly)=>(
+            <DetectedCard
+              keyword={anomaly.keyword}
+              detail = {anomaly.detail}
+              code = {anomaly.code}
+              image = {anomaly.image}
+              onClick={() => setSelectedAnomaly(anomaly)} 
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="max-w-[1056px] m-auto mb-16">
+        <h2 className="p-2 text-2xl">遭遇していない異変の一覧</h2>
+        <div className="grid grid-cols-4 gap-8 justify-center">
+          {detectedAnomalies.map((anomaly)=>(
+            <DetectedCard
+              keyword={anomaly.keyword}
+              detail = {anomaly.detail}
+              code = {anomaly.code}
+              image = {anomaly.image}
+              onClick={() => setSelectedAnomaly(anomaly)} 
+            />
+          ))}
+        </div>
+      </div>
+    </>
   )
 }
   
-function Card({
+function DetectedCard({
   keyword,
-  path
+  detail,
+  code,
+  image,
+  onClick,
 }: {
   keyword: string;
-  path: string;
+  detail: string;
+  code: string;
+  image: string;
+  onClick: ()=>void;
 }){
 
-  const navigate = useNavigate();
   return (
-    <a onClick={()=>navigate("../")}>{/*ここにpathを入れる*/}
-      <div className="rounded-xl w-[240px] h-[160px] bg-[#F8F8F8] text-black flex flex-col items-start justify-center px-4 py-3 gap-2 cursor-pointer
-      hover:bg-[#5C0A0A] hover:text-white duration-300 ease-in-out shadow-sm">
+      <div
+        onClick = {onClick}
+        className="rounded-xl w-[240px] h-[160px] bg-[#F8F8F8] text-black flex flex-col items-start justify-center px-4 py-3 gap-2 cursor-pointer
+        hover:bg-[#5C0A0A] hover:text-white duration-300 ease-in-out shadow-sm">
         <div className="text-sm text-gray-500">発見した異変</div>
         <div className="text-lg font-bold">{keyword}</div>
-        <div className="mt-auto text-sm underline self-end">詳細を見る</div>
+        <div className="mt-auto text-sm underline self-end cursor-pointer" >詳細を見る</div>
       </div>
-    </a>
-  )
+)
 }
+
+function Popup({ isOpen, onClose, keyword, detail }: { isOpen: boolean; onClose: () => void; keyword: string; detail: string }) {
+  return (
+    <div
+      className={`fixed inset-0 bg-black/50 flex items-center justify-center z-50 transition-opacity duration-300 ease-in-out
+        ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-lg p-6 w-96 relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h2 className="text-xl font-bold mb-4">{keyword}</h2>
+        <p className="mb-4">{detail}</p>
+        <button
+          onClick={onClose}
+          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        >
+          閉じる
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
 
 export default function End(){
   const navigate = useNavigate();
-
-  const anomalies = [
-  { id: 1, keyword: "ボタン無反応", path: "hoge" },
-  { id: 2, keyword: "レイアウト崩れ", path: "hoge" },
-  { id: 3, keyword: "リンク飛び先誤り", path: "hoge" },
-  { id: 4, keyword: "フォントが変わる", path: "hoge" },
-  { id: 5, keyword: "背景色が不自然", path: "hoge" },
-  { id: 6, keyword: "画像が表示されない", path: "hoge" },
-  { id: 7, keyword: "カーソル形状異常", path: "hoge" },
-  { id: 8, keyword: "テキスト重なり", path: "hoge" },
-  { id: 9, keyword: "スクロール異常", path: "hoge" },
-  { id: 10, keyword: "アニメーション暴走", path: "hoge" },
-  { id: 11, keyword: "メニュー非表示", path: "hoge" },
-  { id: 12, keyword: "ボタン位置ずれ", path: "hoge" },
-  { id: 13, keyword: "画像サイズ不揃い", path: "hoge" },
-];//一例
 
 
   return(
@@ -119,7 +192,7 @@ export default function End(){
       />
 
       <AnomalyList
-        anomalies = {anomalies}
+        anomalies = {stages}
       />
 
       <div className="text-center">
