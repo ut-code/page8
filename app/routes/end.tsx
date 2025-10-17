@@ -44,7 +44,8 @@ function AnomalyList({
 }: {
   anomalies: StageType[];
 }){
-const [selectedAnomaly, setSelectedAnomaly] = useState<StageType | null>(null);
+  const [selectedAnomaly, setSelectedAnomaly] = useState<StageType | null>(null);
+  console.log(selectedAnomaly);
 
   const detectedAnomalies = anomalies.filter((anomaly) => anomaly.state === "isDetected");
   const notDetectedAnomalies = anomalies.filter((anomaly) => anomaly.state === "isNotDetected");
@@ -58,10 +59,10 @@ const [selectedAnomaly, setSelectedAnomaly] = useState<StageType | null>(null);
             <DetectedCard
               key = { anomaly.id}
               keyword={anomaly.keyword}
-              detail = {anomaly.detail}
-              code = {anomaly.code}
-              image = {anomaly.image}
-              onClick={() => setSelectedAnomaly(anomaly)}
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                e.stopPropagation();
+                setSelectedAnomaly(anomaly);
+                console.log("Selected Anomaly:", anomaly);}}
             />
           ))}
         </div>
@@ -69,55 +70,18 @@ const [selectedAnomaly, setSelectedAnomaly] = useState<StageType | null>(null);
       <Popup
         isOpen={selectedAnomaly !== null}
         onClose={() => setSelectedAnomaly(null)}
-        keyword={selectedAnomaly?.keyword ?? ""}
-        detail={selectedAnomaly?.detail ?? ""}
+        anomaly={selectedAnomaly}
       />
-
-      <div className="max-w-[1056px] m-auto mb-16">
-        <h2 className="p-2 text-2xl">未発見の異変の一覧</h2>
-        <div className="grid grid-cols-4 gap-8 justify-center">
-          {detectedAnomalies.map((anomaly)=>(
-            <DetectedCard
-              keyword={anomaly.keyword}
-              detail = {anomaly.detail}
-              code = {anomaly.code}
-              image = {anomaly.image}
-              onClick={() => setSelectedAnomaly(anomaly)} 
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="max-w-[1056px] m-auto mb-16">
-        <h2 className="p-2 text-2xl">遭遇していない異変の一覧</h2>
-        <div className="grid grid-cols-4 gap-8 justify-center">
-          {detectedAnomalies.map((anomaly)=>(
-            <DetectedCard
-              keyword={anomaly.keyword}
-              detail = {anomaly.detail}
-              code = {anomaly.code}
-              image = {anomaly.image}
-              onClick={() => setSelectedAnomaly(anomaly)} 
-            />
-          ))}
-        </div>
-      </div>
     </>
   )
 }
   
 function DetectedCard({
   keyword,
-  detail,
-  code,
-  image,
   onClick,
 }: {
   keyword: string;
-  detail: string;
-  code: string;
-  image: string;
-  onClick: ()=>void;
+  onClick: (e: React.MouseEvent<HTMLDivElement>)=>void;
 }){
 
   return (
@@ -132,19 +96,28 @@ function DetectedCard({
 )
 }
 
-function Popup({ isOpen, onClose, keyword, detail }: { isOpen: boolean; onClose: () => void; keyword: string; detail: string }) {
+function Popup({
+  isOpen,
+  onClose,
+  anomaly
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  anomaly: StageType | null;
+}) {
+  if (!isOpen || !anomaly) return null;
+
   return (
     <div
-      className={`fixed inset-0 bg-black/50 flex items-center justify-center z-50 transition-opacity duration-300 ease-in-out
-        ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg p-6 w-96 relative"
+        className="bg-white rounded-lg p-6 w-96 relative text-black"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-xl font-bold mb-4">{keyword}</h2>
-        <p className="mb-4">{detail}</p>
+        <h2 className="text-xl font-bold mb-4">{anomaly.keyword || "キーワードなし"}</h2>
+        <p className="mb-4">{anomaly.detail}</p>
         <button
           onClick={onClose}
           className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
@@ -155,6 +128,7 @@ function Popup({ isOpen, onClose, keyword, detail }: { isOpen: boolean; onClose:
     </div>
   );
 }
+
 
 
 
