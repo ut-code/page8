@@ -112,10 +112,23 @@ function Popup({
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
       onClick={onClose}
     >
-      <div className="bg-white rounded-lg p-6 h-[500px] w-[1000px] relative text-black" onClick={(e) => e.stopPropagation()} > 
-        <h2 className="text-xl font-bold mb-4">{anomaly.keyword || "キーワードなし"}</h2>
-        <p className="mb-4">{anomaly.detail}</p> 
-        <button onClick={onClose} className="px-4 py-2 bg-[#FF4500] text-white rounded hover:bg-[#CC3700] absolute bottom-4 right-4" > 
+      <div className="bg-white rounded-lg p-6 h-[500px] w-[1000px] relative text-black flex flex-col" onClick={(e) => e.stopPropagation()} > 
+        <h2 className="text-xl font-bold mb-4">{anomaly.keyword}</h2>
+        <div className="flex-1 overflow-y-auto mt-4 mb-4 min-h-0">
+          <div className="mb-16">
+            <p className="mb-8 text-xl text-center">異変の詳細</p>
+            <p style={{whiteSpace: 'pre-line'}}>{anomaly.detail}</p>
+          </div>
+          <div className="mb-16">
+            <p className="mb-8 text-xl text-center">実際のコード</p>
+            <p>{anomaly.code}</p>
+          </div>
+          <div className="mb-16">
+            <p className="mb-8 text-xl text-center">実際の画面</p>
+            <img className="mx-auto" src={anomaly.image}/>
+          </div>
+        </div> 
+        <button onClick={onClose} className="px-4 py-2 bg-[#FF4500] text-white rounded hover:bg-[#CC3700] absolute bottom-0.5 right-0.5" > 
           閉じる
         </button>
       </div>
