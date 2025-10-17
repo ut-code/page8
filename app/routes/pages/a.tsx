@@ -29,13 +29,20 @@ function Example({
     </div>
   );
 }
-export default function Game() {
+
+export function Page({
+  pageNum,
+  stageId: _stageId,
+}: {
+  pageNum: number;
+  stageId: number;
+}) {
   const navigate = useNavigate();
   return (
     <div className="text-white">
       <div className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8">
         <span>
-          <span className="text-6xl text-yellow-400">0. </span>
+          <span className="text-6xl text-yellow-400">{pageNum}. </span>
           <span className="text-4xl">ようこそ</span>
         </span>
 
@@ -46,7 +53,12 @@ export default function Game() {
           ゲーム中断
         </button>
       </div>
-      <button className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer">
+      <button
+        className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
+        onClick={() => {
+          navigate("/game/0");
+        }}
+      >
         ← 戻る
       </button>
       <div className="w-4/5 ml-auto mr-auto">
@@ -114,7 +126,7 @@ export default function Game() {
             ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}"
           }
           element={
-            <button className="border-2 border-black shadow-[2px_2px_5px] active:bg-red-500 active:shadow-none font-sans text-black">
+            <button className="border-2 border-black shadow-[2px_2px_5px] active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer">
               Click me!
             </button>
           }
@@ -133,7 +145,12 @@ export default function Game() {
           }
         />
       </div>
-      <button className="bg-[orangered] text-2xl p-3  border-2 border-black mt-30 float-right mr-10 mb-60 cursor-pointer">
+      <button
+        className="bg-[orangered] text-2xl p-3  border-2 border-black mt-30 float-right mr-10 mb-60 cursor-pointer"
+        onClick={() => {
+          navigate(pageNum === 8 ? "/end" : `/game/${pageNum + 1}`);
+        }}
+      >
         次へ →
       </button>
     </div>

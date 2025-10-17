@@ -1,4 +1,4 @@
-type StageType = {
+export type StageType = {
   id: number;
   path: string;
   keyword: string;
@@ -10,7 +10,7 @@ type StageType = {
 export let stages: StageType[] = [
   {
     id: 0,
-    path: "/game/a.tsx",
+    path: "./pages/a.tsx",
     keyword: "通常",
     detail: "通常のページ",
     code: "",
@@ -19,7 +19,7 @@ export let stages: StageType[] = [
   },
   {
     id: 1,
-    path: "/game/b.tsx",
+    path: "./pages/b.tsx",
     keyword: "異変",
     detail: "異変のページ",
     code: "ihen.code();",
