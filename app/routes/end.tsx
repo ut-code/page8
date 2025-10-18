@@ -23,19 +23,43 @@ type StageType = {
 
 function StatsPanel({
   clearTime,
-  foundCount,
-  notFoundCount
+  anomalies
 }: {
   clearTime: number;
-  foundCount: number;
-  notFoundCount: number;
+  anomalies: StageType[]
 }){
+
+  const foundCount = anomalies.filter((anomaly) => anomaly.state === "isDetected").length;
+  const notFoundCount = anomalies.filter((anomaly) => anomaly.state === "isNotDetected").length;
+  const notEncounteredCount = anomalies.filter((anomaly) => anomaly.state === "isNotEncountered").length;
+
   return(
-    <div className="mb-16 text-center text-xl">
-      <div className="mb-4">クリアタイム : {Math.floor(clearTime/60)}分{clearTime%60}秒</div>
-      <div className="mb-4">発見した異変 : {foundCount}個</div>
-      <div>未発見の異変 : {notFoundCount}個</div>
-    </div>
+  <div className="mb-16 text-center text-xl">
+    <p className="mb-8 text-2xl">プレイ結果</p>
+    <dl>
+      <div className="mb-4 flex justify-center items-center space-x-2">
+        <dt>クリアタイム</dt>
+        <span>:</span>
+        <dd>{Math.floor(clearTime / 60)}分{clearTime % 60}秒</dd>
+      </div>
+      <div className="mb-4 flex justify-center items-center space-x-2">
+        <dt>発見した異変</dt>
+        <span>:</span>
+        <dd>{foundCount}個</dd>
+      </div>
+      <div className="mb-4 flex justify-center items-center space-x-2">
+        <dt>未発見の異変</dt>
+        <span>:</span>
+        <dd>{notFoundCount}個</dd>
+      </div>
+      <div className="mb-4 flex justify-center items-center space-x-2">
+        <dt>遭遇しなかった異変</dt>
+        <span>:</span>
+        <dd>{notEncounteredCount}個</dd>
+      </div>
+    </dl>
+  </div>
+
   )
 }
 
@@ -241,8 +265,7 @@ export default function End(){
 
       <StatsPanel
         clearTime = {760}
-        foundCount = {8}
-        notFoundCount = {12}
+        anomalies = {stages}
       />
 
       <AnomalyList
