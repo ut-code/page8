@@ -215,21 +215,21 @@ function Popup({
         <h2 className="text-xl font-bold mb-4">{anomaly.keyword}</h2>
         <div className="flex-1 overflow-y-auto mt-4 mb-4 min-h-0">
           <div className="mb-16">
-            <p className="mb-8 text-xl text-center">異変の詳細</p>
+            <p className="mb-8 text-xl text-center"><span className="border-b-[1.5px]">異変の詳細</span></p>
             <p style={{whiteSpace: 'pre-wrap', wordWrap: 'break-word'}}>
               {anomaly.detail}
             </p>
           </div>
           <div className="mb-16">
-            <p className="mb-8 text-xl text-center">実際のコード</p>
-            <pre className="bg-gray-100 p-4 rounded">
+            <p className="mb-8 text-xl text-center"><span className="border-b-[1.5px]">実際のコード</span></p>
+            <pre className="bg-gray-100 p-4 rounded-3xl">
               <code style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
                 {anomaly.code}
               </code>
             </pre>
           </div>
           <div className="mb-16">
-            <p className="mb-8 text-xl text-center">実際の画面</p>
+            <p className="mb-8 text-xl text-center"><span className="border-b-[1.5px]">実際の画面</span></p>
             <img className="mx-auto" src={anomaly.image}/>
           </div>
         </div> 
