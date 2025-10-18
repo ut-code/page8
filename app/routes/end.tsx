@@ -66,55 +66,67 @@ function AnomalyList({
   const notEncounteredAnomalies = anomalies.filter((anomaly) => anomaly.state === "isNotEncountered");
   return(
     <>
-      <div className="max-w-[1056px] m-auto mb-16">
-        <h2 className="p-2 text-2xl"><span className="border-b-3 border-[#FF4500] pb-1">発見した異変の一覧</span></h2>
-        <p className="p-2">異変の正体をどうぞ確かめていってください</p>
-        <div className="grid grid-cols-4 gap-8 justify-center">
-          {detectedAnomalies.map((anomaly)=>(
-            <DetectedCard
-              key = { anomaly.id}
-              keyword={anomaly.keyword}
-              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+      {detectedAnomalies.length > 0 && (
+        <div className="max-w-[1056px] m-auto mb-16">
+          <h2 className="p-2 text-2xl"><span className="border-b-3 border-[#FF4500] pb-1">発見した異変の一覧</span></h2>
+          <p className="p-2">異変の正体をどうぞ確かめていってください</p>
+          <div className="grid grid-cols-4 gap-8 justify-center">
+            {detectedAnomalies.map((anomaly)=>(
+              <DetectedCard
+                key = { anomaly.id}
+                keyword={anomaly.keyword}
+                onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                 e.stopPropagation();
                 setSelectedAnomaly(anomaly);
                 console.log("Selected Anomaly:", anomaly);}}
-            />
-          ))}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="max-w-[1056px] m-auto mb-16">
-        <h2 className="p-2 text-2xl"><span className="border-b-3 border-[#FF4500] pb-1">未発見の異変の一覧</span></h2>
-        <p className="p-2">未発見の異変があるようです。…知りたい方は、そっとカーソルを</p>
-        <div className="grid grid-cols-4 gap-8 justify-center">
-          {notDetectedAnomalies.map((anomaly)=>(
-            <NotDetectedCard
-              key = { anomaly.id}
-              keyword={anomaly.keyword}
-              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                e.stopPropagation();
-                setSelectedAnomaly(anomaly);
-                console.log("Selected Anomaly:", anomaly);}}
-            />
-          ))}
-        </div>
-      </div>
+        {notDetectedAnomalies.length > 0 && (
+          <div className="max-w-[1056px] m-auto mb-16">
+            <h2 className="p-2 text-2xl">
+              <span className="border-b-3 border-[#FF4500] pb-1">
+                未発見の異変の一覧
+              </span>
+            </h2>
+            <p className="p-2">
+              未発見の異変があるようです。…知りたい方は、そっとカーソルを
+            </p>
+            <div className="grid grid-cols-4 gap-8 justify-center">
+              {notDetectedAnomalies.map((anomaly)=>(
+                <NotDetectedCard
+                  key = { anomaly.id}
+                  keyword={anomaly.keyword}
+                  onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                  e.stopPropagation();
+                  setSelectedAnomaly(anomaly);
+                  console.log("Selected Anomaly:", anomaly);}}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
-      <div className="max-w-[1056px] m-auto mb-16">
-        <h2 className="p-2 text-2xl"><span className="border-b-3 border-[#FF4500] pb-1">遭遇していない異変の一覧</span></h2>
-        <p className="p-2">この異変は、今回のプレイでは現れなかったようです。もし気になるなら、そっと覗いてみてください。</p>
-        <div className="grid grid-cols-4 gap-8 justify-center">
-          {notEncounteredAnomalies.map((anomaly)=>(
-            <NotEncounteredCard
-              key = { anomaly.id }
-              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                e.stopPropagation();
-                setSelectedAnomaly(anomaly);
-                console.log("Selected Anomaly:", anomaly);}}
-            />
-          ))}
-        </div>
-      </div>
+        {notEncounteredAnomalies.length > 0 && (
+          <div className="max-w-[1056px] m-auto mb-16">
+            <h2 className="p-2 text-2xl"><span className="border-b-3 border-[#FF4500] pb-1">遭遇していない異変の一覧</span></h2>
+            <p className="p-2">この異変は、今回のプレイでは現れなかったようです。もし気になるなら、そっと覗いてみてください。</p>
+            <div className="grid grid-cols-4 gap-8 justify-center">
+              {notEncounteredAnomalies.map((anomaly)=>(
+                <NotEncounteredCard
+                  key = { anomaly.id }
+                  onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                  e.stopPropagation();
+                  setSelectedAnomaly(anomaly);
+                  console.log("Selected Anomaly:", anomaly);}}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
       <Popup
         isOpen={selectedAnomaly !== null}
