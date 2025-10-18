@@ -11,16 +11,6 @@ type StageType = {
   state: "isDetected" | "isNotDetected" | "isNotEncountered";
 };
 
-/*export default function end() {
-  const navigate = useNavigate();
-  return (
-    <div>
-      <div>終了画面</div>
-      <button onClick={() => navigate("../")}>ホームに戻る</button>
-    </div>
-  );
-}*/
-
 function StatsPanel({
   clearTime,
   anomalies
@@ -35,7 +25,7 @@ function StatsPanel({
 
   return(
   <div className="mb-16 text-center text-xl">
-    <p className="mb-8 text-2xl">プレイ結果</p>
+    <p className="mb-8 text-2xl"><span className="border-b-3 border-[#FF4500] pb-1">プレイ結果</span></p>
     <dl>
       <div className="mb-4 flex justify-center items-center space-x-2">
         <dt>クリアタイム</dt>
@@ -77,7 +67,7 @@ function AnomalyList({
   return(
     <>
       <div className="max-w-[1056px] m-auto mb-16">
-        <h2 className="p-2 text-2xl">発見した異変の一覧</h2>
+        <h2 className="p-2 text-2xl"><span className="border-b-3 border-[#FF4500] pb-1">発見した異変の一覧</span></h2>
         <p className="p-2">異変の正体をどうぞ確かめていってください</p>
         <div className="grid grid-cols-4 gap-8 justify-center">
           {detectedAnomalies.map((anomaly)=>(
@@ -94,7 +84,7 @@ function AnomalyList({
       </div>
 
       <div className="max-w-[1056px] m-auto mb-16">
-        <h2 className="p-2 text-2xl">未発見の異変の一覧</h2>
+        <h2 className="p-2 text-2xl"><span className="border-b-3 border-[#FF4500] pb-1">未発見の異変の一覧</span></h2>
         <p className="p-2">未発見の異変があるようです。…知りたい方は、そっとカーソルを</p>
         <div className="grid grid-cols-4 gap-8 justify-center">
           {notDetectedAnomalies.map((anomaly)=>(
@@ -111,7 +101,7 @@ function AnomalyList({
       </div>
 
       <div className="max-w-[1056px] m-auto mb-16">
-        <h2 className="p-2 text-2xl">遭遇していない異変の一覧</h2>
+        <h2 className="p-2 text-2xl"><span className="border-b-3 border-[#FF4500] pb-1">遭遇していない異変の一覧</span></h2>
         <p className="p-2">この異変は、今回のプレイでは現れなかったようです。もし気になるなら、そっと覗いてみてください。</p>
         <div className="grid grid-cols-4 gap-8 justify-center">
           {notEncounteredAnomalies.map((anomaly)=>(
