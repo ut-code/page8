@@ -216,11 +216,17 @@ function Popup({
         <div className="flex-1 overflow-y-auto mt-4 mb-4 min-h-0">
           <div className="mb-16">
             <p className="mb-8 text-xl text-center">異変の詳細</p>
-            <p style={{whiteSpace: 'pre-line'}}>{anomaly.detail}</p>
+            <p style={{whiteSpace: 'pre-wrap', wordWrap: 'break-word'}}>
+              {anomaly.detail}
+            </p>
           </div>
           <div className="mb-16">
             <p className="mb-8 text-xl text-center">実際のコード</p>
-            <p>{anomaly.code}</p>
+            <pre className="bg-gray-100 p-4 rounded">
+              <code style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+                {anomaly.code}
+              </code>
+            </pre>
           </div>
           <div className="mb-16">
             <p className="mb-8 text-xl text-center">実際の画面</p>
