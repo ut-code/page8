@@ -54,6 +54,7 @@ function AnomalyList({
     <>
       <div className="max-w-[1056px] m-auto mb-16">
         <h2 className="p-2 text-2xl">発見した異変の一覧</h2>
+        <p className="p-2">異変の正体をどうぞ確かめていってください</p>
         <div className="grid grid-cols-4 gap-8 justify-center">
           {detectedAnomalies.map((anomaly)=>(
             <DetectedCard
@@ -67,6 +68,40 @@ function AnomalyList({
           ))}
         </div>
       </div>
+
+      <div className="max-w-[1056px] m-auto mb-16">
+        <h2 className="p-2 text-2xl">未発見の異変の一覧</h2>
+        <p className="p-2">未発見の異変があるようです。…知りたい方は、そっとカーソルを</p>
+        <div className="grid grid-cols-4 gap-8 justify-center">
+          {notDetectedAnomalies.map((anomaly)=>(
+            <NotDetectedCard
+              key = { anomaly.id}
+              keyword={anomaly.keyword}
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                e.stopPropagation();
+                setSelectedAnomaly(anomaly);
+                console.log("Selected Anomaly:", anomaly);}}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="max-w-[1056px] m-auto mb-16">
+        <h2 className="p-2 text-2xl">遭遇していない異変の一覧</h2>
+        <p className="p-2">この異変は、今回のプレイでは現れなかったようです。もし気になるなら、そっと覗いてみてください。</p>
+        <div className="grid grid-cols-4 gap-8 justify-center">
+          {notEncounteredAnomalies.map((anomaly)=>(
+            <NotEncounteredCard
+              key = { anomaly.id }
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                e.stopPropagation();
+                setSelectedAnomaly(anomaly);
+                console.log("Selected Anomaly:", anomaly);}}
+            />
+          ))}
+        </div>
+      </div>
+
       <Popup
         isOpen={selectedAnomaly !== null}
         onClose={() => setSelectedAnomaly(null)}
@@ -88,9 +123,47 @@ function DetectedCard({
       <div
         onClick = {onClick}
         className="rounded-xl w-[240px] h-[160px] bg-[#F8F8F8] text-black flex flex-col items-start justify-center px-4 py-3 gap-2 cursor-pointer
-        hover:bg-[#5C0A0A] hover:text-white duration-300 ease-in-out shadow-sm">
+        hover:bg-[#5C0A0A] hover:text-white duration-500 ease-in-out shadow-sm">
         <div className="text-sm text-gray-500">発見した異変</div>
         <div className="text-lg font-bold">{keyword}</div>
+        <div className="mt-auto text-sm underline self-end cursor-pointer" >詳細を見る</div>
+      </div>
+)
+}
+
+function NotDetectedCard({
+  keyword,
+  onClick,
+}: {
+  keyword: string;
+  onClick: (e: React.MouseEvent<HTMLDivElement>)=>void;
+}){
+
+  return (
+      <div
+        onClick = {onClick}
+        className="rounded-xl w-[240px] h-[160px] bg-[#000000] text-black flex flex-col items-start justify-center px-4 py-3 gap-2 cursor-pointer
+        hover:bg-[#5C0A0A] hover:text-white duration-800 ease-in-out shadow-sm">
+        <div className="text-sm text-gray-500">未発見の異変</div>
+        <div className="text-lg font-bold">{keyword}</div>
+        <div className="mt-auto text-sm underline self-end cursor-pointer" >詳細を見る</div>
+      </div>
+)
+}
+
+function NotEncounteredCard({
+  onClick,
+}: {
+  onClick: (e: React.MouseEvent<HTMLDivElement>)=>void;
+}){
+
+  return (
+      <div
+        onClick = {onClick}
+        className="rounded-xl w-[240px] h-[160px] bg-[#F8F8F8] text-black flex flex-col items-start justify-center px-4 py-3 gap-2 cursor-pointer
+        hover:bg-[#5C0A0A] hover:text-white duration-500 ease-in-out shadow-sm">
+        <div className="text-sm text-gray-500">遭遇していない異変</div>
+        <div className="text-lg font-bold">確認しますか</div>
         <div className="mt-auto text-sm underline self-end cursor-pointer" >詳細を見る</div>
       </div>
 )
