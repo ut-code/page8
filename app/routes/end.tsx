@@ -189,7 +189,7 @@ function NotEncounteredCard({
         className="rounded-xl w-[240px] h-[160px] bg-[#F8F8F8] text-black flex flex-col items-start justify-center px-4 py-3 gap-2 cursor-pointer
         hover:bg-[#5C0A0A] hover:text-white duration-500 ease-in-out shadow-sm">
         <div className="text-sm text-gray-500">遭遇していない異変</div>
-        <div className="text-lg font-bold">確認しますか</div>
+        <div className="text-lg font-bold">確認する</div>
         <div className="mt-auto text-sm underline self-end cursor-pointer" >詳細を見る</div>
       </div>
 )
