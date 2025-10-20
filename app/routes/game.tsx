@@ -44,6 +44,7 @@ export default function Game() {
   const stageId = Math.floor(Math.random() * stages.length); // ページの種類のID
 
   const color = stageId === 1 ? "text-red-500" : "";
+  const irasutoyaImageAngular = stageId === 2 ? "rotate-186" : "rotate-6";
   return (
     <div className="text-white">
       <div className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8">
@@ -157,7 +158,7 @@ export default function Game() {
           element={
             <img
               src="/image.png"
-              className="w-40 h-20 rotate-6 grayscale"
+              className={`w-40 h-20 ${irasutoyaImageAngular} grayscale`}
             ></img>
           }
         />
