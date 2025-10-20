@@ -5,8 +5,7 @@ import { stages, type StageType } from "~/stages";
 
 export default function Game() {
   const location = useLocation();
-  const { pageNum: pageNumAsStr } = useParams(); // ページ番号1~8
-  const pageNum = Number(pageNumAsStr);
+  const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
   const [stageInfo, setStageInfo] = useState<StageType>();
   const [PageComponent, setPageComponent] = useState<ComponentType<{
     pageNum: number;
