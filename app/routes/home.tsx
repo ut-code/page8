@@ -44,7 +44,7 @@ export default function Home() {
         >
           <div
             style={{
-              fontSize: "140px",
+              fontSize: "137px",
               gridColumn: "1/2",
               gridRow: "1/3",
             }}
@@ -91,8 +91,11 @@ export default function Home() {
           style={{
             position: "relative",
             fontFamily: "serif",
-            fontSize: "40px",
-            color: "orangered",
+            fontSize: "24px",
+            color: "white",
+            backgroundColor:"orangered",
+            padding:"0.75rem",
+            border:"2px black solid",
             top: "280px",
             cursor: "pointer",
           }}
