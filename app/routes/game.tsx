@@ -38,12 +38,11 @@ function Example({
 }
 
 export default function Game() {
-  const location = useLocation();
   const navigate = useNavigate();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
 
   const stageId = Math.floor(Math.random() * stages.length); // ページの種類のID
-  
+
   const color = stageId === 1 ? "text-red-500" : "";
   return (
     <div className="text-white">
