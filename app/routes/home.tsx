@@ -96,7 +96,10 @@ export default function Home() {
             top: "280px",
             cursor: "pointer",
           }}
-          onClick={() => navigate("/game/0")}
+          onClick={() => {
+            localStorage.setItem("pageNum", "0");
+            navigate("/game");
+          }}
         >
           ゲームスタート
         </button>

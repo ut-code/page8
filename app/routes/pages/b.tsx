@@ -49,7 +49,7 @@ export function Page({
 
         <button
           className="bg-red-500 text-2xl p-3 border-2 border-black cursor-pointer"
-          onClick={() => navigate("../../")}
+          onClick={() => navigate("/")}
         >
           ゲーム中断
         </button>
@@ -58,7 +58,12 @@ export function Page({
         className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
         onClick={() => {
           stages.filter((s) => s.id === stageId)[0].state = "isDetected";
-          navigate(pageNum === 8 ? "/end" : `/game/${pageNum + 1}`);
+          if (pageNum === 8) {
+            navigate("/end");
+          } else {
+            localStorage.setItem("pageNum", `${pageNum + 1}`);
+            navigate("/game");
+          }
         }}
       >
         ← 戻る
@@ -151,7 +156,8 @@ export function Page({
         className="bg-[orangered] text-2xl p-3  border-2 border-black mt-30 float-right mr-10 mb-60 cursor-pointer"
         onClick={() => {
           stages.filter((s) => s.id === stageId)[0].state = "isNotDetected";
-          navigate("/game/0");
+          localStorage.setItem("pageNum", "0");
+          navigate("/game");
         }}
       >
         次へ →
