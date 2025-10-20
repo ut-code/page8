@@ -44,7 +44,7 @@ export default function Home() {
         >
           <div
             style={{
-              fontSize: "140px",
+              fontSize: "137px",
               gridColumn: "1/2",
               gridRow: "1/3",
             }}
