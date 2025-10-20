@@ -88,14 +88,6 @@ export default function Home() {
         }}
       >
         <button
-          /*style={{
-            position: "relative",
-            fontFamily: "serif",
-            fontSize: "40px",
-            color: "orangered",
-            top: "280px",
-            cursor: "pointer",
-          }}*/
           style={{
             position: "relative",
             fontFamily: "serif",
@@ -107,7 +99,6 @@ export default function Home() {
             top: "280px",
             cursor: "pointer",
           }}
-          //className="bg-[orangered] text-2xl p-3  border-2 border-black mt-30 float-right mr-10 mb-60 cursor-pointer"
           onClick={() => navigate("/game/0")}
         >
           ゲームスタート
