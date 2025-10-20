@@ -23,4 +23,12 @@ export let stages: StageType[] = [
     image: "/ihen.png",
     state: "isNotEncountered",
   },
+  {
+    id: 2,
+    keyword: "画像の傾きが変",
+    detail: `CSS利用例の3.画像のカスタマイズの画像が、通常時よりも半回転多く傾いています。`,
+    code: `transform: rotate(186deg);`,
+    image: "",
+    state: "isNotEncountered"
+  }
 ];
