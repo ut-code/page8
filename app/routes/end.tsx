@@ -11,7 +11,7 @@ function StatsPanel({
 }) {
   const foundCount = anomalies.filter(
     (anomaly) => anomaly.state === "isDetected"
-  ).length;
+  ).length-1;//通常ページが数えられているのでその分を引く
   const notFoundCount = anomalies.filter(
     (anomaly) => anomaly.state === "isNotDetected"
   ).length;
@@ -59,7 +59,7 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
   console.log(selectedAnomaly);
 
   const detectedAnomalies = anomalies.filter(
-    (anomaly) => anomaly.state === "isDetected"
+    (anomaly) => anomaly.state === "isDetected" && anomaly.id != 0
   );
   const notDetectedAnomalies = anomalies.filter(
     (anomaly) => anomaly.state === "isNotDetected"
