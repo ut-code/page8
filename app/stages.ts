@@ -32,6 +32,20 @@ export let stages: StageType[] = [
     state: "isNotEncountered"
   },
   {
+    id: 5,
+    keyword: "ボタンをクリックすると大きくなる",
+    detail: `通常はクリックすると赤くなる仕様になっているボタンが、クリックすると大きくなってしまいます。`,
+    code: `(e)=>{
+    const btn = e.currentTarget;
+    btn.classList.add("scale-200","bg-red-500","duration-300");
+    setTimeout(()=>{
+      btn.classList.remove("scale-200", "bg-red-500","duration-300");
+      },600)
+    }`,
+    image: "",
+    state: "isNotEncountered"
+  },
+  {
     id: 8,
     keyword: "数か所の配置が崩壊",
     detail: `flexboxという仕組みがよく配置で使われますが、設定の仕方を間違えると思った通りの配置にはなってくれません。`,

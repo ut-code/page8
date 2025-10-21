@@ -47,6 +47,15 @@ export default function Game() {
 
   const color = stageId === 1 ? "text-red-500" : "";
   const irasutoyaImageAngular = stageId === 2 ? "rotate-186" : "rotate-6";
+  const buttonPushAnomaly = stageId === 5 
+  ? (e:React.MouseEvent<HTMLButtonElement>)=>{
+    const btn = e.currentTarget;
+    btn.classList.add("scale-200","bg-red-500","duration-300");
+    setTimeout(()=>{
+      btn.classList.remove("scale-200", "bg-red-500","duration-300");
+      },600)
+    } 
+    : () => {};
   const flexboxCollapse = stageId === 8 ?  ["justify-start", "justify-start"] : ["justify-between", "justify-center"] 
   return (
     <div className="text-white">
@@ -148,7 +157,8 @@ export default function Game() {
             ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}"
           }
           element={
-            <button className="border-2 border-black shadow-[2px_2px_5px] active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer">
+            <button className="border-2 border-black shadow-[2px_2px_5px] active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer"
+            onClick={buttonPushAnomaly}>
               Click me!
             </button>
           }
