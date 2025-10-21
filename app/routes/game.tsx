@@ -13,11 +13,13 @@ function Example({
   description,
   code,
   element,
+  flexboxCollapse
 }: {
   title: string;
   description: string;
   code: string;
   element: ReactElement;
+  flexboxCollapse: string[];
 }) {
   return (
     <div className="mt-5 mb-5 ml-20 mr-20">
@@ -28,7 +30,7 @@ function Example({
           <code className="whitespace-pre-wrap p-4 bg-neutral-900 border border-gray-600 rounded-lg h-2/3 m-2 text-[0.8rem]">
             {code.trim()}
           </code>
-          <div className="border border-gray-600 rounded-lg bg-white h-1/3 m-2 flex justify-center items-center">
+          <div className={`border border-gray-600 rounded-lg bg-white h-1/3 m-2 flex ${flexboxCollapse[1]} items-center`}>
             {element}
           </div>
         </span>
@@ -45,9 +47,10 @@ export default function Game() {
 
   const color = stageId === 1 ? "text-red-500" : "";
   const irasutoyaImageAngular = stageId === 2 ? "rotate-186" : "rotate-6";
+  const flexboxCollapse = stageId === 8 ?  ["justify-start", "justify-start"] : ["justify-between", "justify-center"] 
   return (
     <div className="text-white">
-      <div className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8">
+      <div className={`top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}>
         <span>
           <span className="text-6xl text-yellow-400">{pageNum}. </span>
           <span className={`text-4xl ${color}`}>ようこそ</span>
@@ -136,6 +139,7 @@ export default function Game() {
               Hello!
             </div>
           }
+          flexboxCollapse={flexboxCollapse}
         />
         <Example
           title="2. ボタンのカスタマイズ"
@@ -148,6 +152,7 @@ export default function Game() {
               Click me!
             </button>
           }
+          flexboxCollapse={flexboxCollapse}
         />
         <Example
           title="3. 画像のカスタマイズ"
@@ -161,6 +166,7 @@ export default function Game() {
               className={`w-40 h-20 ${irasutoyaImageAngular} grayscale`}
             ></img>
           }
+          flexboxCollapse={flexboxCollapse}
         />
       </div>
       <button

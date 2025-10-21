@@ -27,7 +27,18 @@ export let stages: StageType[] = [
     id: 2,
     keyword: "画像の傾きが変",
     detail: `CSS利用例の3.画像のカスタマイズの画像が、通常時よりも半回転多く傾いています。`,
-    code: `transform: rotate(186deg);`,
+    code: `{transform: rotate(186deg);`,
+    image: "",
+    state: "isNotEncountered"
+  },
+  {
+    id: 8,
+    keyword: "数か所の配置が崩壊",
+    detail: `flexboxという仕組みがよく配置で使われますが、設定の仕方を間違えると思った通りの配置にはなってくれません。`,
+    code: `{
+      display: flex;
+      justify-content: flex-start;
+    }`,
     image: "",
     state: "isNotEncountered"
   }
