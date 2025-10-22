@@ -17,10 +17,10 @@ export let stages: StageType[] = [
   },
   {
     id: 1,
-    keyword: "異変",
-    detail: "異変のページ",
-    code: "ihen.code();",
-    image: "/ihen.png",
+    keyword: "文字の色変化",
+    detail: '"Hello!"の文字が青ではなく緑色になっています。',
+    code: `color: green;`,
+    image: "",
     state: "isNotEncountered",
   },
   {
@@ -29,7 +29,27 @@ export let stages: StageType[] = [
     detail: `CSS利用例の3.画像のカスタマイズの画像が、通常時よりも半回転多く傾いています。`,
     code: `{transform: rotate(186deg);`,
     image: "",
-    state: "isNotEncountered"
+    state: "isNotEncountered",
+  },
+  {
+    id: 4,
+    keyword: "背景色が次第に変化",
+    detail: "背景がだんだん灰色になっていきます。",
+    code: `@keyframes gradual-grey-anim {
+  from {
+    background-color: #091b0c;
+  }
+  to {
+    background-color: #364839;
+  }
+}
+.gradual-grey {
+  animation-name: gradual-grey-anim;
+  animation-duration: 20s;
+  animation-fill-mode: forwards;
+}`,
+    image: "",
+    state: "isNotEncountered",
   },
   {
     id: 5,
@@ -43,7 +63,18 @@ export let stages: StageType[] = [
       },600)
     }`,
     image: "",
-    state: "isNotEncountered"
+    state: "isNotEncountered",
+  },
+  {
+    id: 7,
+    keyword: "ボタンにホバーしたときに色が変わる",
+    detail:
+      "ボタンを押したときではなく、カーソルを合わせた（ホバーという）時点で既に色が変わってしまっています。",
+    code: `.button:hover {
+  background-color: red;
+}`,
+    image: "",
+    state: "isNotEncountered",
   },
   {
     id: 8,
@@ -54,6 +85,6 @@ export let stages: StageType[] = [
       justify-content: flex-start;
     }`,
     image: "",
-    state: "isNotEncountered"
-  }
+    state: "isNotEncountered",
+  },
 ];
