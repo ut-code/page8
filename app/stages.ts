@@ -87,4 +87,15 @@ export let stages: StageType[] = [
     image: "",
     state: "isNotEncountered",
   },
+  {
+    id: 10,
+    keyword: "ボタンを押すと背景が変わる",
+    detail: `ボタンを押すと、背景色が真っ赤になり、文字も黒い不気味なページになってしまいます。`,
+    code: `.buttonPushBgcolorAnomaly{
+  color: black;
+  background-color: #b91c1c;
+}`,
+    image: "",
+    state: "isNotEncountered",
+  }
 ];
