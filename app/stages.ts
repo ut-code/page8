@@ -75,6 +75,53 @@ export let stages: StageType[] = [
     state: "isNotEncountered",
   },
   {
+    id: 6,
+    keyword: "エラーメッセージ",
+    detail: `ボタンをクリックすると引き返せというエラーメッセージが出てきます。`,
+    code: `<div
+          style={{
+            position:"fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            height: "100vh",                        //縦幅画面いっぱい
+            width: "100vw",                         //横幅画面いっぱい
+            backgroundColor: "blue",                //背景色青
+            color: "black",                         //文字の色黒
+            display: "errorMessageShow",            //変数で表示方法を管理
+            alignItems: "center",                   //縦方向に中央寄せ
+            justifyContent: "center",               //横方向に中央寄せ
+            flexDirection: "column",                //要素を縦に並べる
+            pointerEvents:"none",                   //後ろのボタンが反応するようにする
+          }}
+        >
+        {(
+          <div
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              backgroundColor: "black",
+              color: "white",
+              padding: "40px",  //文字周りの余白指定
+              fontSize: "2rem",
+              boxShadow: "0 0 40px red",
+              fontFamily: "Share Tech Mono, monospace", //文字のフォント指定
+              justifyContent:"center"
+            }}
+            >
+            Unexpected Error Had Happened <br /><br />
+            details:<br />
+            Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back 
+            Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back 
+          </div>
+        )}
+        </div>`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
     id: 7,
     keyword: "ボタンにホバーしたときに色が変わる",
     detail:

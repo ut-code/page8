@@ -1,5 +1,5 @@
 "use client";
-import { type ReactElement } from "react";
+import { type ReactElement} from "react";
 import { useLocation, useNavigate } from "react-router";
 import { stages } from "~/stages";
 
@@ -40,7 +40,7 @@ export default function Game() {
   const navigate = useNavigate();
   const location = useLocation();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
-  const stageId = stages[Math.floor(Math.random() * stages.length)].id; // ページの種類のID
+  const stageId = stages[Math.floor(Math.random() * stages.length)].id// ページの種類のID
   console.log(stageId);
   // 異変の変数
   const wrongColorForHello = stageId === 1 ? "text-[green]" : "text-[#0000ff]";
@@ -57,7 +57,9 @@ export default function Game() {
             btn.classList.remove("scale-200", "bg-red-500", "duration-300");
           }, 600);
         }
-      : () => {};
+      : () => {}
+      ;
+  const errorMessageShow = stageId === 6 ? "flex" : "none";
   const colorChangOnHover = stageId === 7 ? "hover:bg-red-500" : "";
   const flexboxCollapse =
     stageId === 8
@@ -105,6 +107,46 @@ export default function Game() {
         </button>
       </div>
       <div className="w-4/5 ml-auto mr-auto">
+        <div
+          style={{
+            position:"fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            height: "100vh",
+            width: "100vw",
+            backgroundColor: "blue",
+            color: "black",
+            display: `${errorMessageShow}`,
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            pointerEvents:"none",
+          }}
+        >
+        {(
+          <div
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              backgroundColor: "black",
+              color: "white",
+              padding: "40px",
+              fontSize: "2rem",
+              boxShadow: "0 0 40px red",
+              fontFamily: "Share Tech Mono, monospace",
+              justifyContent:"center"
+            }}
+            >
+            Unexpected Error Had Happened <br /><br />
+            details:<br />
+            Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back 
+            Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back 
+          </div>
+        )}
+        </div>
         <div className="font-bold text-center text-8xl underline decoration-[orangered]">
           ようこそ
         </div>
