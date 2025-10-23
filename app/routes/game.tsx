@@ -1,23 +1,20 @@
 "use client";
-import {
-  useState,
-  useEffect,
-  type ComponentType,
-  type ReactElement,
-} from "react";
-import { useLocation, useNavigate, useParams } from "react-router";
-import { stages, type StageType } from "~/stages";
+import { type ReactElement } from "react";
+import { useLocation, useNavigate } from "react-router";
+import { stages } from "~/stages";
 
 function Example({
   title,
   description,
   code,
   element,
+  flexboxCollapse,
 }: {
   title: string;
   description: string;
   code: string;
   element: ReactElement;
+  flexboxCollapse: string[];
 }) {
   return (
     <div className="mt-5 mb-5 ml-20 mr-20">
@@ -28,7 +25,9 @@ function Example({
           <code className="whitespace-pre-wrap p-4 bg-neutral-900 border border-gray-600 rounded-lg h-2/3 m-2 text-[0.8rem]">
             {code.trim()}
           </code>
-          <div className="border border-gray-600 rounded-lg bg-white h-1/3 m-2 flex justify-center items-center">
+          <div
+            className={`border border-gray-600 rounded-lg bg-white h-1/3 m-2 flex ${flexboxCollapse[1]} items-center`}
+          >
             {element}
           </div>
         </span>
@@ -38,45 +37,43 @@ function Example({
 }
 
 export default function Game() {
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
-  // const [stageInfo, setStageInfo] = useState<StageType>();
-  // const [PageComponent, setPageComponent] = useState<ComponentType<{
-  //   pageNum: number;
-  //   stageId: number;
-  // }> | null>(null);
-  const stageId = Math.floor(Math.random() * stages.length); // ページの種類のID
-  // useEffect(() => {
-  //   const currentStage = stages.filter((s) => s.id === stageId)[0];
-  //   setStageInfo(currentStage);
-  //   (async () => {
-  //     try {
-  //       if (!currentStage)
-  //         throw Error(`currentStage is null. stageId is: ${stageId}`);
-  //       const {
-  //         Page,
-  //       }: { Page: ComponentType<{ pageNum: number; stageId: number }> } =
-  //         await import(currentStage.path);
-  //       setPageComponent(() => Page);
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   })();
-  // }, [location.key]);
-  // if (!PageComponent || stageInfo === undefined) {
-  //   return <div>エラー！部員をお呼びください。</div>;
-  // }
-  // return <PageComponent pageNum={pageNum} stageId={stageId} />;
-  const color = stageId === 1 ? "text-red-500" : "";
+  const stageId = stages[Math.floor(Math.random() * stages.length)].id; // ページの種類のID
+  console.log(stageId);
+  // 異変の変数
+  const wrongColorForHello = stageId === 1 ? "text-[green]" : "text-[#0000ff]";
+  const irasutoyaImageAngular = stageId === 2 ? "rotate-186" : "rotate-6";
   const backgroundColor = stageId === 3 ? "bg-[#FFF2B2]" : "";
-
+  const bgColorGraduallyTurningGrey =
+    stageId === 4 ? "gradual-grey" : "bg-[#091b0c]";
+  const buttonPushAnomaly =
+    stageId === 5
+      ? (e: React.MouseEvent<HTMLButtonElement>) => {
+          const btn = e.currentTarget;
+          btn.classList.add("scale-200", "bg-red-500", "duration-300");
+          setTimeout(() => {
+            btn.classList.remove("scale-200", "bg-red-500", "duration-300");
+          }, 600);
+        }
+      : () => {};
+  const colorChangOnHover = stageId === 7 ? "hover:bg-red-500" : "";
+  const flexboxCollapse =
+    stageId === 8
+      ? ["justify-start", "justify-start"]
+      : ["justify-between", "justify-center"];
   return (
-    <div className={`text-white ${backgroundColor}`}>
-      <div className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8">
+    <div
+      key={location.key}
+      className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColor}`}
+    >
+      <div
+        className={`top-0 fixed ${bgColorGraduallyTurningGrey} bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}
+      >
         <span>
           <span className="text-6xl text-yellow-400">{pageNum}. </span>
-          <span className={`text-4xl ${color}`}>ようこそ</span>
+          <span className="text-4xl">ようこそ</span>
         </span>
 
         <button
@@ -86,25 +83,27 @@ export default function Game() {
           ゲーム中断
         </button>
       </div>
-      <button
-        className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
-        onClick={() => {
-          if (stageId === 0) {
-            localStorage.setItem("pageNum", "0");
-            navigate("/game");
-          } else {
-            stages.filter((s) => s.id === stageId)[0].state = "isDetected";
-            if (pageNum === 8) {
-              navigate("/end");
-            } else {
-              localStorage.setItem("pageNum", `${pageNum + 1}`);
+      <div className="flex justify-start mr-10 mb-10">
+        <button
+          className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
+          onClick={() => {
+            if (stageId === 0) {
+              localStorage.setItem("pageNum", "0");
               navigate("/game");
+            } else {
+              stages.filter((s) => s.id === stageId)[0].state = "isDetected";
+              if (pageNum === 8) {
+                navigate("/end");
+              } else {
+                localStorage.setItem("pageNum", `${pageNum + 1}`);
+                navigate("/game");
+              }
             }
-          }
-        }}
-      >
-        ← 戻る
-      </button>
+          }}
+        >
+          ← 戻る
+        </button>
+      </div>
       <div className="w-4/5 ml-auto mr-auto">
         <div className="font-bold text-center text-8xl underline decoration-[orangered]">
           ようこそ
@@ -158,10 +157,13 @@ export default function Game() {
             ".text {\n  color: blue;\n  font-size: 60px;\n  font-weight: 800;\n}"
           }
           element={
-            <div className="text-[#0000ff] text-6xl font-sans font-extrabold">
+            <div
+              className={`${wrongColorForHello} text-6xl font-sans font-extrabold`}
+            >
               Hello!
             </div>
           }
+          flexboxCollapse={flexboxCollapse}
         />
         <Example
           title="2. ボタンのカスタマイズ"
@@ -170,10 +172,14 @@ export default function Game() {
             ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}"
           }
           element={
-            <button className="border-2 border-black shadow-[2px_2px_5px] active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer">
+            <button
+              className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer`}
+              onClick={buttonPushAnomaly}
+            >
               Click me!
             </button>
           }
+          flexboxCollapse={flexboxCollapse}
         />
         <Example
           title="3. 画像のカスタマイズ"
@@ -184,30 +190,33 @@ export default function Game() {
           element={
             <img
               src="/image.png"
-              className="w-40 h-20 rotate-6 grayscale"
+              className={`w-40 h-20 ${irasutoyaImageAngular} grayscale`}
             ></img>
           }
+          flexboxCollapse={flexboxCollapse}
         />
       </div>
-      <button
-        className="bg-[orangered] text-2xl p-3  border-2 border-black mt-30 float-right mr-10 mb-60 cursor-pointer"
-        onClick={() => {
-          if (stageId !== 0) {
-            stages.filter((s) => s.id === stageId)[0].state = "isNotDetected";
-            localStorage.setItem("pageNum", "0");
-            navigate("/game");
-          } else {
-            if (pageNum === 8) {
-              navigate("/end");
-            } else {
-              localStorage.setItem("pageNum", `${pageNum + 1}`);
+      <div className="flex justify-end mr-10">
+        <button
+          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
+          onClick={() => {
+            if (stageId !== 0) {
+              stages.filter((s) => s.id === stageId)[0].state = "isNotDetected";
+              localStorage.setItem("pageNum", "0");
               navigate("/game");
+            } else {
+              if (pageNum === 8) {
+                navigate("/end");
+              } else {
+                localStorage.setItem("pageNum", `${pageNum + 1}`);
+                navigate("/game");
+              }
             }
-          }
-        }}
-      >
-        次へ →
-      </button>
+          }}
+        >
+          次へ →
+        </button>
+      </div>
     </div>
   );
 }

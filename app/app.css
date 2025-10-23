@@ -10,3 +10,18 @@ html,
 body {
   @apply bg-[#091b0c] font-serif;
 }
+
+@keyframes gradual-grey-anim {
+  from {
+    background-color: #091b0c;
+  }
+  to {
+    background-color: #364839;
+  }
+}
+
+.gradual-grey {
+  animation-name: gradual-grey-anim;
+  animation-duration: 20s;
+  animation-fill-mode: forwards;
+}
