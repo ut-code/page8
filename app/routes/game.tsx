@@ -69,8 +69,10 @@ export default function Game() {
   // }
   // return <PageComponent pageNum={pageNum} stageId={stageId} />;
   const color = stageId === 1 ? "text-red-500" : "";
+  const backgroundColor = stageId === 3 ? "bg-[#FFF2B2]" : "";
+
   return (
-    <div className="text-white">
+    <div className={`text-white ${backgroundColor}`}>
       <div className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8">
         <span>
           <span className="text-6xl text-yellow-400">{pageNum}. </span>

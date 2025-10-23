@@ -23,4 +23,13 @@ export let stages: StageType[] = [
     image: "/ihen.png",
     state: "isNotEncountered",
   },
+  {
+    id: 3,
+    keyword: "背景色変化",
+    detail: "背景色が急に変わる",
+    code: 
+    "background-color : #FFF2B2",
+    image:"/ihen.png",
+    state:"isNotEncountered",
+  }
 ];
