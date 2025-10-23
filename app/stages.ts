@@ -32,6 +32,15 @@ export let stages: StageType[] = [
     state: "isNotEncountered",
   },
   {
+    id: 3,
+    keyword: "背景色の急変化",
+    detail: "背景色が急に明るい色に変わっています",
+    code: 
+    "background-color : #FFF2B2",
+    image:"",
+    state:"isNotEncountered",
+  },
+  {
     id: 4,
     keyword: "背景色が次第に変化",
     detail: "背景がだんだん灰色になっていきます。",
@@ -86,14 +95,5 @@ export let stages: StageType[] = [
     }`,
     image: "",
     state: "isNotEncountered",
-  },
-  {
-    id: 3,
-    keyword: "背景色変化",
-    detail: "背景色が急に変わる",
-    code: 
-    "background-color : #FFF2B2",
-    image:"/ihen.png",
-    state:"isNotEncountered",
   }
 ];
