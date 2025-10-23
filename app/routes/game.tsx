@@ -45,7 +45,7 @@ export default function Game() {
   // 異変の変数
   const wrongColorForHello = stageId === 1 ? "text-[green]" : "text-[#0000ff]";
   const irasutoyaImageAngular = stageId === 2 ? "rotate-186" : "rotate-6";
-  const backgroundColor = stageId === 3 ? "bg-[#FFF2B2]" : "";
+  const backgroundColorSuddenlyToYellow = stageId === 3 ? "bg-[#FFF2B2]" : "";
   const bgColorGraduallyTurningGrey =
     stageId === 4 ? "gradual-grey" : "bg-[#091b0c]";
   const buttonPushAnomaly =
@@ -66,7 +66,7 @@ export default function Game() {
   return (
     <div
       key={location.key}
-      className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColor}`}
+      className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow}`}
     >
       <div
         className={`top-0 fixed ${bgColorGraduallyTurningGrey} bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}
