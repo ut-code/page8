@@ -65,6 +65,7 @@ export default function Game() {
     stageId === 8
       ? ["justify-start", "justify-start"]
       : ["justify-between", "justify-center"];
+  const changedTitle = stageId === 9 ? "Welcome" : "ようこそ";
   return (
     <div
       key={location.key}
@@ -75,7 +76,7 @@ export default function Game() {
       >
         <span>
           <span className="text-6xl text-yellow-400">{pageNum}. </span>
-          <span className="text-4xl">ようこそ</span>
+          <span className="text-4xl">{changedTitle}</span>
         </span>
 
         <button
@@ -148,7 +149,7 @@ export default function Game() {
         )}
         </div>
         <div className="font-bold text-center text-8xl underline decoration-[orangered]">
-          ようこそ
+          {changedTitle}
         </div>
         <div className="mt-10 mb-10">
           このゲームでは、主に「CSS」という言語を用いて、異変を再現しています！

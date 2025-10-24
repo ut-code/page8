@@ -142,5 +142,19 @@ export let stages: StageType[] = [
     }`,
     image: "",
     state: "isNotEncountered",
+  },
+  {
+    id: 9,
+    keyword: "タイトル変化",
+    detail: `タイトルの中身が英語になっています。`,
+    code: `
+      <span className="text-4xl">Welcome</span>
+      ~
+      <div className="font-bold text-center text-8xl underline decoration-[orangered]">
+        Welcome     //要素の中身を記述するところ
+      </div>
+    `,
+    image: "",
+    state: "isNotEncountered",
   }
 ];
