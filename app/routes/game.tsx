@@ -40,7 +40,7 @@ export default function Game() {
   const navigate = useNavigate();
   const location = useLocation();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
-  const stageId = stages[Math.floor(Math.random() * stages.length)].id// ページの種類のID
+  const stageId = stages[Math.floor(Math.random() * stages.length)].id;// ページの種類のID
   console.log(stageId);
   // 異変の変数
 
