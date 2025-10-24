@@ -168,5 +168,26 @@ export let stages: StageType[] = [
 }`,
     image: "",
     state: "isNotEncountered",
-  }
+  },
+  {
+    id: 12,
+    keyword: "HTMLとCSSの順番が逆",
+    detail: `HTMLの説明欄とCSSの説明欄が逆になっています。`,
+    code: `<li className={"p-4 border border-gray-600 rounded-lg order-2"}> //orderで表示順を指定できます
+              <dl>
+                <dt className="font-bold text-2xl text-[orangered]">HTML</dt>
+                <dd className="mt-1 text-lg">ウェブページの骨格を作る言語。</dd>
+              </dl>
+            </li>
+            <li className="p-4 border border-gray-600 rounded-lg order-1">
+              <dl>
+                <dt className="font-bold text-2xl text-[orangered]">CSS</dt>
+                <dd className="mt-1 text-lg">
+                  ウェブページの見た目を決める言語。
+                </dd>
+              </dl>
+            </li>`,
+    image: "",
+    state: "isNotEncountered",
+  },
 ];

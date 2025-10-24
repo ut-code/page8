@@ -75,6 +75,7 @@ export default function Game() {
       Header?.classList.add("buttonPushBgcolorAnomaly");
     }
   }
+  const LiElementHTMLOrder = stageId === 12 ? 2:0;
   
   return (
     <div
@@ -174,14 +175,14 @@ export default function Game() {
           <div className="mb-5">
             ウェブ開発では、主に以下の3つの言語が使われています。
           </div>
-          <ul className="space-y-6">
-            <li className="p-4 border border-gray-600 rounded-lg">
+          <ul className={`space-y-6 flex flex-col`}>
+            <li className={`p-4 border border-gray-600 rounded-lg order-${LiElementHTMLOrder}`}>
               <dl>
                 <dt className="font-bold text-2xl text-[orangered]">HTML</dt>
                 <dd className="mt-1 text-lg">ウェブページの骨格を作る言語。</dd>
               </dl>
             </li>
-            <li className="p-4 border border-gray-600 rounded-lg">
+            <li className="p-4 border border-gray-600 rounded-lg order-1">
               <dl>
                 <dt className="font-bold text-2xl text-[orangered]">CSS</dt>
                 <dd className="mt-1 text-lg">
@@ -189,7 +190,7 @@ export default function Game() {
                 </dd>
               </dl>
             </li>
-            <li className="p-4 border border-gray-600 rounded-lg">
+            <li className="p-4 border border-gray-600 rounded-lg order-3">
               <dl>
                 <dt className="font-bold text-2xl text-[orangered]">
                   JavaScript
