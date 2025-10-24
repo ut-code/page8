@@ -200,4 +200,16 @@ export let stages: StageType[] = [
     image: "",
     state: "isNotEncountered",
   },
+  {
+    id: 19,
+    keyword: "プログラミングの例が変化",
+    detail: `例に記述されているプログラムがCSSからTailwindCSSに変化しています。`,
+    code: `className=\n'text-blue-500\n text-[60px]\n font-extrabold'\n
+~
+className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n
+~
+class=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
+    image: "",
+    state: "isNotEncountered",
+  },
 ];
