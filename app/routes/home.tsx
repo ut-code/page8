@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import type { Route } from "./+types/home";
+import { stages } from "~/stages";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -101,6 +102,11 @@ export default function Home() {
           }}
           onClick={() => {
             localStorage.setItem("pageNum", "0");
+            stages.forEach((stage) => {
+              if (stage.id != 0 && (stage.state === "isDetected" || stage.state === "isNotDetected")) {
+                stage.state = "isNotEncountered";
+              }
+            });
             navigate("/games");//fitstVisitScreen.tsxに飛びます。
           }}
         >
