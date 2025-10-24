@@ -32,6 +32,15 @@ export let stages: StageType[] = [
     state: "isNotEncountered",
   },
   {
+    id: 3,
+    keyword: "背景色の急変化",
+    detail: "背景色が急に明るい色に変わっています",
+    code: 
+    "background-color : #FFF2B2",
+    image:"",
+    state:"isNotEncountered",
+  },
+  {
     id: 4,
     keyword: "背景色が次第に変化",
     detail: "背景がだんだん灰色になっていきます。",
@@ -66,6 +75,54 @@ export let stages: StageType[] = [
     state: "isNotEncountered",
   },
   {
+    id: 6,
+    keyword: "エラーメッセージ",
+    detail: `ボタンをクリックすると引き返せというエラーメッセージが出てきます。`,
+    code: `<div
+          style={{
+            position:"fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            height: "100vh",                        //縦幅画面いっぱい
+            width: "100vw",                         //横幅画面いっぱい
+            backgroundColor: "blue",                //背景色青
+            color: "black",                         //文字の色黒
+            display: "errorMessageShow",            //変数で表示方法を管理
+            alignItems: "center",                   //縦方向に中央寄せ
+            justifyContent: "center",               //横方向に中央寄せ
+            flexDirection: "column",                //要素を縦に並べる
+            pointerEvents:"none",                   //後ろのボタンが反応するようにする
+            opecity:"0.8",                          //透明度
+          }}
+        >
+        {(
+          <div
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              backgroundColor: "black",
+              color: "white",
+              padding: "40px",  //文字周りの余白指定
+              fontSize: "2rem",
+              boxShadow: "0 0 40px red",
+              fontFamily: "Share Tech Mono, monospace", //文字のフォント指定
+              justifyContent:"center"
+            }}
+            >
+            Unexpected Error Had Happened <br /><br />
+            details:<br />
+            Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back 
+            Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back 
+          </div>
+        )}
+        </div>`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
     id: 7,
     keyword: "ボタンにホバーしたときに色が変わる",
     detail:
@@ -84,6 +141,20 @@ export let stages: StageType[] = [
       display: flex;
       justify-content: flex-start;
     }`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 9,
+    keyword: "タイトル変化",
+    detail: `タイトルの中身が英語になっています。`,
+    code: `
+      <span className="text-4xl">Welcome</span>
+      ~
+      <div className="font-bold text-center text-8xl underline decoration-[orangered]">
+        Welcome     //要素の中身を記述するところ
+      </div>
+    `,
     image: "",
     state: "isNotEncountered",
   },
