@@ -25,3 +25,8 @@ body {
   animation-duration: 20s;
   animation-fill-mode: forwards;
 }
+
+.buttonPushBgcolorAnomaly{
+  color: black;
+  background-color: #b91c1c;
+}
