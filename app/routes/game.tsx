@@ -75,7 +75,8 @@ export default function Game() {
       Header?.classList.add("buttonPushBgcolorAnomaly");
     }
   }
-  const LiElementHTMLOrder = stageId === 12 ? 2:0;
+  const LiElementHTMLOrder = stageId === 12 ? 2 : 0;
+  const textJavaOrType = stageId === 18 ? "Type" : "Java";
   
   return (
     <div
@@ -193,7 +194,7 @@ export default function Game() {
             <li className="p-4 border border-gray-600 rounded-lg order-3">
               <dl>
                 <dt className="font-bold text-2xl text-[orangered]">
-                  JavaScript
+                  {textJavaOrType}Script
                 </dt>
                 <dd className="mt-1 text-lg">
                   ウェブページに動きをつけたり、複雑な処理をさせたりする言語。

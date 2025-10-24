@@ -190,4 +190,14 @@ export let stages: StageType[] = [
     image: "",
     state: "isNotEncountered",
   },
+  {
+    id: 18,
+    keyword: "JavaScriptの文字が変化",
+    detail: `JavaScriptの文字がTypeScriptになっています。TypeScriptは実際にある言語でJavaScriptに「型」の仕組みを追加した言語です。`,
+    code: `<dt className="font-bold text-2xl text-[orangered]">
+             TypeScript
+           </dt>`,
+    image: "",
+    state: "isNotEncountered",
+  },
 ];
