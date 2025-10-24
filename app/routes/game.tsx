@@ -123,7 +123,8 @@ export default function Game() {
             justifyContent: "center",
             flexDirection: "column",
             pointerEvents:"none",
-            opacity:"0.8"
+            opacity:"0.8",
+            zIndex:"5"
           }}
         >
         {(
@@ -235,6 +236,7 @@ export default function Game() {
             <img
               src="/image.png"
               className={`w-40 h-20 ${irasutoyaImageAngular} grayscale`}
+              style={{position:"relative",zIndex:"1"}}
             ></img>
           }
           flexboxCollapse={flexboxCollapse}
