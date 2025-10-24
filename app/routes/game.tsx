@@ -123,6 +123,7 @@ export default function Game() {
             justifyContent: "center",
             flexDirection: "column",
             pointerEvents:"none",
+            opacity:"0.8"
           }}
         >
         {(

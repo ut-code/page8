@@ -93,6 +93,7 @@ export let stages: StageType[] = [
             justifyContent: "center",               //横方向に中央寄せ
             flexDirection: "column",                //要素を縦に並べる
             pointerEvents:"none",                   //後ろのボタンが反応するようにする
+            opecity:"0.8",                          //透明度
           }}
         >
         {(
