@@ -43,22 +43,23 @@ export default function Game() {
   const stageId = stages[Math.floor(Math.random() * stages.length)].id// ページの種類のID
   console.log(stageId);
   // 異変の変数
+
+  let ExampleButtonFunction: (...args: any[])=>void = () => {};//二つ目のExampleに含まれているボタンに渡す関数を入れるための変数
+
   const wrongColorForHello = stageId === 1 ? "text-[green]" : "text-[#0000ff]";
   const irasutoyaImageAngular = stageId === 2 ? "rotate-186" : "rotate-6";
   const backgroundColorSuddenlyToYellow = stageId === 3 ? "bg-[#FFF2B2]" : "";
   const bgColorGraduallyTurningGrey =
     stageId === 4 ? "gradual-grey" : "bg-[#091b0c]";
-  const buttonPushAnomaly =
-    stageId === 5
-      ? (e: React.MouseEvent<HTMLButtonElement>) => {
-          const btn = e.currentTarget;
-          btn.classList.add("scale-200", "bg-red-500", "duration-300");
-          setTimeout(() => {
-            btn.classList.remove("scale-200", "bg-red-500", "duration-300");
-          }, 600);
-        }
-      : () => {}
-      ;
+  if(stageId === 5){
+    ExampleButtonFunction = (e: React.MouseEvent<HTMLButtonElement>) => {
+      const btn = e.currentTarget;
+      btn.classList.add("scale-200", "bg-red-500", "duration-300");
+      setTimeout(() => {
+        btn.classList.remove("scale-200", "bg-red-500", "duration-300");
+      }, 600);
+    }
+  }
   const errorMessageShow = stageId === 6 ? "flex" : "none";
   const colorChangOnHover = stageId === 7 ? "hover:bg-red-500" : "";
   const flexboxCollapse =
@@ -66,13 +67,24 @@ export default function Game() {
       ? ["justify-start", "justify-start"]
       : ["justify-between", "justify-center"];
   const changedTitle = stageId === 9 ? "Welcome" : "ようこそ";
+  if(stageId === 10){
+    ExampleButtonFunction = ()=>{
+      const PageWrapper = document.getElementById("PageWrapper");
+      const Header = document.getElementById("Header");
+      PageWrapper?.classList.add("buttonPushBgcolorAnomaly");
+      Header?.classList.add("buttonPushBgcolorAnomaly");
+    }
+  }
+  
   return (
     <div
       key={location.key}
       className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow}`}
+      id = "PageWrapper"
     >
       <div
         className={`top-0 fixed ${bgColorGraduallyTurningGrey} bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}
+        id = "Header"
       >
         <span>
           <span className="text-6xl text-yellow-400">{pageNum}. </span>
@@ -219,7 +231,7 @@ export default function Game() {
           element={
             <button
               className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer`}
-              onClick={buttonPushAnomaly}
+              onClick={ExampleButtonFunction}
             >
               Click me!
             </button>

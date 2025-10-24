@@ -101,7 +101,7 @@ export default function Home() {
           }}
           onClick={() => {
             localStorage.setItem("pageNum", "0");
-            navigate("/game");
+            navigate("/games");//fitstVisitScreen.tsxに飛びます。
           }}
         >
           ゲームスタート
