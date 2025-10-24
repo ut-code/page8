@@ -168,5 +168,34 @@ export let stages: StageType[] = [
 }`,
     image: "",
     state: "isNotEncountered",
+  },
+    {
+    id: 13,
+    keyword: "Topボタン上昇",
+    detail: `Topへ戻るボタンを押すと、画面ではなくボタンが上昇してしまいます。`,
+    code: `TopButtonFunction = ()=>{
+  const nextBtn = document.getElementById("nextBtn")!;
+  nextBtn.style.marginBottom = '100px';
+
+  const topBtn = document.getElementById('topBtn')!;
+  const parent = topBtn.offsetParent as HTMLElement;
+
+  const rect = topBtn.getBoundingClientRect();
+  const parentRect = parent.getBoundingClientRect();
+  const startTop = rect.top - parentRect.top - 100;
+
+  topBtn.style.position = 'absolute';
+  topBtn.style.top = ‘＄{startTop}px‘;
+
+  topBtn.style.transition = 'top 1s ease-in-out';
+
+  const stopTop = 200
+
+  requestAnimationFrame(() => {
+    topBtn.style.top = ‘＄{stopTop}px‘;
+  })
+}`,
+    image: "",
+    state: "isNotEncountered",
   }
 ];

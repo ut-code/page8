@@ -45,6 +45,12 @@ export default function Game() {
   // 異変の変数
 
   let ExampleButtonFunction: (...args: any[])=>void = () => {};//二つ目のExampleに含まれているボタンに渡す関数を入れるための変数
+  let TopButtonFunction: (...args: any[])=>void = () => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            })
+          };
 
   const wrongColorForHello = stageId === 1 ? "text-[green]" : "text-[#0000ff]";
   const irasutoyaImageAngular = stageId === 2 ? "rotate-186" : "rotate-6";
@@ -75,11 +81,35 @@ export default function Game() {
       Header?.classList.add("buttonPushBgcolorAnomaly");
     }
   }
+  if(stageId === 13){
+    TopButtonFunction = ()=>{
+      const nextBtn = document.getElementById("nextBtn")!;
+      nextBtn.style.marginBottom = '100px';
+
+      const topBtn = document.getElementById('topBtn')!;
+      const parent = topBtn.offsetParent as HTMLElement;
+
+      const rect = topBtn.getBoundingClientRect();
+      const parentRect = parent.getBoundingClientRect();
+      const startTop = rect.top - parentRect.top - 100;
+
+      topBtn.style.position = 'absolute';
+      topBtn.style.top = `${startTop}px`;
+
+      topBtn.style.transition = 'top 1s ease-in-out';
+
+      const stopTop = 200
+
+      requestAnimationFrame(() => {
+        topBtn.style.top = `${stopTop}px`;
+      })
+    };
+  };
   
   return (
     <div
       key={location.key}
-      className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow}`}
+      className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} relative`}
       id = "PageWrapper"
     >
       <div
@@ -255,7 +285,7 @@ export default function Game() {
           flexboxCollapse={flexboxCollapse}
         />
       </div>
-      <div className="flex justify-end mr-10">
+      <div className="flex justify-end mr-10" id = "nextBtn">
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
           onClick={() => {
@@ -279,12 +309,8 @@ export default function Game() {
       <div className="flex ml-10">
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
-          onClick={() => {
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth",
-            })
-          }}
+          onClick={TopButtonFunction}
+          id="topBtn"
         >
           Topへ戻る
         </button>
