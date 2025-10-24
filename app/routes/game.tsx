@@ -84,6 +84,7 @@ export default function Game() {
     >
       <div
         className={`top-0 fixed ${bgColorGraduallyTurningGrey} bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}
+        style = {{zIndex: 2}}
         id = "Header"
       >
         <span>
@@ -273,6 +274,19 @@ export default function Game() {
           }}
         >
           次へ →
+        </button>
+      </div>
+      <div className="flex ml-10">
+        <button
+          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            })
+          }}
+        >
+          Topへ戻る
         </button>
       </div>
     </div>
