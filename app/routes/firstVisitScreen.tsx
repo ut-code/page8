@@ -40,7 +40,8 @@ export default function Game() {
 
   return (
     <div className="text-white">
-      <div className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8">
+      <div className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8"
+          style={{zIndex: 2}}>
         <span>
           <span className="text-6xl text-yellow-400">{pageNum}. </span>
           <span className={"text-4xl"}>ようこそ</span>
@@ -146,15 +147,30 @@ export default function Game() {
           }
         />
       </div>
-      <button
-        className="bg-[orangered] text-2xl p-3  border-2 border-black mt-30 float-right mr-10 mb-60 cursor-pointer"
-        onClick={() => {
-          localStorage.setItem("pageNum", `${pageNum + 1}`);
-          navigate("/game");
-        }}
-      >
-        次へ →
-      </button>
+      <div className="flex justify-end mr-10">
+        <button
+          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
+          onClick={() => {
+            localStorage.setItem("pageNum", `${pageNum + 1}`);
+            navigate("/game");
+          }}
+        >
+          次へ →
+        </button>
+      </div>
+        <div className="flex ml-10">
+        <button
+          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            })
+          }}
+        >
+          Topへ戻る
+        </button>
+      </div>
     </div>
   );
 }
