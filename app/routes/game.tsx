@@ -1,7 +1,8 @@
 "use client";
-import { type ReactElement} from "react";
+import { useEffect, type ReactElement } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { stages } from "~/stages";
+import EnglishAnomaly from "./englishAnomaly";
 
 function Example({
   title,
@@ -9,12 +10,14 @@ function Example({
   code,
   element,
   flexboxCollapse,
+  capitalizeCode,
 }: {
   title: string;
   description: string;
   code: string;
   element: ReactElement;
   flexboxCollapse: string[];
+  capitalizeCode: string;
 }) {
   return (
     <div className="mt-5 mb-5 ml-20 mr-20">
@@ -22,7 +25,9 @@ function Example({
       <div className="flex h-70">
         <span className="w-1/2 m-4">{description}</span>
         <span className="w-1/2 flex flex-col">
-          <code className="whitespace-pre-wrap p-4 bg-neutral-900 border border-gray-600 rounded-lg h-2/3 m-2 text-[0.8rem]">
+          <code
+            className={`whitespace-pre-wrap p-4 bg-neutral-900 border border-gray-600 rounded-lg h-2/3 m-2 text-[0.8rem] ${capitalizeCode}`}
+          >
             {code.trim()}
           </code>
           <div
@@ -40,25 +45,32 @@ export default function Game() {
   const navigate = useNavigate();
   const location = useLocation();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
-  const stageId = stages[Math.floor(Math.random() * stages.length)].id;// ページの種類のID
+  const stageId = stages[Math.floor(Math.random() * stages.length)].id; // ページの種類のID
   console.log(stageId);
+
+  useEffect(() => {
+    if (stageId === 15) {
+      navigate("/引き返せ引き返せ引き返せ引き返せ引き返せ引き返せ");
+    }
+  }, [stageId, navigate]);
+
   // 異変の変数
 
-  let ExampleButtonFunction: (...args: any[])=>void = () => {};//二つ目のExampleに含まれているボタンに渡す関数を入れるための変数
+  let ExampleButtonFunction: (...args: any[]) => void = () => {}; //二つ目のExampleに含まれているボタンに渡す関数を入れるための変数
 
   const wrongColorForHello = stageId === 1 ? "text-[green]" : "text-[#0000ff]";
   const irasutoyaImageAngular = stageId === 2 ? "rotate-186" : "rotate-6";
   const backgroundColorSuddenlyToYellow = stageId === 3 ? "bg-[#FFF2B2]" : "";
   const bgColorGraduallyTurningGrey =
     stageId === 4 ? "gradual-grey" : "bg-[#091b0c]";
-  if(stageId === 5){
+  if (stageId === 5) {
     ExampleButtonFunction = (e: React.MouseEvent<HTMLButtonElement>) => {
       const btn = e.currentTarget;
       btn.classList.add("scale-200", "bg-red-500", "duration-300");
       setTimeout(() => {
         btn.classList.remove("scale-200", "bg-red-500", "duration-300");
       }, 600);
-    }
+    };
   }
   const errorMessageShow = stageId === 6 ? "flex" : "none";
   const colorChangOnHover = stageId === 7 ? "hover:bg-red-500" : "";
@@ -67,25 +79,31 @@ export default function Game() {
       ? ["justify-start", "justify-start"]
       : ["justify-between", "justify-center"];
   const changedTitle = stageId === 9 ? "Welcome" : "ようこそ";
-  if(stageId === 10){
-    ExampleButtonFunction = ()=>{
+  if (stageId === 10) {
+    ExampleButtonFunction = () => {
       const PageWrapper = document.getElementById("PageWrapper");
       const Header = document.getElementById("Header");
       PageWrapper?.classList.add("buttonPushBgcolorAnomaly");
       Header?.classList.add("buttonPushBgcolorAnomaly");
-    }
+    };
   }
-  
+  if (stageId === 11) {
+    return <EnglishAnomaly />;
+  }
+  if (stageId === 15) {
+    return null;
+  }
+  const capitalizeCode = stageId === 17 ? "uppercase" : "";
   return (
     <div
       key={location.key}
       className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow}`}
-      id = "PageWrapper"
+      id="PageWrapper"
     >
       <div
         className={`top-0 fixed ${bgColorGraduallyTurningGrey} bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}
-        style = {{zIndex: 2}}
-        id = "Header"
+        style={{ zIndex: 2 }}
+        id="Header"
       >
         <span>
           <span className="text-6xl text-yellow-400">{pageNum}. </span>
@@ -123,7 +141,7 @@ export default function Game() {
       <div className="w-4/5 ml-auto mr-auto">
         <div
           style={{
-            position:"fixed",
+            position: "fixed",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
@@ -135,33 +153,36 @@ export default function Game() {
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            pointerEvents:"none",
-            opacity:"0.8",
-            zIndex:"5"
+            pointerEvents: "none",
+            opacity: "0.8",
+            zIndex: "5",
           }}
         >
-        {(
-          <div
-            style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              backgroundColor: "black",
-              color: "white",
-              padding: "40px",
-              fontSize: "2rem",
-              boxShadow: "0 0 40px red",
-              fontFamily: "Share Tech Mono, monospace",
-              justifyContent:"center"
-            }}
+          {
+            <div
+              style={{
+                position: "fixed",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                backgroundColor: "black",
+                color: "white",
+                padding: "40px",
+                fontSize: "2rem",
+                boxShadow: "0 0 40px red",
+                fontFamily: "Share Tech Mono, monospace",
+                justifyContent: "center",
+              }}
             >
-            Unexpected Error Had Happened <br /><br />
-            details:<br />
-            Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back 
-            Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back Turn back 
-          </div>
-        )}
+              Unexpected Error Had Happened <br />
+              <br />
+              details:
+              <br />
+              Turn back Turn back Turn back Turn back Turn back Turn back Turn
+              back Turn back Turn back Turn back Turn back Turn back Turn back
+              Turn back Turn back Turn back Turn back Turn back
+            </div>
+          }
         </div>
         <div className="font-bold text-center text-8xl underline decoration-[orangered]">
           {changedTitle}
@@ -222,6 +243,7 @@ export default function Game() {
             </div>
           }
           flexboxCollapse={flexboxCollapse}
+          capitalizeCode={capitalizeCode}
         />
         <Example
           title="2. ボタンのカスタマイズ"
@@ -238,6 +260,7 @@ export default function Game() {
             </button>
           }
           flexboxCollapse={flexboxCollapse}
+          capitalizeCode={capitalizeCode}
         />
         <Example
           title="3. 画像のカスタマイズ"
@@ -249,10 +272,11 @@ export default function Game() {
             <img
               src="/image.png"
               className={`w-40 h-20 ${irasutoyaImageAngular} grayscale`}
-              style={{position:"relative",zIndex:"1"}}
+              style={{ position: "relative", zIndex: "1" }}
             ></img>
           }
           flexboxCollapse={flexboxCollapse}
+          capitalizeCode={capitalizeCode}
         />
       </div>
       <div className="flex justify-end mr-10">
@@ -283,7 +307,7 @@ export default function Game() {
             window.scrollTo({
               top: 0,
               behavior: "smooth",
-            })
+            });
           }}
         >
           Topへ戻る
