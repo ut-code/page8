@@ -169,7 +169,7 @@ export let stages: StageType[] = [
     image: "",
     state: "isNotEncountered",
   },
-    {
+  {
     id: 13,
     keyword: "Topボタン上昇",
     detail: `Topへ戻るボタンを押すと、画面ではなくボタンが上昇してしまいます。`,
@@ -195,6 +195,17 @@ export let stages: StageType[] = [
     topBtn.style.top = ‘＄{stopTop}px‘;
   })
 }`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 16,
+    keyword: "文字化け",
+    detail: `ようこそにカーソルを合わせると文字化けします。`,
+    code: `<div className="w-[400px] inline-block group">
+  <span className="group-hover:hidden">ようこそ</span>
+  <span className={"hidden text-6xl group-hover:block"}>繧医≧縺薙◎</span>
+</div>`,
     image: "",
     state: "isNotEncountered",
   }

@@ -105,6 +105,7 @@ export default function Game() {
       })
     };
   };
+  const hoverAnomaly = stageId === 16 ? ["group-hover:hidden", "group-hover:block"] : ["",""];
   
   return (
     <div
@@ -194,7 +195,10 @@ export default function Game() {
         )}
         </div>
         <div className="font-bold text-center text-8xl underline decoration-[orangered]">
-          {changedTitle}
+          <div className="w-[400px] inline group">
+            <span className={`${hoverAnomaly[0]}`}>{changedTitle}</span>
+            <span className={`hidden text-8xl ${hoverAnomaly[1]}`}>繧医≧縺薙◎</span>
+          </div>
         </div>
         <div className="mt-10 mb-10">
           このゲームでは、主に「CSS」という言語を用いて、異変を再現しています！
