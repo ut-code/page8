@@ -184,6 +184,27 @@ export let stages: StageType[] = [
     state: "isNotEncountered",
   },
   {
+    id: 12,
+    keyword: "HTMLとCSSの順番が逆",
+    detail: `HTMLの説明欄とCSSの説明欄が逆になっています。`,
+    code: `<li className={"p-4 border border-gray-600 rounded-lg order-2"}> //orderで表示順を指定できます
+              <dl>
+                <dt className="font-bold text-2xl text-[orangered]">HTML</dt>
+                <dd className="mt-1 text-lg">ウェブページの骨格を作る言語。</dd>
+              </dl>
+            </li>
+            <li className="p-4 border border-gray-600 rounded-lg order-1">
+              <dl>
+                <dt className="font-bold text-2xl text-[orangered]">CSS</dt>
+                <dd className="mt-1 text-lg">
+                  ウェブページの見た目を決める言語。
+                </dd>
+              </dl>
+            </li>`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
     id: 15,
     keyword: "URLがおかしい",
     detail: `URLがとんでもないことになっています。`,
@@ -200,6 +221,28 @@ if (stageId === 15) {
     keyword: "大文字になる",
     detail: `CSSのコードが大文字になってしまいます。`,
     code: `text-transform: uppercase;`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 18,
+    keyword: "JavaScriptの文字が変化",
+    detail: `JavaScriptの文字がTypeScriptになっています。TypeScriptは実際にある言語でJavaScriptに「型」の仕組みを追加した言語です。`,
+    code: `<dt className="font-bold text-2xl text-[orangered]">
+             TypeScript
+           </dt>`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 19,
+    keyword: "プログラミングの例が変化",
+    detail: `例に記述されているプログラムがCSSからTailwindCSSに変化しています。`,
+    code: `className=\n'text-blue-500\n text-[60px]\n font-extrabold'\n
+~
+className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n
+~
+class=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     image: "",
     state: "isNotEncountered",
   },

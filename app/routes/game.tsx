@@ -87,6 +87,9 @@ export default function Game() {
       Header?.classList.add("buttonPushBgcolorAnomaly");
     };
   }
+  const LiElementHTMLOrder = stageId === 12 ? 2 : 0;
+  const textJavaOrType = stageId === 18 ? "Type" : "Java";
+  const programLanguageKind = stageId === 19 ? "Tailwind CSS" : "CSS";
   if (stageId === 11) {
     return <EnglishAnomaly />;
   }
@@ -94,6 +97,7 @@ export default function Game() {
     return null;
   }
   const capitalizeCode = stageId === 17 ? "uppercase" : "";
+  
   return (
     <div
       key={location.key}
@@ -196,14 +200,14 @@ export default function Game() {
           <div className="mb-5">
             ウェブ開発では、主に以下の3つの言語が使われています。
           </div>
-          <ul className="space-y-6">
-            <li className="p-4 border border-gray-600 rounded-lg">
+          <ul className={`space-y-6 flex flex-col`}>
+            <li className={`p-4 border border-gray-600 rounded-lg order-${LiElementHTMLOrder}`}>
               <dl>
                 <dt className="font-bold text-2xl text-[orangered]">HTML</dt>
                 <dd className="mt-1 text-lg">ウェブページの骨格を作る言語。</dd>
               </dl>
             </li>
-            <li className="p-4 border border-gray-600 rounded-lg">
+            <li className="p-4 border border-gray-600 rounded-lg order-1">
               <dl>
                 <dt className="font-bold text-2xl text-[orangered]">CSS</dt>
                 <dd className="mt-1 text-lg">
@@ -211,10 +215,10 @@ export default function Game() {
                 </dd>
               </dl>
             </li>
-            <li className="p-4 border border-gray-600 rounded-lg">
+            <li className="p-4 border border-gray-600 rounded-lg order-3">
               <dl>
                 <dt className="font-bold text-2xl text-[orangered]">
-                  JavaScript
+                  {textJavaOrType}Script
                 </dt>
                 <dd className="mt-1 text-lg">
                   ウェブページに動きをつけたり、複雑な処理をさせたりする言語。
@@ -233,7 +237,13 @@ export default function Game() {
           title="1. 文字のカスタマイズ"
           description="右の例では、colorという属性で文字色を、font-sizeという属性で文字の大きさを、font-weightという属性で文字の太さを指定しています。他にも、下線を引いたり、フォントを変えたりすることが可能です。"
           code={
-            ".text {\n  color: blue;\n  font-size: 60px;\n  font-weight: 800;\n}"
+            (() => {
+              if (programLanguageKind === "CSS"){
+                return ".text {\n  color: blue;\n  font-size: 60px;\n  font-weight: 800;\n}"
+              }else{
+                return "className=\n'text-blue-500\n text-[60px]\n font-extrabold'\n"
+              }
+            })()
           }
           element={
             <div
@@ -249,7 +259,13 @@ export default function Game() {
           title="2. ボタンのカスタマイズ"
           description="右の例では、borderで枠線を、box-shadowで影を表現しています。また、.button:activeと書かれた方には、ボタンが押されたときのスタイルを記述できます。ここでは、background-colorでボタンを赤くし、box-shadowにnone(何も無いこと)を指定して影を消しています。"
           code={
-            ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}"
+            (() => {
+              if (programLanguageKind === "CSS"){
+                return ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}"
+              }else{
+                return "className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n"
+              }
+            })()
           }
           element={
             <button
@@ -266,7 +282,13 @@ export default function Game() {
           title="3. 画像のカスタマイズ"
           description="右の例では、widthとheightで画像の大きさを、transformで角度を指定し、filterで画像を白黒にしています。"
           code={
-            ".img {\n  width: 200px;\n  height: 100px;\n  transform: rotate(6deg);\n  filter: grayscale(100%);\n}"
+            (() => {
+              if (programLanguageKind === "CSS"){
+                return ".img {\n  width: 200px;\n  height: 100px;\n  transform: rotate(6deg);\n  filter: grayscale(100%);\n}"
+              }else{
+                return "class=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n"
+              }
+            })()
           }
           element={
             <img
