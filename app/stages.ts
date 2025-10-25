@@ -190,7 +190,7 @@ export let stages: StageType[] = [
     code: `
 (Javascriptのコード)
 if (stageId === 15) {
-  navigate("/引き返せ引き返せ引き返せ");
+  navigate("/引き返せ引き返せ引き返せ引き返せ引き返せ引き返せ");
 }`,
     image: "",
     state: "isNotEncountered",
@@ -199,7 +199,7 @@ if (stageId === 15) {
     id: 17,
     keyword: "大文字になる",
     detail: `CSSのコードが大文字になってしまいます。`,
-    code: `text-transform: capitalize;`,
+    code: `text-transform: uppercase;`,
     image: "",
     state: "isNotEncountered",
   },

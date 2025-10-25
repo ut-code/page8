@@ -50,7 +50,7 @@ export default function Game() {
 
   useEffect(() => {
     if (stageId === 15) {
-      navigate("/引き返せ引き返せ引き返せ");
+      navigate("/引き返せ引き返せ引き返せ引き返せ引き返せ引き返せ");
     }
   }, [stageId, navigate]);
 
