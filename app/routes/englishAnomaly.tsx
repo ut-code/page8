@@ -1,8 +1,7 @@
 "use client";
-import {
-  type ReactElement,
-} from "react";
+import { type ReactElement } from "react";
 import { useNavigate } from "react-router";
+import { stages } from "~/stages";
 
 function Example({
   title,
@@ -33,61 +32,69 @@ function Example({
   );
 }
 
-export default function Game() {
+export default function EnglishAnomaly() {
   const navigate = useNavigate();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
 
-
   return (
     <div className="text-white">
-      <div className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8"
-          style={{zIndex: 2}}>
+      <div
+        className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8"
+        style={{ zIndex: 2 }}
+      >
         <span>
           <span className="text-6xl text-yellow-400">{pageNum}. </span>
-          <span className={"text-4xl"}>ようこそ</span>
+          <span className={"text-4xl"}>Welcome</span>
         </span>
 
         <button
           className="bg-red-500 text-2xl p-3 border-2 border-black cursor-pointer"
           onClick={() => navigate("/")}
         >
-          ゲーム中断
+          Quit game
         </button>
       </div>
       <button
         className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
         onClick={() => {
-          localStorage.setItem("pageNum", "0");
-          navigate("/game");
+          stages.filter((s) => s.id === 11)[0].state = "isDetected";
+          if (pageNum === 8) {
+            navigate("/end");
+          } else {
+            localStorage.setItem("pageNum", `${pageNum + 1}`);
+            navigate("/game");
+          }
         }}
       >
-        ← 戻る
+        ← Go back
       </button>
       <div className="w-4/5 ml-auto mr-auto">
         <div className="font-bold text-center text-8xl underline decoration-[orangered]">
-          ようこそ
+          Welcome
         </div>
         <div className="mt-10 mb-10">
-          このゲームでは、主に「CSS」という言語を用いて、異変を再現しています！
-          CSSについて、ここで軽く学んでおきましょう。
+          In this game, we mainly use a language called "CSS" to make the
+          anomalies! Let's take a quick look at CSS here.
         </div>
         <div className="bg-[orangered] h-0.5"></div>
         <div className="mt-10 mb-10">
           <div className="mb-5">
-            ウェブ開発では、主に以下の3つの言語が使われています。
+            In web development, these 3 languages play an important role.
           </div>
           <ul className="space-y-6">
             <li className="p-4 border border-gray-600 rounded-lg">
               <dl>
                 <dt className="font-bold text-2xl text-[orangered]">HTML</dt>
-                <dd className="mt-1 text-lg">ウェブページの骨格を作る言語。</dd>
+                <dd className="mt-1 text-lg">
+                  A language that creates the framework of the web page.
+                </dd>
               </dl>
             </li>
             <li className="p-4 border border-gray-600 rounded-lg">
               <dl>
                 <dt className="font-bold text-2xl text-[orangered]">CSS</dt>
                 <dd className="mt-1 text-lg">
-                  ウェブページの見た目を決める言語。
+                  A language that creates the appearance of the web page.
                 </dd>
               </dl>
             </li>
@@ -97,21 +104,22 @@ export default function Game() {
                   JavaScript
                 </dt>
                 <dd className="mt-1 text-lg">
-                  ウェブページに動きをつけたり、複雑な処理をさせたりする言語。
+                  A language that can add movement to the web page and run
+                  complex algorithms.
                 </dd>
               </dl>
             </li>
           </ul>
           <div className="mt-10">
-            CSSは、ウェブページのデザインを整える上で欠かせません。以下で、CSSの具体的な例を見ていきましょう。
+            CSS is crutial in designing web pages. Let's look at some examples.
           </div>
         </div>
         <div className="text-4xl underline decoration-[orangered]">
-          CSS利用例
+          CSS examples
         </div>
         <Example
-          title="1. 文字のカスタマイズ"
-          description="右の例では、colorという属性で文字色を、font-sizeという属性で文字の大きさを、font-weightという属性で文字の太さを指定しています。他にも、下線を引いたり、フォントを変えたりすることが可能です。"
+          title="1. Customizing texts"
+          description="In the example on the right, the text color is determined by the “color” property, the text size is determined by the “font-size” property, and the boldness of the text is determined by the “font-weight” property. Besides these, you can also do things such as underlining and changing the font."
           code={
             ".text {\n  color: blue;\n  font-size: 60px;\n  font-weight: 800;\n}"
           }
@@ -122,8 +130,8 @@ export default function Game() {
           }
         />
         <Example
-          title="2. ボタンのカスタマイズ"
-          description="右の例では、borderで枠線を、box-shadowで影を表現しています。また、.button:activeと書かれた方には、ボタンが押されたときのスタイルを記述できます。ここでは、background-colorでボタンを赤くし、box-shadowにnone(何も無いこと)を指定して影を消しています。"
+          title="2. Customizing buttons"
+          description="In the example on the right, the border is created by the “border” property, and the shadow is created by the “box-shadow” property. Also, inside the “.button:active”, you can determine the style of the button when it is pressed down. In the example, the button turns red by the “background-color” property, and the shadow disappears by putting “none” in the “box-shadow” property."
           code={
             ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}"
           }
@@ -134,8 +142,8 @@ export default function Game() {
           }
         />
         <Example
-          title="3. 画像のカスタマイズ"
-          description="右の例では、widthとheightで画像の大きさを、transformで角度を指定し、filterで画像を白黒にしています。"
+          title="3. Customizing images"
+          description="In the example on the right, the “width”, “height” properties determine the size of the image, the “transform” property determines the rotation angle, and the “filter” property makes the image black-and-white."
           code={
             ".img {\n  width: 200px;\n  height: 100px;\n  transform: rotate(6deg);\n  filter: grayscale(100%);\n}"
           }
@@ -151,24 +159,25 @@ export default function Game() {
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
           onClick={() => {
-            localStorage.setItem("pageNum", `${pageNum + 1}`);
+            stages.filter((s) => s.id === 11)[0].state = "isNotDetected";
+            localStorage.setItem("pageNum", "0");
             navigate("/game");
           }}
         >
-          次へ →
+          Next →
         </button>
       </div>
-        <div className="flex ml-10">
+      <div className="flex ml-10">
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
           onClick={() => {
             window.scrollTo({
               top: 0,
               behavior: "smooth",
-            })
+            });
           }}
         >
-          Topへ戻る
+          Back to top
         </button>
       </div>
     </div>

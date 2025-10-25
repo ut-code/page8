@@ -1,8 +1,7 @@
 "use client";
-import {
-  type ReactElement,
-} from "react";
+import { type ReactElement } from "react";
 import { useNavigate } from "react-router";
+import { stages } from "~/stages";
 
 function Example({
   title,
@@ -37,11 +36,12 @@ export default function Game() {
   const navigate = useNavigate();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
 
-
   return (
     <div className="text-white">
-      <div className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8"
-          style={{zIndex: 2}}>
+      <div
+        className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8"
+        style={{ zIndex: 2 }}
+      >
         <span>
           <span className="text-6xl text-yellow-400">{pageNum}. </span>
           <span className={"text-4xl"}>ようこそ</span>
@@ -57,8 +57,13 @@ export default function Game() {
       <button
         className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
         onClick={() => {
-          localStorage.setItem("pageNum", "0");
-          navigate("/game");
+          stages.filter((s) => s.id === 15)[0].state = "isDetected";
+          if (pageNum === 8) {
+            navigate("/end");
+          } else {
+            localStorage.setItem("pageNum", `${pageNum + 1}`);
+            navigate("/game");
+          }
         }}
       >
         ← 戻る
@@ -151,21 +156,22 @@ export default function Game() {
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
           onClick={() => {
-            localStorage.setItem("pageNum", `${pageNum + 1}`);
+            stages.filter((s) => s.id === 15)[0].state = "isNotDetected";
+            localStorage.setItem("pageNum", "0");
             navigate("/game");
           }}
         >
           次へ →
         </button>
       </div>
-        <div className="flex ml-10">
+      <div className="flex ml-10">
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
           onClick={() => {
             window.scrollTo({
               top: 0,
               behavior: "smooth",
-            })
+            });
           }}
         >
           Topへ戻る

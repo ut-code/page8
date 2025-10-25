@@ -35,10 +35,9 @@ export let stages: StageType[] = [
     id: 3,
     keyword: "背景色の急変化",
     detail: "背景色が急に明るい色に変わっています",
-    code: 
-    "background-color : #FFF2B2",
-    image:"",
-    state:"isNotEncountered",
+    code: "background-color : #FFF2B2",
+    image: "",
+    state: "isNotEncountered",
   },
   {
     id: 4,
@@ -170,6 +169,21 @@ export let stages: StageType[] = [
     state: "isNotEncountered",
   },
   {
+    id: 11,
+    keyword: "英語になる",
+    detail: `ページ全体が英語になっています。`,
+    code: `
+(HTMLのコード)
+      <span className="text-4xl">Welcome</span>
+      ~
+      <div className="font-bold text-center text-8xl underline decoration-[orangered]">
+        Welcome     //要素の中身を記述するところ
+      </div>
+      ~`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
     id: 12,
     keyword: "HTMLとCSSの順番が逆",
     detail: `HTMLの説明欄とCSSの説明欄が逆になっています。`,
@@ -187,6 +201,26 @@ export let stages: StageType[] = [
                 </dd>
               </dl>
             </li>`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 15,
+    keyword: "URLがおかしい",
+    detail: `URLがとんでもないことになっています。`,
+    code: `
+(Javascriptのコード)
+if (stageId === 15) {
+  navigate("/引き返せ引き返せ引き返せ引き返せ引き返せ引き返せ");
+}`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 17,
+    keyword: "大文字になる",
+    detail: `CSSのコードが大文字になってしまいます。`,
+    code: `text-transform: uppercase;`,
     image: "",
     state: "isNotEncountered",
   },
