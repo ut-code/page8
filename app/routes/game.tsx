@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, type ReactElement } from "react";
+import { useEffect, type ReactElement ,useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { stages } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
@@ -47,6 +47,70 @@ export default function Game() {
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
   const stageId = stages[Math.floor(Math.random() * stages.length)].id; // ページの種類のID
   console.log(stageId);
+
+  const imgRef = useRef<HTMLImageElement | null>(null);
+
+  const x = useRef(0); // 現在位置
+  const y = useRef(0);
+  const mouseX = useRef(0); // マウス位置
+  const mouseY = useRef(0);
+  let imgWidthHalf = 0;//画像の左端から右端までの長さの半分
+  let imgHightHalf = 0;//画像の上端から下端までの長さの半分
+
+  const chasing = useRef(false);
+
+  useEffect(() => {
+    if (stageId !== 14) return;
+    if (!imgRef.current) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.current = e.pageX;
+      mouseY.current = e.pageY;
+
+      if (!chasing.current && imgRef.current) {
+        const rect = imgRef.current.getBoundingClientRect();
+        imgWidthHalf = rect.width / 2;
+        imgHightHalf = rect.height / 2;
+        const imgCenterX = rect.left + window.scrollX + imgWidthHalf;
+        const imgCenterY = rect.top + window.scrollY + imgHightHalf;
+        const dist = ((mouseX.current - imgCenterX)**2 + (mouseY.current - imgCenterY)**2)**0.5;
+
+        if (dist < 200) {
+          chasing.current = true;
+
+          const rect = imgRef.current.getBoundingClientRect();
+          x.current = rect.left + window.scrollX + imgWidthHalf;
+          y.current = rect.top + window.screenY + imgHightHalf;
+
+          imgRef.current.style.position = "absolute";
+          imgRef.current.style.left = `${x.current}px`;
+          imgRef.current.style.top = `${y.current}px`;
+        }
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    const speed = 0.05;
+    let animId:number;
+    const chase = () => {
+      if (imgRef.current && chasing.current) {
+        
+        x.current += (mouseX.current - x.current) * speed;
+        y.current += (mouseY.current - y.current) * speed;
+
+        imgRef.current.style.left = `${x.current - imgWidthHalf}px`;
+        imgRef.current.style.top = `${y.current - imgHightHalf}px`;
+      }
+      animId = requestAnimationFrame(chase);
+    };
+    chase();
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animId);
+    };
+  });
 
   useEffect(() => {
     if (stageId === 15) {
@@ -125,6 +189,12 @@ export default function Game() {
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
           onClick={() => {
+            chasing.current = false;
+            if (imgRef.current) {
+              imgRef.current.style.position = "";
+              imgRef.current.style.left = "";
+              imgRef.current.style.top = "";
+            }
             if (stageId === 0) {
               localStorage.setItem("pageNum", "0");
               navigate("/game");
@@ -292,9 +362,13 @@ export default function Game() {
           }
           element={
             <img
+              ref = {imgRef}
               src="/image.png"
-              className={`w-40 h-20 ${irasutoyaImageAngular} grayscale`}
-              style={{ position: "relative", zIndex: "1" }}
+              className={`w-40 h-20 ${irasutoyaImageAngular} grayscale absolute`}
+              style={{
+                zIndex: "1" ,
+                pointerEvents:"none"
+              }}
             ></img>
           }
           flexboxCollapse={flexboxCollapse}
@@ -305,6 +379,12 @@ export default function Game() {
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
           onClick={() => {
+            chasing.current = false;
+            if (imgRef.current) {
+              imgRef.current.style.position = "";
+              imgRef.current.style.left = "";
+              imgRef.current.style.top = "";
+            }
             if (stageId !== 0) {
               stages.filter((s) => s.id === stageId)[0].state = "isNotDetected";
               localStorage.setItem("pageNum", "0");

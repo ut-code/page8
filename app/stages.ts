@@ -205,6 +205,67 @@ export let stages: StageType[] = [
     state: "isNotEncountered",
   },
   {
+    id: 14,
+    keyword: "画像がついてくる",
+    detail: `マウスカーソルを近づけると画像が追いかけてきます。以下のコードでは、マウスカーソルの位置を取得して、それをもとに画像の位置を変えています。`,
+    code: `
+useEffect(() => {
+    if (stageId !== 14) return;
+    if (!imgRef.current) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.current = e.pageX;
+      mouseY.current = e.pageY;
+
+      if (!chasing.current && imgRef.current) {
+        const rect = imgRef.current.getBoundingClientRect();
+        imgWidthHalf = rect.width / 2;
+        imgHightHalf = rect.height / 2;
+        const imgCenterX = rect.left + window.scrollX + imgWidthHalf;
+        const imgCenterY = rect.top + window.scrollY + imgHightHalf;
+        const dist = ((mouseX.current - imgCenterX)**2 + (mouseY.current - imgCenterY)**2)**0.5;
+
+        if (dist < 200) {
+          chasing.current = true;
+
+          const rect = imgRef.current.getBoundingClientRect();
+          x.current = rect.left + window.scrollX + imgWidthHalf;
+          y.current = rect.top + window.screenY + imgHightHalf;
+
+          imgRef.current.style.position = "absolute";
+          imgRef.current.style.left = '\${x.current}px';
+          imgRef.current.style.top = "\${y.current}px";
+        }
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    const speed = 0.05;
+    let animId:number;
+    const chase = () => {
+      if (imgRef.current && chasing.current) {
+        
+        x.current += (mouseX.current - x.current) * speed;
+        y.current += (mouseY.current - y.current) * speed;
+
+        imgRef.current.style.left = '\${x.current - imgWidthHalf}px';
+        imgRef.current.style.top = '\${y.current - imgHightHalf}px';
+      }
+      animId = requestAnimationFrame(chase);
+    };
+    chase();
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animId);
+    };
+  });
+`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
     id: 15,
     keyword: "URLがおかしい",
     detail: `URLがとんでもないことになっています。`,
