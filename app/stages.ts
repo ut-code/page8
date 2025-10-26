@@ -174,12 +174,10 @@ export let stages: StageType[] = [
     detail: `ページ全体が英語になっています。`,
     code: `
 (HTMLのコード)
-      <span className="text-4xl">Welcome</span>
-      ~
-      <div className="font-bold text-center text-8xl underline decoration-[orangered]">
-        Welcome     //要素の中身を記述するところ
-      </div>
-      ~`,
+      if (stageId === 11) {
+          return <EnglishAnomaly />;   //<EnglishAnomaly />は英語で書かれたコンポーネント（構成要素）
+      }
+      `,
     image: "",
     state: "isNotEncountered",
   },
