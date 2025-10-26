@@ -146,12 +146,12 @@ export let stages: StageType[] = [
   {
     id: 9,
     keyword: "タイトル変化",
-    detail: `タイトルの中身が英語になっています。`,
+    detail: `タイトルの中身が中国語になっています。`,
     code: `
-      <span className="text-4xl">Welcome</span>
+      <span className="text-4xl">欢迎</span>
       ~
       <div className="font-bold text-center text-8xl underline decoration-[orangered]">
-        Welcome     //要素の中身を記述するところ
+        欢迎     //要素の中身を記述するところ
       </div>
     `,
     image: "",
@@ -242,7 +242,7 @@ if (stageId === 15) {
 ~
 className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n
 ~
-class=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
+className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     image: "",
     state: "isNotEncountered",
   },

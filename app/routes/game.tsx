@@ -78,7 +78,7 @@ export default function Game() {
     stageId === 8
       ? ["justify-start", "justify-start"]
       : ["justify-between", "justify-center"];
-  const changedTitle = stageId === 9 ? "Welcome" : "ようこそ";
+  const changedTitle = stageId === 9 ? "欢迎" : "ようこそ";
   if (stageId === 10) {
     ExampleButtonFunction = () => {
       const PageWrapper = document.getElementById("PageWrapper");
@@ -105,7 +105,7 @@ export default function Game() {
       id="PageWrapper"
     >
       <div
-        className={`top-0 fixed ${bgColorGraduallyTurningGrey} bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}
+        className={`top-0 fixed ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}
         style={{ zIndex: 2 }}
         id="Header"
       >
@@ -286,7 +286,7 @@ export default function Game() {
               if (programLanguageKind === "CSS"){
                 return ".img {\n  width: 200px;\n  height: 100px;\n  transform: rotate(6deg);\n  filter: grayscale(100%);\n}"
               }else{
-                return "class=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n"
+                return "className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n"
               }
             })()
           }
