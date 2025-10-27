@@ -5,7 +5,33 @@ export type StageType = {
   code: string;
   image: string;
   state: "isDetected" | "isNotDetected" | "isNotEncountered";
+  weight: number;
 };
+
+export let initialWeight = [
+  { id: 0, weight: 50 },
+  { id: 1, weight: 6 },
+  { id: 2, weight: 6 },
+  { id: 3, weight: 3 },
+  { id: 4, weight: 6 },
+  { id: 5, weight: 6 },
+  { id: 6, weight: 3 },
+  { id: 7, weight: 6 },
+  { id: 8, weight: 3 },
+  { id: 9, weight: 3 },
+  { id: 10, weight: 6 },
+  { id: 11, weight: 3 },
+  { id: 12, weight: 6 },
+  { id: 13, weight: 6 },
+  { id: 14, weight: 6 },
+  { id: 15, weight: 6 },
+  { id: 16, weight: 6 },
+  { id: 17, weight: 6 },
+  { id: 18, weight: 6 },
+  { id: 19, weight: 6 },
+];//重み係数の初期値保存用
+
+
 export let stages: StageType[] = [
   {
     id: 0,
@@ -14,6 +40,7 @@ export let stages: StageType[] = [
     code: "",
     image: "",
     state: "isDetected",
+    weight: 50
   },
   {
     id: 1,
@@ -22,6 +49,7 @@ export let stages: StageType[] = [
     code: `color: green;`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 2,
@@ -30,6 +58,7 @@ export let stages: StageType[] = [
     code: `{transform: rotate(186deg);`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 3,
@@ -38,6 +67,7 @@ export let stages: StageType[] = [
     code: "background-color : #FFF2B2",
     image: "",
     state: "isNotEncountered",
+    weight: 3
   },
   {
     id: 4,
@@ -58,6 +88,7 @@ export let stages: StageType[] = [
 }`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 5,
@@ -72,6 +103,7 @@ export let stages: StageType[] = [
     }`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 6,
@@ -120,6 +152,7 @@ export let stages: StageType[] = [
         </div>`,
     image: "",
     state: "isNotEncountered",
+    weight: 3
   },
   {
     id: 7,
@@ -131,6 +164,7 @@ export let stages: StageType[] = [
 }`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 8,
@@ -142,6 +176,7 @@ export let stages: StageType[] = [
     }`,
     image: "",
     state: "isNotEncountered",
+    weight: 3
   },
   {
     id: 9,
@@ -156,6 +191,7 @@ export let stages: StageType[] = [
     `,
     image: "",
     state: "isNotEncountered",
+    weight: 3
   },
   {
     id: 10,
@@ -167,6 +203,7 @@ export let stages: StageType[] = [
 }`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 11,
@@ -180,6 +217,7 @@ export let stages: StageType[] = [
       `,
     image: "",
     state: "isNotEncountered",
+    weight: 3
   },
   {
     id: 12,
@@ -201,6 +239,7 @@ export let stages: StageType[] = [
             </li>`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 13,
@@ -227,8 +266,9 @@ export let stages: StageType[] = [
   requestAnimationFrame(() => {
     topBtn.style.top = ‘＄{stopTop}px‘;
   })`,
-    image: "",
-    state: "isNotEncountered",
+  image: "",
+  state: "isNotEncountered",
+  weight: 6
   },
   {
     id: 14,
@@ -290,6 +330,7 @@ useEffect(() => {
 `,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 15,
@@ -302,6 +343,7 @@ if (stageId === 15) {
 }`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 16,
@@ -313,6 +355,7 @@ if (stageId === 15) {
 </div>`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 17,
@@ -321,6 +364,7 @@ if (stageId === 15) {
     code: `text-transform: uppercase;`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 18,
@@ -331,6 +375,7 @@ if (stageId === 15) {
           </dt>`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 19,
@@ -343,6 +388,7 @@ className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-50
 className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
   {
     id: 21,
