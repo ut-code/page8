@@ -3,6 +3,7 @@ import { useEffect, type ReactElement ,useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { stages } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
+import { biasedRandom } from "~/random";
 
 function Example({
   title,
@@ -45,7 +46,7 @@ export default function Game() {
   const navigate = useNavigate();
   const location = useLocation();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
-  const stageId = stages[Math.floor(Math.random() * stages.length)].id; // ページの種類のID
+  const stageId = stages[biasedRandom(stages)].id; // ページの種類のID
   console.log(stageId);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
@@ -230,7 +231,8 @@ export default function Game() {
               localStorage.setItem("pageNum", "0");
               navigate("/game");
             } else {
-              stages.filter((s) => s.id === stageId)[0].state = "isDetected";
+              stages.filter((s) => s.id === stageId)[0].state = "isDetected"
+              stages.filter((s) => s.id === stageId)[0].weight = 0;
               if (pageNum === 8) {
                 navigate("/end");
               } else {
