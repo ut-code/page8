@@ -24,6 +24,8 @@ export default function Home() {
         flexDirection:"column",
         gap:"80px",
         paddingTop:"100px",
+        opacity: "0",
+        animation: "fadeIn 0.5s ease-out forwards",
       }}
     >
       <div
