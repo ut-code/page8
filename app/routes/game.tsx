@@ -21,11 +21,11 @@ function Example({
   capitalizeCode: string;
 }) {
   return (
-    <div className="mt-5 mb-5 ml-20 mr-20">
-      <div className="text-2xl underline">{title}</div>
-      <div className="flex h-70">
-        <span className="w-1/2 m-4">{description}</span>
-        <span className="w-1/2 flex flex-col">
+    <div className={`mt-5 mb-5 ml-20 mr-20`}>
+      <div className={`text-2xl underline`}>{title}</div>
+      <div className={`flex h-70`}>
+        <span className={`w-1/2 m-4`}>{description}</span>
+        <span className={`w-1/2 flex flex-col`}>
           <code
             className={`whitespace-pre-wrap p-4 bg-neutral-900 border border-gray-600 rounded-lg h-2/3 m-2 text-[0.8rem] ${capitalizeCode}`}
           >
@@ -169,7 +169,8 @@ export default function Game() {
       }, 600);
     };
   }
-  const errorMessageShow = stageId === 6 ? ["flex","show-after-5s"] : ["none",""];
+  const errorMessageShow =
+    stageId === 6 ? ["flex", "show-after-5s"] : ["none", ""];
   const colorChangOnHover = stageId === 7 ? "hover:bg-red-500" : "";
   const flexboxCollapse =
     stageId === 8
@@ -220,280 +221,292 @@ export default function Game() {
   const capitalizeCode = stageId === 17 ? "uppercase" : "";
   const textJavaOrType = stageId === 18 ? "Type" : "Java";
   const programLanguageKind = stageId === 19 ? "Tailwind CSS" : "CSS";
+  const rotate = stageId === 22 ? "animate-rotate" : "";
 
   return (
     <div
       key={location.key}
-      className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} relative opacity-0 animate-fadeIn`}
-      id = "PageWrapper"
+      className={`text-white relative opacity-0 animate-fadeIn`}
     >
       <div
-        className={`top-0 fixed ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}
-        style={{ zIndex: 2 }}
-        id="Header"
+        className={`${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow}`}
+        id="PageWrapper"
       >
-        <span>
-          <span className="text-6xl text-yellow-400">{pageNum}. </span>
-          <span className="text-4xl">{changedTitle}</span>
-        </span>
+        <div
+          className={`top-0 fixed ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}
+          style={{ zIndex: 2 }}
+          id="Header"
+        >
+          <span className={`${rotate}`}>
+            <span className={`text-6xl text-yellow-400`}>{pageNum}. </span>
+            <span className={`text-4xl`}>{changedTitle}</span>
+          </span>
 
-        <button
-          className="bg-red-500 text-2xl p-3 border-2 border-black cursor-pointer"
-          onClick={() => navigate("/")}
-        >
-          ゲーム中断
-        </button>
-      </div>
-      <div className="flex justify-start mr-10 mb-10">
-        <button
-          className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
-          onClick={() => {
-            chasing.current = false;
-            if (imgRef.current) {
-              imgRef.current.style.position = "";
-              imgRef.current.style.left = "";
-              imgRef.current.style.top = "";
-            }
-            if (stageId === 0) {
-              localStorage.setItem("pageNum", "0");
-              navigate("/game");
-            } else {
-              stages.filter((s) => s.id === stageId)[0].state = "isDetected"
-              stages.filter((s) => s.id === stageId)[0].weight = 0;
-              if (pageNum === 8) {
-                navigate("/end");
-              } else {
-                localStorage.setItem("pageNum", `${pageNum + 1}`);
-                navigate("/game");
+          <button
+            className={`bg-red-500 text-2xl p-3 border-2 border-black cursor-pointer ${rotate}`}
+            onClick={() => navigate("/")}
+          >
+            ゲーム中断
+          </button>
+        </div>
+        <div className={`flex justify-start mr-10 mb-10`}>
+          <button
+            className={`bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer`}
+            onClick={() => {
+              chasing.current = false;
+              if (imgRef.current) {
+                imgRef.current.style.position = "";
+                imgRef.current.style.left = "";
+                imgRef.current.style.top = "";
               }
-            }
-          }}
-        >
-          ← 戻る
-        </button>
-      </div>
-      <div className="w-4/5 ml-auto mr-auto">
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            height: "100vh",
-            width: "100vw",
-            backgroundColor: "blue",
-            color: "black",
-            display: `${errorMessageShow[0]}`,
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            pointerEvents: "none",
-            opacity: "0.8",
-            zIndex: "5",
-          }}
-          className={`${errorMessageShow[1]}`}
-        >
-          {
-            <div
-              style={{
-                position: "fixed",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                backgroundColor: "black",
-                color: "white",
-                padding: "40px",
-                fontSize: "2rem",
-                boxShadow: "0 0 40px red",
-                fontFamily: "Share Tech Mono, monospace",
-                justifyContent: "center",
-              }}
-            >
-              An unexpected error occurred <br />
-              <br />
-              details:
-              <br />
-              Turn back Turn back Turn back Turn back Turn back Turn back Turn
-              back Turn back Turn back Turn back Turn back Turn back Turn back
-              Turn back Turn back Turn back Turn back Turn back
-            </div>
-          }
-        </div>
-        <div className="font-bold text-center text-8xl underline decoration-[orangered]">
-          <div className="w-[400px] inline group">
-            <div
-              className={`${hoverAnomaly[0]}`}
-              ref={changeWhenScrollingBackRefs[0]}
-            >
-              {changedTitle}
-            </div>
-            <div className={`hidden text-8xl ${hoverAnomaly[1]}`}>
-              繧医≧縺薙◎
-            </div>
-          </div>
-        </div>
-        <div className="mt-10 mb-10" ref={changeWhenScrollingBackRefs[1]}>
-          このゲームでは、主に「CSS」という言語を用いて、異変を再現しています！
-          CSSについて、ここで軽く学んでおきましょう。
-        </div>
-        <div className="bg-[orangered] h-0.5"></div>
-        <div className="mt-10 mb-10">
-          <div className="mb-5" ref={changeWhenScrollingBackRefs[2]}>
-            ウェブ開発では、主に以下の3つの言語が使われています。
-          </div>
-          <ul className={`space-y-6 flex flex-col`}>
-            <li
-              className={`p-4 border border-gray-600 rounded-lg order-${LiElementHTMLOrder}`}
-            >
-              <dl>
-                <dt className="font-bold text-2xl text-[orangered]">
-                  <div ref={changeWhenScrollingBackRefs[3]}>HTML</div>
-                </dt>
-                <dd className="mt-1 text-lg">
-                  <div ref={changeWhenScrollingBackRefs[4]}>
-                    ウェブページの骨格を作る言語。
-                  </div>
-                </dd>
-              </dl>
-            </li>
-            <li className="p-4 border border-gray-600 rounded-lg order-1">
-              <dl>
-                <dt className="font-bold text-2xl text-[orangered]">
-                  <div ref={changeWhenScrollingBackRefs[5]}>CSS</div>
-                </dt>
-                <dd className="mt-1 text-lg">
-                  <div ref={changeWhenScrollingBackRefs[6]}>
-                    ウェブページの見た目を決める言語。
-                  </div>
-                </dd>
-              </dl>
-            </li>
-            <li className="p-4 border border-gray-600 rounded-lg order-3">
-              <dl>
-                <dt className="font-bold text-2xl text-[orangered]">
-                  <div ref={changeWhenScrollingBackRefs[7]}>
-                    {textJavaOrType}Script
-                  </div>
-                </dt>
-                <dd className="mt-1 text-lg">
-                  <div ref={changeWhenScrollingBackRefs[8]}>
-                    ウェブページに動きをつけたり、複雑な処理をさせたりする言語。
-                  </div>
-                </dd>
-              </dl>
-            </li>
-          </ul>
-          <div className="mt-10" ref={changeWhenScrollingBackRefs[9]}>
-            CSSは、ウェブページのデザインを整える上で欠かせません。以下で、CSSの具体的な例を見ていきましょう。
-          </div>
-        </div>
-        <div
-          className="text-4xl underline decoration-[orangered]"
-          ref={changeWhenScrollingBackRefs[10]}
-        >
-          CSS利用例
-        </div>
-        <Example
-          title="1. 文字のカスタマイズ"
-          description="右の例では、colorという属性で文字色を、font-sizeという属性で文字の大きさを、font-weightという属性で文字の太さを指定しています。他にも、下線を引いたり、フォントを変えたりすることが可能です。"
-          code={(() => {
-            if (programLanguageKind === "CSS") {
-              return ".text {\n  color: blue;\n  font-size: 60px;\n  font-weight: 800;\n}";
-            } else {
-              return "className=\n'text-blue-500\n text-[60px]\n font-extrabold'\n";
-            }
-          })()}
-          element={
-            <div
-              className={`${wrongColorForHello} text-6xl font-sans font-extrabold`}
-            >
-              Hello!
-            </div>
-          }
-          flexboxCollapse={flexboxCollapse}
-          capitalizeCode={capitalizeCode}
-        />
-        <Example
-          title="2. ボタンのカスタマイズ"
-          description="右の例では、borderで枠線を、box-shadowで影を表現しています。また、.button:activeと書かれた方には、ボタンが押されたときのスタイルを記述できます。ここでは、background-colorでボタンを赤くし、box-shadowにnone(何も無いこと)を指定して影を消しています。"
-          code={(() => {
-            if (programLanguageKind === "CSS") {
-              return ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}";
-            } else {
-              return "className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n";
-            }
-          })()}
-          element={
-            <button
-              className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer`}
-              onClick={ExampleButtonFunction}
-            >
-              Click me!
-            </button>
-          }
-          flexboxCollapse={flexboxCollapse}
-          capitalizeCode={capitalizeCode}
-        />
-        <Example
-          title="3. 画像のカスタマイズ"
-          description="右の例では、widthとheightで画像の大きさを、transformで角度を指定し、filterで画像を白黒にしています。"
-          code={(() => {
-            if (programLanguageKind === "CSS") {
-              return ".img {\n  width: 200px;\n  height: 100px;\n  transform: rotate(6deg);\n  filter: grayscale(100%);\n}";
-            } else {
-              return "className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n";
-            }
-          })()}
-          element={
-            <img
-              ref={imgRef}
-              src="/image.png"
-              className={`w-40 h-20 ${irasutoyaImageAngular} grayscale absolute`}
-              style={{
-                zIndex: "1",
-                pointerEvents: "none",
-              }}
-            ></img>
-          }
-          flexboxCollapse={flexboxCollapse}
-          capitalizeCode={capitalizeCode}
-        />
-      </div>
-      <div className="flex justify-end mr-10" id="nextBtn">
-        <button
-          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
-          onClick={() => {
-            chasing.current = false;
-            if (imgRef.current) {
-              imgRef.current.style.position = "";
-              imgRef.current.style.left = "";
-              imgRef.current.style.top = "";
-            }
-            if (stageId !== 0) {
-              stages.filter((s) => s.id === stageId)[0].state = "isNotDetected";
-              localStorage.setItem("pageNum", "0");
-              navigate("/game");
-            } else {
-              if (pageNum === 8) {
-                navigate("/end");
-              } else {
-                localStorage.setItem("pageNum", `${pageNum + 1}`);
+              if (stageId === 0) {
+                localStorage.setItem("pageNum", "0");
                 navigate("/game");
+              } else {
+                stages.filter((s) => s.id === stageId)[0].state = "isDetected";
+                stages.filter((s) => s.id === stageId)[0].weight = 0;
+                if (pageNum === 8) {
+                  navigate("/end");
+                } else {
+                  localStorage.setItem("pageNum", `${pageNum + 1}`);
+                  navigate("/game");
+                }
               }
+            }}
+          >
+            ← 戻る
+          </button>
+        </div>
+        <div className={`w-4/5 ml-auto mr-auto`}>
+          <div
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              height: "100vh",
+              width: "100vw",
+              backgroundColor: "blue",
+              color: "black",
+              display: `${errorMessageShow[0]}`,
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              pointerEvents: "none",
+              opacity: "0.8",
+              zIndex: "5",
+            }}
+            className={`${errorMessageShow[1]}`}
+          >
+            {
+              <div
+                style={{
+                  position: "fixed",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  backgroundColor: "black",
+                  color: "white",
+                  padding: "40px",
+                  fontSize: "2rem",
+                  boxShadow: "0 0 40px red",
+                  fontFamily: "Share Tech Mono, monospace",
+                  justifyContent: "center",
+                }}
+              >
+                An unexpected error occurred <br />
+                <br />
+                details:
+                <br />
+                Turn back Turn back Turn back Turn back Turn back Turn back Turn
+                back Turn back Turn back Turn back Turn back Turn back Turn back
+                Turn back Turn back Turn back Turn back Turn back
+              </div>
             }
-          }}
-        >
-          次へ →
-        </button>
-      </div>
-      <div className="flex ml-10">
-        <button
-          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
-          onClick={TopButtonFunction}
-          id="topBtn"
-        >
-          Topへ戻る
-        </button>
+          </div>
+          <div
+            className={`font-bold text-center text-8xl underline decoration-[orangered] ${rotate}`}
+          >
+            <div className={`w-[400px] inline group`}>
+              <div
+                className={`${hoverAnomaly[0]}`}
+                ref={changeWhenScrollingBackRefs[0]}
+              >
+                {changedTitle}
+              </div>
+              <div className={`hidden text-8xl ${hoverAnomaly[1]}`}>
+                繧医≧縺薙◎
+              </div>
+            </div>
+          </div>
+          <div className={`mt-10 mb-10`} ref={changeWhenScrollingBackRefs[1]}>
+            このゲームでは、主に「CSS」という言語を用いて、異変を再現しています！
+            CSSについて、ここで軽く学んでおきましょう。
+          </div>
+          <div className={`bg-[orangered] h-0.5`}></div>
+          <div className={`mt-10 mb-10`}>
+            <div className={`mb-5`} ref={changeWhenScrollingBackRefs[2]}>
+              ウェブ開発では、主に以下の3つの言語が使われています。
+            </div>
+            <ul className={`space-y-6 flex flex-col`}>
+              <li
+                className={`p-4 border border-gray-600 rounded-lg order-${LiElementHTMLOrder} ${rotate}`}
+              >
+                <dl>
+                  <dt className={`font-bold text-2xl text-[orangered]`}>
+                    <div ref={changeWhenScrollingBackRefs[3]}>HTML</div>
+                  </dt>
+                  <dd className={`mt-1 text-lg`}>
+                    <div ref={changeWhenScrollingBackRefs[4]}>
+                      ウェブページの骨格を作る言語。
+                    </div>
+                  </dd>
+                </dl>
+              </li>
+              <li
+                className={`p-4 border border-gray-600 rounded-lg order-1 ${rotate}`}
+              >
+                <dl>
+                  <dt className={`font-bold text-2xl text-[orangered]`}>
+                    <div ref={changeWhenScrollingBackRefs[5]}>CSS</div>
+                  </dt>
+                  <dd className={`mt-1 text-lg`}>
+                    <div ref={changeWhenScrollingBackRefs[6]}>
+                      ウェブページの見た目を決める言語。
+                    </div>
+                  </dd>
+                </dl>
+              </li>
+              <li
+                className={`p-4 border border-gray-600 rounded-lg order-3 ${rotate}`}
+              >
+                <dl>
+                  <dt className={`font-bold text-2xl text-[orangered]`}>
+                    <div ref={changeWhenScrollingBackRefs[7]}>
+                      {textJavaOrType}Script
+                    </div>
+                  </dt>
+                  <dd className={`mt-1 text-lg`}>
+                    <div ref={changeWhenScrollingBackRefs[8]}>
+                      ウェブページに動きをつけたり、複雑な処理をさせたりする言語。
+                    </div>
+                  </dd>
+                </dl>
+              </li>
+            </ul>
+            <div className={`mt-10`} ref={changeWhenScrollingBackRefs[9]}>
+              CSSは、ウェブページのデザインを整える上で欠かせません。以下で、CSSの具体的な例を見ていきましょう。
+            </div>
+          </div>
+          <div
+            className={`text-4xl underline decoration-[orangered] ${rotate}`}
+            ref={changeWhenScrollingBackRefs[10]}
+          >
+            CSS利用例
+          </div>
+          <Example
+            title="1. 文字のカスタマイズ"
+            description="右の例では、colorという属性で文字色を、font-sizeという属性で文字の大きさを、font-weightという属性で文字の太さを指定しています。他にも、下線を引いたり、フォントを変えたりすることが可能です。"
+            code={(() => {
+              if (programLanguageKind === "CSS") {
+                return ".text {\n  color: blue;\n  font-size: 60px;\n  font-weight: 800;\n}";
+              } else {
+                return "className=\n'text-blue-500\n text-[60px]\n font-extrabold'\n";
+              }
+            })()}
+            element={
+              <div
+                className={`${wrongColorForHello} text-6xl font-sans font-extrabold ${rotate}`}
+              >
+                Hello!
+              </div>
+            }
+            flexboxCollapse={flexboxCollapse}
+            capitalizeCode={capitalizeCode}
+          />
+          <Example
+            title="2. ボタンのカスタマイズ"
+            description="右の例では、borderで枠線を、box-shadowで影を表現しています。また、.button:activeと書かれた方には、ボタンが押されたときのスタイルを記述できます。ここでは、background-colorでボタンを赤くし、box-shadowにnone(何も無いこと)を指定して影を消しています。"
+            code={(() => {
+              if (programLanguageKind === "CSS") {
+                return ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}";
+              } else {
+                return "className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n";
+              }
+            })()}
+            element={
+              <button
+                className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer ${rotate}`}
+                onClick={ExampleButtonFunction}
+              >
+                Click me!
+              </button>
+            }
+            flexboxCollapse={flexboxCollapse}
+            capitalizeCode={capitalizeCode}
+          />
+          <Example
+            title="3. 画像のカスタマイズ"
+            description="右の例では、widthとheightで画像の大きさを、transformで角度を指定し、filterで画像を白黒にしています。"
+            code={(() => {
+              if (programLanguageKind === "CSS") {
+                return ".img {\n  width: 200px;\n  height: 100px;\n  transform: rotate(6deg);\n  filter: grayscale(100%);\n}";
+              } else {
+                return "className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n";
+              }
+            })()}
+            element={
+              <img
+                ref={imgRef}
+                src="/image.png"
+                className={`w-40 h-20 ${irasutoyaImageAngular} grayscale absolute ${rotate}`}
+                style={{
+                  zIndex: "1",
+                  pointerEvents: "none",
+                }}
+              ></img>
+            }
+            flexboxCollapse={flexboxCollapse}
+            capitalizeCode={capitalizeCode}
+          />
+        </div>
+        <div className={`flex justify-end mr-10`} id="nextBtn">
+          <button
+            className={`bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80`}
+            onClick={() => {
+              chasing.current = false;
+              if (imgRef.current) {
+                imgRef.current.style.position = "";
+                imgRef.current.style.left = "";
+                imgRef.current.style.top = "";
+              }
+              if (stageId !== 0) {
+                stages.filter((s) => s.id === stageId)[0].state =
+                  "isNotDetected";
+                localStorage.setItem("pageNum", "0");
+                navigate("/game");
+              } else {
+                if (pageNum === 8) {
+                  navigate("/end");
+                } else {
+                  localStorage.setItem("pageNum", `${pageNum + 1}`);
+                  navigate("/game");
+                }
+              }
+            }}
+          >
+            次へ →
+          </button>
+        </div>
+        <div className={`flex ml-10 ${rotate}`}>
+          <button
+            className={`bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10`}
+            onClick={TopButtonFunction}
+            id="topBtn"
+          >
+            Topへ戻る
+          </button>
+        </div>
       </div>
     </div>
   );
