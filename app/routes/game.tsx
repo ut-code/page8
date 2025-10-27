@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, type ReactElement ,useRef } from "react";
+import { createRef, useEffect, type ReactElement, useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { stages } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
@@ -50,12 +50,17 @@ export default function Game() {
 
   const imgRef = useRef<HTMLImageElement | null>(null);
 
+  const changeWhenScrollingBackRefs = useRef(
+    Array.from({ length: 15 }, () => createRef<HTMLDivElement>())
+  ).current;
+  const replacedFlags: boolean[] = Array(15).fill(false);
+
   const x = useRef(0); // 現在位置
   const y = useRef(0);
   const mouseX = useRef(0); // マウス位置
   const mouseY = useRef(0);
-  let imgWidthHalf = 0;//画像の左端から右端までの長さの半分
-  let imgHightHalf = 0;//画像の上端から下端までの長さの半分
+  let imgWidthHalf = 0; //画像の左端から右端までの長さの半分
+  let imgHightHalf = 0; //画像の上端から下端までの長さの半分
 
   const chasing = useRef(false);
 
@@ -73,7 +78,10 @@ export default function Game() {
         imgHightHalf = rect.height / 2;
         const imgCenterX = rect.left + window.scrollX + imgWidthHalf;
         const imgCenterY = rect.top + window.scrollY + imgHightHalf;
-        const dist = ((mouseX.current - imgCenterX)**2 + (mouseY.current - imgCenterY)**2)**0.5;
+        const dist =
+          ((mouseX.current - imgCenterX) ** 2 +
+            (mouseY.current - imgCenterY) ** 2) **
+          0.5;
 
         if (dist < 200) {
           chasing.current = true;
@@ -92,10 +100,9 @@ export default function Game() {
     window.addEventListener("mousemove", handleMouseMove);
 
     const speed = 0.05;
-    let animId:number;
+    let animId: number;
     const chase = () => {
       if (imgRef.current && chasing.current) {
-        
         x.current += (mouseX.current - x.current) * speed;
         y.current += (mouseY.current - y.current) * speed;
 
@@ -118,15 +125,34 @@ export default function Game() {
     }
   }, [stageId, navigate]);
 
+  useEffect(() => {
+    if (stageId !== 21) return;
+    const handleScroll = () => {
+      const $elms = changeWhenScrollingBackRefs.map((ref) => ref.current);
+      $elms.forEach(($elm) => {
+        if (!$elm) return;
+        const i = $elms.indexOf($elm);
+        if ($elm.getBoundingClientRect().bottom < 0 && !replacedFlags[i]) {
+          $elm.textContent = "👁️".repeat($elm.textContent.length);
+          replacedFlags[i] = true;
+        }
+      });
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
+
   // 異変の変数
 
-  let ExampleButtonFunction: (...args: any[]) => void = () => {};//二つ目のExampleに含まれているボタンに渡す関数を入れるための変数
-  let TopButtonFunction: (...args: any[])=>void = () => {
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth",
-            })
-          };
+  let ExampleButtonFunction: (...args: any[]) => void = () => {}; //二つ目のExampleに含まれているボタンに渡す関数を入れるための変数
+  let TopButtonFunction: (...args: any[]) => void = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   const wrongColorForHello = stageId === 1 ? "text-[green]" : "text-[#0000ff]";
   const irasutoyaImageAngular = stageId === 2 ? "rotate-186" : "rotate-6";
@@ -161,43 +187,44 @@ export default function Game() {
     return <EnglishAnomaly />;
   }
   const LiElementHTMLOrder = stageId === 12 ? 2 : 0;
-  if(stageId === 13){
-  TopButtonFunction = ()=>{
-    const nextBtn = document.getElementById("nextBtn")!;
-    nextBtn.style.marginBottom = '100px';
+  if (stageId === 13) {
+    TopButtonFunction = () => {
+      const nextBtn = document.getElementById("nextBtn")!;
+      nextBtn.style.marginBottom = "100px";
 
-    const topBtn = document.getElementById('topBtn')!;
-    const parent = topBtn.offsetParent as HTMLElement;
+      const topBtn = document.getElementById("topBtn")!;
+      const parent = topBtn.offsetParent as HTMLElement;
 
-    const rect = topBtn.getBoundingClientRect();
-    const parentRect = parent.getBoundingClientRect();
-    const startTop = rect.top - parentRect.top - 100;
+      const rect = topBtn.getBoundingClientRect();
+      const parentRect = parent.getBoundingClientRect();
+      const startTop = rect.top - parentRect.top - 100;
 
-    topBtn.style.position = 'absolute';
-    topBtn.style.top = `${startTop}px`;
+      topBtn.style.position = "absolute";
+      topBtn.style.top = `${startTop}px`;
 
-    topBtn.style.transition = 'top 1s ease-in-out';
+      topBtn.style.transition = "top 1s ease-in-out";
 
-    const stopTop = 200
+      const stopTop = 200;
 
-    requestAnimationFrame(() => {
-      topBtn.style.top = `${stopTop}px`;
-    })
-  };
-  };
+      requestAnimationFrame(() => {
+        topBtn.style.top = `${stopTop}px`;
+      });
+    };
+  }
   if (stageId === 15) {
     return null;
   }
-  const hoverAnomaly = stageId === 16 ? ["group-hover:hidden", "group-hover:block"] : ["",""];
+  const hoverAnomaly =
+    stageId === 16 ? ["group-hover:hidden", "group-hover:block"] : ["", ""];
   const capitalizeCode = stageId === 17 ? "uppercase" : "";
   const textJavaOrType = stageId === 18 ? "Type" : "Java";
   const programLanguageKind = stageId === 19 ? "Tailwind CSS" : "CSS";
-  
+
   return (
     <div
       key={location.key}
       className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} relative`}
-      id = "PageWrapper"
+      id="PageWrapper"
     >
       <div
         className={`top-0 fixed ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}
@@ -291,64 +318,88 @@ export default function Game() {
         </div>
         <div className="font-bold text-center text-8xl underline decoration-[orangered]">
           <div className="w-[400px] inline group">
-            <span className={`${hoverAnomaly[0]}`}>{changedTitle}</span>
-            <span className={`hidden text-8xl ${hoverAnomaly[1]}`}>繧医≧縺薙◎</span>
+            <div
+              className={`${hoverAnomaly[0]}`}
+              ref={changeWhenScrollingBackRefs[0]}
+            >
+              {changedTitle}
+            </div>
+            <div className={`hidden text-8xl ${hoverAnomaly[1]}`}>
+              繧医≧縺薙◎
+            </div>
           </div>
         </div>
-        <div className="mt-10 mb-10">
+        <div className="mt-10 mb-10" ref={changeWhenScrollingBackRefs[1]}>
           このゲームでは、主に「CSS」という言語を用いて、異変を再現しています！
           CSSについて、ここで軽く学んでおきましょう。
         </div>
         <div className="bg-[orangered] h-0.5"></div>
         <div className="mt-10 mb-10">
-          <div className="mb-5">
+          <div className="mb-5" ref={changeWhenScrollingBackRefs[2]}>
             ウェブ開発では、主に以下の3つの言語が使われています。
           </div>
           <ul className={`space-y-6 flex flex-col`}>
-            <li className={`p-4 border border-gray-600 rounded-lg order-${LiElementHTMLOrder}`}>
+            <li
+              className={`p-4 border border-gray-600 rounded-lg order-${LiElementHTMLOrder}`}
+            >
               <dl>
-                <dt className="font-bold text-2xl text-[orangered]">HTML</dt>
-                <dd className="mt-1 text-lg">ウェブページの骨格を作る言語。</dd>
+                <dt className="font-bold text-2xl text-[orangered]">
+                  <div ref={changeWhenScrollingBackRefs[3]}>HTML</div>
+                </dt>
+                <dd className="mt-1 text-lg">
+                  <div ref={changeWhenScrollingBackRefs[4]}>
+                    ウェブページの骨格を作る言語。
+                  </div>
+                </dd>
               </dl>
             </li>
             <li className="p-4 border border-gray-600 rounded-lg order-1">
               <dl>
-                <dt className="font-bold text-2xl text-[orangered]">CSS</dt>
+                <dt className="font-bold text-2xl text-[orangered]">
+                  <div ref={changeWhenScrollingBackRefs[5]}>CSS</div>
+                </dt>
                 <dd className="mt-1 text-lg">
-                  ウェブページの見た目を決める言語。
+                  <div ref={changeWhenScrollingBackRefs[6]}>
+                    ウェブページの見た目を決める言語。
+                  </div>
                 </dd>
               </dl>
             </li>
             <li className="p-4 border border-gray-600 rounded-lg order-3">
               <dl>
                 <dt className="font-bold text-2xl text-[orangered]">
-                  {textJavaOrType}Script
+                  <div ref={changeWhenScrollingBackRefs[7]}>
+                    {textJavaOrType}Script
+                  </div>
                 </dt>
                 <dd className="mt-1 text-lg">
-                  ウェブページに動きをつけたり、複雑な処理をさせたりする言語。
+                  <div ref={changeWhenScrollingBackRefs[8]}>
+                    ウェブページに動きをつけたり、複雑な処理をさせたりする言語。
+                  </div>
                 </dd>
               </dl>
             </li>
           </ul>
-          <div className="mt-10">
+          <div className="mt-10" ref={changeWhenScrollingBackRefs[9]}>
             CSSは、ウェブページのデザインを整える上で欠かせません。以下で、CSSの具体的な例を見ていきましょう。
           </div>
         </div>
-        <div className="text-4xl underline decoration-[orangered]">
+        <div
+          className="text-4xl underline decoration-[orangered]"
+          ref={changeWhenScrollingBackRefs[10]}
+        >
           CSS利用例
         </div>
         <Example
           title="1. 文字のカスタマイズ"
           description="右の例では、colorという属性で文字色を、font-sizeという属性で文字の大きさを、font-weightという属性で文字の太さを指定しています。他にも、下線を引いたり、フォントを変えたりすることが可能です。"
-          code={
-            (() => {
-              if (programLanguageKind === "CSS"){
-                return ".text {\n  color: blue;\n  font-size: 60px;\n  font-weight: 800;\n}"
-              }else{
-                return "className=\n'text-blue-500\n text-[60px]\n font-extrabold'\n"
-              }
-            })()
-          }
+          code={(() => {
+            if (programLanguageKind === "CSS") {
+              return ".text {\n  color: blue;\n  font-size: 60px;\n  font-weight: 800;\n}";
+            } else {
+              return "className=\n'text-blue-500\n text-[60px]\n font-extrabold'\n";
+            }
+          })()}
           element={
             <div
               className={`${wrongColorForHello} text-6xl font-sans font-extrabold`}
@@ -362,15 +413,13 @@ export default function Game() {
         <Example
           title="2. ボタンのカスタマイズ"
           description="右の例では、borderで枠線を、box-shadowで影を表現しています。また、.button:activeと書かれた方には、ボタンが押されたときのスタイルを記述できます。ここでは、background-colorでボタンを赤くし、box-shadowにnone(何も無いこと)を指定して影を消しています。"
-          code={
-            (() => {
-              if (programLanguageKind === "CSS"){
-                return ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}"
-              }else{
-                return "className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n"
-              }
-            })()
-          }
+          code={(() => {
+            if (programLanguageKind === "CSS") {
+              return ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}";
+            } else {
+              return "className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n";
+            }
+          })()}
           element={
             <button
               className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer`}
@@ -385,23 +434,21 @@ export default function Game() {
         <Example
           title="3. 画像のカスタマイズ"
           description="右の例では、widthとheightで画像の大きさを、transformで角度を指定し、filterで画像を白黒にしています。"
-          code={
-            (() => {
-              if (programLanguageKind === "CSS"){
-                return ".img {\n  width: 200px;\n  height: 100px;\n  transform: rotate(6deg);\n  filter: grayscale(100%);\n}"
-              }else{
-                return "className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n"
-              }
-            })()
-          }
+          code={(() => {
+            if (programLanguageKind === "CSS") {
+              return ".img {\n  width: 200px;\n  height: 100px;\n  transform: rotate(6deg);\n  filter: grayscale(100%);\n}";
+            } else {
+              return "className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n";
+            }
+          })()}
           element={
             <img
-              ref = {imgRef}
+              ref={imgRef}
               src="/image.png"
               className={`w-40 h-20 ${irasutoyaImageAngular} grayscale absolute`}
               style={{
-                zIndex: "1" ,
-                pointerEvents:"none"
+                zIndex: "1",
+                pointerEvents: "none",
               }}
             ></img>
           }
@@ -409,7 +456,7 @@ export default function Game() {
           capitalizeCode={capitalizeCode}
         />
       </div>
-      <div className="flex justify-end mr-10" id = "nextBtn">
+      <div className="flex justify-end mr-10" id="nextBtn">
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
           onClick={() => {

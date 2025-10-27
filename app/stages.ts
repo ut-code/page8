@@ -227,8 +227,8 @@ export let stages: StageType[] = [
   requestAnimationFrame(() => {
     topBtn.style.top = ‘＄{stopTop}px‘;
   })`,
-  image: "",
-  state: "isNotEncountered"
+    image: "",
+    state: "isNotEncountered",
   },
   {
     id: 14,
@@ -304,7 +304,7 @@ if (stageId === 15) {
     state: "isNotEncountered",
   },
   {
-      id: 16,
+    id: 16,
     keyword: "文字化け",
     detail: `ようこそにカーソルを合わせると文字化けします。`,
     code: `<div className="w-[400px] inline-block group">
@@ -341,6 +341,14 @@ if (stageId === 15) {
 className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n
 ~
 className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 21,
+    keyword: "スクロールを引き返すと文字が変化",
+    detail: `下スクロールをして画面外から出た文字を、もう一度見にいくと変化します。`,
+    code: ``,
     image: "",
     state: "isNotEncountered",
   },
