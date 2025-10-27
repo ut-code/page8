@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 import { stages } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
 import { biasedRandom } from "~/random";
+import ImageMultiplicationAnomaly from "./imageMultiplicationAnomaly";
 
 function Example({
   title,
@@ -220,6 +221,8 @@ export default function Game() {
   const capitalizeCode = stageId === 17 ? "uppercase" : "";
   const textJavaOrType = stageId === 18 ? "Type" : "Java";
   const programLanguageKind = stageId === 19 ? "Tailwind CSS" : "CSS";
+
+  if(stageId === 23) return <ImageMultiplicationAnomaly/>;
 
   return (
     <div
