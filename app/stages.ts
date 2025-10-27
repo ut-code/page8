@@ -29,6 +29,7 @@ export let initialWeight = [
   { id: 17, weight: 6 },
   { id: 18, weight: 6 },
   { id: 19, weight: 6 },
+  { id: 21, weight: 6 }
 ];//重み係数の初期値保存用
 
 
@@ -397,5 +398,6 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     code: ``,
     image: "",
     state: "isNotEncountered",
+    weight: 6
   },
 ];
