@@ -20,6 +20,10 @@ export default function Home() {
         backgroundColor: "#091b0c",
         width: "100vw",
         height: "100vh",
+        display:"flex",
+        flexDirection:"column",
+        gap:"80px",
+        paddingTop:"100px",
       }}
     >
       <div
@@ -28,8 +32,6 @@ export default function Home() {
           justifyContent: "center",
           color: "#CCCCCC",
           fontSize: "120px",
-          position: "relative",
-          top: "150px",
           fontFamily: "serif",
           textDecoration: "underline",
           textDecorationColor: "gray",
@@ -90,14 +92,12 @@ export default function Home() {
       >
         <button
           style={{
-            position: "relative",
             fontFamily: "serif",
             fontSize: "24px",
             color: "white",
             backgroundColor:"orangered",
             padding:"0.75rem",
             border:"2px black solid",
-            top: "280px",
             cursor: "pointer",
           }}
           onClick={() => {
@@ -112,6 +112,26 @@ export default function Home() {
         >
           ゲームスタート
         </button>
+      </div>
+      <div style={{
+        color:"white",
+        display:"flex",
+        justifyContent:"center",
+      }}>
+        <ul>
+          <li>
+            ・異変を絶対に見逃さないこと
+          </li>
+          <li>
+            ・異変を見つけたらすぐに前のページに戻ること
+          </li>
+          <li>
+            ・異変が見つからなかったら次のページに進むこと
+          </li>
+          <li>
+            ・8番ページから脱出すること
+          </li>
+        </ul>
       </div>
     </div>
   );

@@ -146,12 +146,12 @@ export let stages: StageType[] = [
   {
     id: 9,
     keyword: "タイトル変化",
-    detail: `タイトルの中身が英語になっています。`,
+    detail: `タイトルの中身が中国語になっています。`,
     code: `
-      <span className="text-4xl">Welcome</span>
+      <span className="text-4xl">欢迎</span>
       ~
       <div className="font-bold text-center text-8xl underline decoration-[orangered]">
-        Welcome     //要素の中身を記述するところ
+        欢迎     //要素の中身を記述するところ
       </div>
     `,
     image: "",
@@ -174,12 +174,10 @@ export let stages: StageType[] = [
     detail: `ページ全体が英語になっています。`,
     code: `
 (HTMLのコード)
-      <span className="text-4xl">Welcome</span>
-      ~
-      <div className="font-bold text-center text-8xl underline decoration-[orangered]">
-        Welcome     //要素の中身を記述するところ
-      </div>
-      ~`,
+      if (stageId === 11) {
+          return <EnglishAnomaly />;   //<EnglishAnomaly />は英語で書かれたコンポーネント（構成要素）
+      }
+      `,
     image: "",
     state: "isNotEncountered",
   },
@@ -201,6 +199,67 @@ export let stages: StageType[] = [
                 </dd>
               </dl>
             </li>`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 14,
+    keyword: "画像がついてくる",
+    detail: `マウスカーソルを近づけると画像が追いかけてきます。以下のコードでは、マウスカーソルの位置を取得して、それをもとに画像の位置を変えています。`,
+    code: `
+useEffect(() => {
+    if (stageId !== 14) return;
+    if (!imgRef.current) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.current = e.pageX;
+      mouseY.current = e.pageY;
+
+      if (!chasing.current && imgRef.current) {
+        const rect = imgRef.current.getBoundingClientRect();
+        imgWidthHalf = rect.width / 2;
+        imgHightHalf = rect.height / 2;
+        const imgCenterX = rect.left + window.scrollX + imgWidthHalf;
+        const imgCenterY = rect.top + window.scrollY + imgHightHalf;
+        const dist = ((mouseX.current - imgCenterX)**2 + (mouseY.current - imgCenterY)**2)**0.5;
+
+        if (dist < 200) {
+          chasing.current = true;
+
+          const rect = imgRef.current.getBoundingClientRect();
+          x.current = rect.left + window.scrollX + imgWidthHalf;
+          y.current = rect.top + window.screenY + imgHightHalf;
+
+          imgRef.current.style.position = "absolute";
+          imgRef.current.style.left = '\${x.current}px';
+          imgRef.current.style.top = "\${y.current}px";
+        }
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    const speed = 0.05;
+    let animId:number;
+    const chase = () => {
+      if (imgRef.current && chasing.current) {
+        
+        x.current += (mouseX.current - x.current) * speed;
+        y.current += (mouseY.current - y.current) * speed;
+
+        imgRef.current.style.left = '\${x.current - imgWidthHalf}px';
+        imgRef.current.style.top = '\${y.current - imgHightHalf}px';
+      }
+      animId = requestAnimationFrame(chase);
+    };
+    chase();
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animId);
+    };
+  });
+`,
     image: "",
     state: "isNotEncountered",
   },
@@ -242,7 +301,7 @@ if (stageId === 15) {
 ~
 className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n
 ~
-class=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
+className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     image: "",
     state: "isNotEncountered",
   },
