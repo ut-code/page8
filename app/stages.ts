@@ -35,10 +35,9 @@ export let stages: StageType[] = [
     id: 3,
     keyword: "背景色の急変化",
     detail: "背景色が急に明るい色に変わっています",
-    code: 
-    "background-color : #FFF2B2",
-    image:"",
-    state:"isNotEncountered",
+    code: "background-color : #FFF2B2",
+    image: "",
+    state: "isNotEncountered",
   },
   {
     id: 4,
@@ -147,12 +146,12 @@ export let stages: StageType[] = [
   {
     id: 9,
     keyword: "タイトル変化",
-    detail: `タイトルの中身が英語になっています。`,
+    detail: `タイトルの中身が中国語になっています。`,
     code: `
-      <span className="text-4xl">Welcome</span>
+      <span className="text-4xl">欢迎</span>
       ~
       <div className="font-bold text-center text-8xl underline decoration-[orangered]">
-        Welcome     //要素の中身を記述するところ
+        欢迎     //要素の中身を記述するところ
       </div>
     `,
     image: "",
@@ -166,6 +165,40 @@ export let stages: StageType[] = [
   color: black;
   background-color: #b91c1c;
 }`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 11,
+    keyword: "英語になる",
+    detail: `ページ全体が英語になっています。`,
+    code: `
+(HTMLのコード)
+      if (stageId === 11) {
+          return <EnglishAnomaly />;   //<EnglishAnomaly />は英語で書かれたコンポーネント（構成要素）
+      }
+      `,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 12,
+    keyword: "HTMLとCSSの順番が逆",
+    detail: `HTMLの説明欄とCSSの説明欄が逆になっています。`,
+    code: `<li className={"p-4 border border-gray-600 rounded-lg order-2"}> //orderで表示順を指定できます
+              <dl>
+                <dt className="font-bold text-2xl text-[orangered]">HTML</dt>
+                <dd className="mt-1 text-lg">ウェブページの骨格を作る言語。</dd>
+              </dl>
+            </li>
+            <li className="p-4 border border-gray-600 rounded-lg order-1">
+              <dl>
+                <dt className="font-bold text-2xl text-[orangered]">CSS</dt>
+                <dd className="mt-1 text-lg">
+                  ウェブページの見た目を決める言語。
+                </dd>
+              </dl>
+            </li>`,
     image: "",
     state: "isNotEncountered",
   },
@@ -193,13 +226,86 @@ export let stages: StageType[] = [
 
   requestAnimationFrame(() => {
     topBtn.style.top = ‘＄{stopTop}px‘;
-  })
+  })`,
+  image: "",
+  state: "isNotEncountered"
+  },
+  {
+    id: 14,
+    keyword: "画像がついてくる",
+    detail: `マウスカーソルを近づけると画像が追いかけてきます。以下のコードでは、マウスカーソルの位置を取得して、それをもとに画像の位置を変えています。`,
+    code: `
+useEffect(() => {
+    if (stageId !== 14) return;
+    if (!imgRef.current) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.current = e.pageX;
+      mouseY.current = e.pageY;
+
+      if (!chasing.current && imgRef.current) {
+        const rect = imgRef.current.getBoundingClientRect();
+        imgWidthHalf = rect.width / 2;
+        imgHightHalf = rect.height / 2;
+        const imgCenterX = rect.left + window.scrollX + imgWidthHalf;
+        const imgCenterY = rect.top + window.scrollY + imgHightHalf;
+        const dist = ((mouseX.current - imgCenterX)**2 + (mouseY.current - imgCenterY)**2)**0.5;
+
+        if (dist < 200) {
+          chasing.current = true;
+
+          const rect = imgRef.current.getBoundingClientRect();
+          x.current = rect.left + window.scrollX + imgWidthHalf;
+          y.current = rect.top + window.screenY + imgHightHalf;
+
+          imgRef.current.style.position = "absolute";
+          imgRef.current.style.left = '\${x.current}px';
+          imgRef.current.style.top = "\${y.current}px";
+        }
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    const speed = 0.05;
+    let animId:number;
+    const chase = () => {
+      if (imgRef.current && chasing.current) {
+        
+        x.current += (mouseX.current - x.current) * speed;
+        y.current += (mouseY.current - y.current) * speed;
+
+        imgRef.current.style.left = '\${x.current - imgWidthHalf}px';
+        imgRef.current.style.top = '\${y.current - imgHightHalf}px';
+      }
+      animId = requestAnimationFrame(chase);
+    };
+    chase();
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animId);
+    };
+  });
+`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 15,
+    keyword: "URLがおかしい",
+    detail: `URLがとんでもないことになっています。`,
+    code: `
+(Javascriptのコード)
+if (stageId === 15) {
+  navigate("/引き返せ引き返せ引き返せ引き返せ引き返せ引き返せ");
+>>>>>>> main
 }`,
     image: "",
     state: "isNotEncountered",
   },
   {
-    id: 16,
+      id: 16,
     keyword: "文字化け",
     detail: `ようこそにカーソルを合わせると文字化けします。`,
     code: `<div className="w-[400px] inline-block group">
@@ -208,5 +314,35 @@ export let stages: StageType[] = [
 </div>`,
     image: "",
     state: "isNotEncountered",
-  }
+  },
+  {
+    id: 17,
+    keyword: "大文字になる",
+    detail: `CSSのコードが大文字になってしまいます。`,
+    code: `text-transform: uppercase;`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 18,
+    keyword: "JavaScriptの文字が変化",
+    detail: `JavaScriptの文字がTypeScriptになっています。TypeScriptは実際にある言語でJavaScriptに「型」の仕組みを追加した言語です。`,
+    code: `<dt className="font-bold text-2xl text-[orangered]">
+            TypeScript
+          </dt>`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
+    id: 19,
+    keyword: "プログラミングの例が変化",
+    detail: `例に記述されているプログラムがCSSからTailwindCSSに変化しています。`,
+    code: `className=\n'text-blue-500\n text-[60px]\n font-extrabold'\n
+~
+className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n
+~
+className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
+    image: "",
+    state: "isNotEncountered",
+  },
 ];
