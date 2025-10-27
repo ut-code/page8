@@ -7,6 +7,31 @@ export type StageType = {
   state: "isDetected" | "isNotDetected" | "isNotEncountered";
   weight: number;
 };
+
+export let initialWeight = [
+  { id: 0, weight: 50 },
+  { id: 1, weight: 6 },
+  { id: 2, weight: 6 },
+  { id: 3, weight: 3 },
+  { id: 4, weight: 6 },
+  { id: 5, weight: 6 },
+  { id: 6, weight: 3 },
+  { id: 7, weight: 6 },
+  { id: 8, weight: 3 },
+  { id: 9, weight: 3 },
+  { id: 10, weight: 6 },
+  { id: 11, weight: 3 },
+  { id: 12, weight: 6 },
+  { id: 13, weight: 6 },
+  { id: 14, weight: 6 },
+  { id: 15, weight: 6 },
+  { id: 16, weight: 6 },
+  { id: 17, weight: 6 },
+  { id: 18, weight: 6 },
+  { id: 19, weight: 6 },
+];//重み係数の初期値保存用
+
+
 export let stages: StageType[] = [
   {
     id: 0,
