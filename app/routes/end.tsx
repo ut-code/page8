@@ -279,7 +279,7 @@ export default function End() {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full min-h-screen bg-[#091b0c] text-white font-serif">
+    <div className="w-full min-h-screen bg-[#091b0c] text-white font-serif opacity-0 animate-fadeIn">
       <header className="mb-8">
         <h1 className="p-2 underline decoration-[#FF4500] text-3xl">
           8番ページ

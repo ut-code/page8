@@ -37,7 +37,7 @@ export default function EnglishAnomaly() {
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
 
   return (
-    <div className="text-white">
+    <div className="text-white opacity-0 animate-fadeIn">
       <div
         className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8"
         style={{ zIndex: 2 }}
