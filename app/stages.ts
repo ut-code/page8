@@ -299,7 +299,6 @@ useEffect(() => {
 (Javascriptのコード)
 if (stageId === 15) {
   navigate("/引き返せ引き返せ引き返せ引き返せ引き返せ引き返せ");
->>>>>>> main
 }`,
     image: "",
     state: "isNotEncountered",
