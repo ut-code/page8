@@ -142,7 +142,7 @@ export default function Game() {
       }, 600);
     };
   }
-  const errorMessageShow = stageId === 6 ? "flex" : "none";
+  const errorMessageShow = stageId === 6 ? ["flex","show-after-5s"] : ["none",""];
   const colorChangOnHover = stageId === 7 ? "hover:bg-red-500" : "";
   const flexboxCollapse =
     stageId === 8
@@ -196,7 +196,7 @@ export default function Game() {
   return (
     <div
       key={location.key}
-      className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} relative`}
+      className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} relative opacity-0 animate-fadeIn`}
       id = "PageWrapper"
     >
       <div
@@ -254,7 +254,7 @@ export default function Game() {
             width: "100vw",
             backgroundColor: "blue",
             color: "black",
-            display: `${errorMessageShow}`,
+            display: `${errorMessageShow[0]}`,
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
@@ -262,6 +262,7 @@ export default function Game() {
             opacity: "0.8",
             zIndex: "5",
           }}
+          className={`${errorMessageShow[1]}`}
         >
           {
             <div
@@ -279,7 +280,7 @@ export default function Game() {
                 justifyContent: "center",
               }}
             >
-              Unexpected Error Had Happened <br />
+              An unexpected error occurred <br />
               <br />
               details:
               <br />
