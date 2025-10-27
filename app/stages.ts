@@ -435,4 +435,31 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     state: "isNotEncountered",
     weight: 6,
   },
+  {
+    id: 23,
+    keyword: "画像が増殖",
+    detail: `画像が画面いっぱいに増殖しています。`,
+    code: `function Irasutoya({
+      top,
+      left,
+      rotationAngle,
+      scale}:{
+        top: number;
+        left: number;
+        rotationAngle: number;
+        scale: number;
+      }){
+        const style: CSSProperties = {
+        position: 'absolute',
+        top: top,
+        left: left,
+        transform: ‘rotate(＄{rotationAngle}deg) scale(＄{scale})‘,
+        zIndex: 0
+      };
+      return <img src="/image.png" style={style} className="w-40 h-20 grayscale" />;
+      }`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6
+  },
 ];

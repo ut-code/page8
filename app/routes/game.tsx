@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 import { stages } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
 import { biasedRandom } from "~/random";
+import ImageMultiplicationAnomaly from "./imageMultiplicationAnomaly";
 
 function Example({
   title,
@@ -222,6 +223,8 @@ export default function Game() {
   const textJavaOrType = stageId === 18 ? "Type" : "Java";
   const programLanguageKind = stageId === 19 ? "Tailwind CSS" : "CSS";
   const rotate = stageId === 22 ? "animate-rotate" : "";
+
+  if(stageId === 23) return <ImageMultiplicationAnomaly/>;
 
   return (
     <div
