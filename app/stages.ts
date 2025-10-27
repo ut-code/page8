@@ -203,6 +203,34 @@ export let stages: StageType[] = [
     state: "isNotEncountered",
   },
   {
+    id: 13,
+    keyword: "Topボタン上昇",
+    detail: `Topへ戻るボタンを押すと、画面ではなくボタンが上昇してしまいます。`,
+    code: `TopButtonFunction = ()=>{
+  const nextBtn = document.getElementById("nextBtn")!;
+  nextBtn.style.marginBottom = '100px';
+
+  const topBtn = document.getElementById('topBtn')!;
+  const parent = topBtn.offsetParent as HTMLElement;
+
+  const rect = topBtn.getBoundingClientRect();
+  const parentRect = parent.getBoundingClientRect();
+  const startTop = rect.top - parentRect.top - 100;
+
+  topBtn.style.position = 'absolute';
+  topBtn.style.top = ‘＄{startTop}px‘;
+
+  topBtn.style.transition = 'top 1s ease-in-out';
+
+  const stopTop = 200
+
+  requestAnimationFrame(() => {
+    topBtn.style.top = ‘＄{stopTop}px‘;
+  })`,
+  image: "",
+  state: "isNotEncountered"
+  },
+  {
     id: 14,
     keyword: "画像がついてくる",
     detail: `マウスカーソルを近づけると画像が追いかけてきます。以下のコードでは、マウスカーソルの位置を取得して、それをもとに画像の位置を変えています。`,
@@ -276,6 +304,17 @@ if (stageId === 15) {
     state: "isNotEncountered",
   },
   {
+      id: 16,
+    keyword: "文字化け",
+    detail: `ようこそにカーソルを合わせると文字化けします。`,
+    code: `<div className="w-[400px] inline-block group">
+  <span className="group-hover:hidden">ようこそ</span>
+  <span className={"hidden text-6xl group-hover:block"}>繧医≧縺薙◎</span>
+</div>`,
+    image: "",
+    state: "isNotEncountered",
+  },
+  {
     id: 17,
     keyword: "大文字になる",
     detail: `CSSのコードが大文字になってしまいます。`,
@@ -288,8 +327,8 @@ if (stageId === 15) {
     keyword: "JavaScriptの文字が変化",
     detail: `JavaScriptの文字がTypeScriptになっています。TypeScriptは実際にある言語でJavaScriptに「型」の仕組みを追加した言語です。`,
     code: `<dt className="font-bold text-2xl text-[orangered]">
-             TypeScript
-           </dt>`,
+            TypeScript
+          </dt>`,
     image: "",
     state: "isNotEncountered",
   },

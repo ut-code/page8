@@ -120,7 +120,13 @@ export default function Game() {
 
   // 異変の変数
 
-  let ExampleButtonFunction: (...args: any[]) => void = () => {}; //二つ目のExampleに含まれているボタンに渡す関数を入れるための変数
+  let ExampleButtonFunction: (...args: any[]) => void = () => {};//二つ目のExampleに含まれているボタンに渡す関数を入れるための変数
+  let TopButtonFunction: (...args: any[])=>void = () => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            })
+          };
 
   const wrongColorForHello = stageId === 1 ? "text-[green]" : "text-[#0000ff]";
   const irasutoyaImageAngular = stageId === 2 ? "rotate-186" : "rotate-6";
@@ -151,22 +157,47 @@ export default function Game() {
       Header?.classList.add("buttonPushBgcolorAnomaly");
     };
   }
-  const LiElementHTMLOrder = stageId === 12 ? 2 : 0;
-  const textJavaOrType = stageId === 18 ? "Type" : "Java";
-  const programLanguageKind = stageId === 19 ? "Tailwind CSS" : "CSS";
   if (stageId === 11) {
     return <EnglishAnomaly />;
   }
+  const LiElementHTMLOrder = stageId === 12 ? 2 : 0;
+  if(stageId === 13){
+  TopButtonFunction = ()=>{
+    const nextBtn = document.getElementById("nextBtn")!;
+    nextBtn.style.marginBottom = '100px';
+
+    const topBtn = document.getElementById('topBtn')!;
+    const parent = topBtn.offsetParent as HTMLElement;
+
+    const rect = topBtn.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+    const startTop = rect.top - parentRect.top - 100;
+
+    topBtn.style.position = 'absolute';
+    topBtn.style.top = `${startTop}px`;
+
+    topBtn.style.transition = 'top 1s ease-in-out';
+
+    const stopTop = 200
+
+    requestAnimationFrame(() => {
+      topBtn.style.top = `${stopTop}px`;
+    })
+  };
+  };
   if (stageId === 15) {
     return null;
   }
+  const hoverAnomaly = stageId === 16 ? ["group-hover:hidden", "group-hover:block"] : ["",""];
   const capitalizeCode = stageId === 17 ? "uppercase" : "";
+  const textJavaOrType = stageId === 18 ? "Type" : "Java";
+  const programLanguageKind = stageId === 19 ? "Tailwind CSS" : "CSS";
   
   return (
     <div
       key={location.key}
-      className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow}`}
-      id="PageWrapper"
+      className={`text-white ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} relative`}
+      id = "PageWrapper"
     >
       <div
         className={`top-0 fixed ${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center ${flexboxCollapse[0]} px-8`}
@@ -259,7 +290,10 @@ export default function Game() {
           }
         </div>
         <div className="font-bold text-center text-8xl underline decoration-[orangered]">
-          {changedTitle}
+          <div className="w-[400px] inline group">
+            <span className={`${hoverAnomaly[0]}`}>{changedTitle}</span>
+            <span className={`hidden text-8xl ${hoverAnomaly[1]}`}>繧医≧縺薙◎</span>
+          </div>
         </div>
         <div className="mt-10 mb-10">
           このゲームでは、主に「CSS」という言語を用いて、異変を再現しています！
@@ -375,7 +409,7 @@ export default function Game() {
           capitalizeCode={capitalizeCode}
         />
       </div>
-      <div className="flex justify-end mr-10">
+      <div className="flex justify-end mr-10" id = "nextBtn">
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
           onClick={() => {
@@ -405,12 +439,8 @@ export default function Game() {
       <div className="flex ml-10">
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
-          onClick={() => {
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth",
-            });
-          }}
+          onClick={TopButtonFunction}
+          id="topBtn"
         >
           Topへ戻る
         </button>
