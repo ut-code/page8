@@ -3,7 +3,7 @@ import { createRef, useEffect, type ReactElement, useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { stages } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
-import { biasedRandom } from "~/random";
+import { biasedRandom, updateWeight0 } from "~/random";
 import ImageMultiplicationAnomaly from "./imageMultiplicationAnomaly";
 
 function Example({
@@ -268,6 +268,7 @@ export default function Game() {
               } else {
                 stages.filter((s) => s.id === stageId)[0].state = "isDetected";
                 stages.filter((s) => s.id === stageId)[0].weight = 0;
+                updateWeight0(stages);
                 if (pageNum === 8) {
                   navigate("/end");
                 } else {

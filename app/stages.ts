@@ -31,6 +31,7 @@ export let initialWeight = [
   { id: 19, weight: 6 },
   { id: 21, weight: 6 },
   { id: 22, weight: 6 },
+  { id: 23, weight: 6 }
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
