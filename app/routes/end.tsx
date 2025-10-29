@@ -58,6 +58,8 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
   );
   console.log(selectedAnomaly);
 
+  const [showList, setShowList] = useState(false);
+
   const detectedAnomalies = anomalies.filter(
     (anomaly) => anomaly.state === "isDetected" && anomaly.id != 0
   );
@@ -130,9 +132,10 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
             この異変は、今回のプレイでは現れなかったようです。もし気になるなら、そっと覗いてみてください。
           </p>
           <div className="grid grid-cols-4 gap-8 justify-center">
-            {notEncounteredAnomalies.map((anomaly) => (
+            {showList && notEncounteredAnomalies.map((anomaly) => (
               <NotEncounteredCard
                 key={anomaly.id}
+                keyword={anomaly.keyword}
                 onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                   e.stopPropagation();
                   setSelectedAnomaly(anomaly);
@@ -141,6 +144,14 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
               />
             ))}
           </div>
+        <div className="mt-8 text-center">
+          <button
+            onClick={() => setShowList((prev) => !prev)}
+            className="mt-8 bg-[#FF4500]  text-2xl text-white cursor-pointer transition"
+          >
+            {showList ? "一覧を閉じる" : "遭遇していない異変を表示"}
+          </button>
+        </div>
         </div>
       )}
 
@@ -198,8 +209,10 @@ function NotDetectedCard({
 }
 
 function NotEncounteredCard({
+  keyword,
   onClick,
 }: {
+  keyword: string;
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
 }) {
   return (
@@ -209,7 +222,7 @@ function NotEncounteredCard({
         hover:bg-[#5C0A0A] hover:text-white duration-500 ease-in-out shadow-sm"
     >
       <div className="text-sm text-gray-500">遭遇していない異変</div>
-      <div className="text-lg font-bold">確認する</div>
+      <div className="text-lg font-bold">{keyword}</div>
       <div className="mt-auto text-sm underline self-end cursor-pointer">
         詳細を見る
       </div>

@@ -1,6 +1,7 @@
 "use client";
 import { type CSSProperties, type ReactElement } from "react";
 import { useNavigate } from "react-router";
+import { updateWeight0 } from "~/random";
 import { stages } from "~/stages";
 
 function Example({
@@ -86,6 +87,7 @@ export default function ImageMultiplicationAnomaly() {
         onClick={() => {
           stages.filter((s) => s.id === 23)[0].state = "isDetected";
           stages.filter((s) => s.id === 23)[0].weight = 0;
+          updateWeight0(stages);
           if (pageNum === 8) {
             navigate("/end");
           } else {
