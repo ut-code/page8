@@ -9,8 +9,11 @@ function StatsPanel({
   clearTime: number;
   anomalies: StageType[];
 }) {
+  const newFoundCount = anomalies.filter(
+    (anomaly) => anomaly.state === "isDetectedNew" && anomaly.id != 0
+  ).length;
   const foundCount = anomalies.filter(
-    (anomaly) => anomaly.state === "isDetected" && anomaly.id != 0
+    (anomaly) => (anomaly.state === "isDetected" || anomaly.state === "isDetectedNew") && anomaly.id != 0
   ).length;
   const notFoundCount = anomalies.filter(
     (anomaly) => anomaly.state === "isNotDetected"
@@ -33,7 +36,12 @@ function StatsPanel({
           </dd>
         </div>
         <div className="mb-4 flex justify-center items-center space-x-2">
-          <dt>発見した異変</dt>
+          <dt>新しく発見した異変</dt>
+          <span>:</span>
+          <dd>{newFoundCount}個</dd>
+        </div>
+        <div className="mb-4 flex justify-center items-center space-x-2">
+          <dt>今まで発見した異変の総数</dt>
           <span>:</span>
           <dd>{foundCount}個</dd>
         </div>
@@ -60,6 +68,9 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
 
   const [showList, setShowList] = useState(false);
 
+  const newDetectedAnomalies = anomalies.filter(
+    (anomaly) => anomaly.state === "isDetectedNew" && anomaly.id != 0
+  );
   const detectedAnomalies = anomalies.filter(
     (anomaly) => anomaly.state === "isDetected" && anomaly.id != 0
   );
@@ -71,11 +82,35 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
   );
   return (
     <>
+      {newDetectedAnomalies.length > 0 && (
+        <div className="max-w-[1056px] m-auto mb-16">
+          <h2 className="p-2 text-2xl">
+            <span className="border-b-3 border-[#FF4500] pb-1">
+              新しく発見した異変の一覧
+            </span>
+          </h2>
+          <p className="p-2">異変の正体をどうぞ確かめていってください</p>
+          <div className="grid grid-cols-4 gap-8 justify-center">
+            {newDetectedAnomalies.map((anomaly) => (
+              <DetectedCard
+                key={anomaly.id}
+                keyword={anomaly.keyword}
+                onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                  e.stopPropagation();
+                  setSelectedAnomaly(anomaly);
+                  console.log("Selected Anomaly:", anomaly);
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
       {detectedAnomalies.length > 0 && (
         <div className="max-w-[1056px] m-auto mb-16">
           <h2 className="p-2 text-2xl">
             <span className="border-b-3 border-[#FF4500] pb-1">
-              発見した異変の一覧
+              これまで発見した異変の一覧
             </span>
           </h2>
           <p className="p-2">異変の正体をどうぞ確かめていってください</p>

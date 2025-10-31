@@ -4,7 +4,7 @@ export type StageType = {
   detail: string;
   code: string;
   image: string;
-  state: "isDetected" | "isNotDetected" | "isNotEncountered";
+  state: "isDetected" | "isNotDetected" | "isNotEncountered" | "isDetectedNew";
   weight: number;
 };
 
@@ -29,6 +29,7 @@ export let initialWeight = [
   { id: 17, weight: 6 },
   { id: 18, weight: 6 },
   { id: 19, weight: 6 },
+  { id: 20, weight: 6 },
   { id: 21, weight: 6 },
   { id: 22, weight: 6 },
   { id: 23, weight: 6 }
@@ -388,6 +389,16 @@ if (stageId === 15) {
 className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n
 ~
 className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6,
+  },
+  {
+    id: 20,
+    keyword: "次へ →ボタンが変化",
+    detail: `次へ →ボタンが０番へ →ボタンになっています`,
+    code: `<span className="block group-hover:hidden">次へ →</span>
+            <span className="hidden group-hover:block">０番へ →</span>`,
     image: "",
     state: "isNotEncountered",
     weight: 6,
