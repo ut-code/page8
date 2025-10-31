@@ -266,7 +266,7 @@ export default function Game() {
                 localStorage.setItem("pageNum", "0");
                 navigate("/game");
               } else {
-                stages.filter((s) => s.id === stageId)[0].state = "isDetected";
+                stages.filter((s) => s.id === stageId && s.state !== "isDetected")[0].state = "isDetectedNew";
                 stages.filter((s) => s.id === stageId)[0].weight = 0;
                 updateWeight0(stages);
                 if (pageNum === 8) {

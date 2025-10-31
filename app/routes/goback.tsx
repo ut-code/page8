@@ -58,7 +58,7 @@ export default function Game() {
       <button
         className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
         onClick={() => {
-          stages.filter((s) => s.id === 15)[0].state = "isDetected";
+          stages.filter((s) => s.id === 15 && s.state !== "isDetected")[0].state = "isDetectedNew";
           stages.filter((s) => s.id === 15)[0].weight = 0;
           updateWeight0(stages);
           if (pageNum === 8) {

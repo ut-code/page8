@@ -4,7 +4,7 @@ export type StageType = {
   detail: string;
   code: string;
   image: string;
-  state: "isDetected" | "isNotDetected" | "isNotEncountered";
+  state: "isDetected" | "isNotDetected" | "isNotEncountered" | "isDetectedNew";
   weight: number;
 };
 

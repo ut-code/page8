@@ -105,8 +105,8 @@ export default function Home() {
           onClick={() => {
             localStorage.setItem("pageNum", "0");
             stages.forEach((stage) => {
-              if (stage.id != 0 && (stage.state === "isDetected" || stage.state === "isNotDetected")) {
-                stage.state = "isNotEncountered";
+              if (stage.id != 0 && (stage.state === "isDetectedNew")) {//前回新しく見つけた異変を引き継ぎ、Newを外す.
+                stage.state = "isDetected";
               }
             });
             navigate("/games");//fitstVisitScreen.tsxに飛びます。
