@@ -222,6 +222,7 @@ export default function Game() {
   const capitalizeCode = stageId === 17 ? "uppercase" : "";
   const textJavaOrType = stageId === 18 ? "Type" : "Java";
   const programLanguageKind = stageId === 19 ? "Tailwind CSS" : "CSS";
+  const nextButtonHover = stageId === 20 ? ["group-hover:hidden","group-hover:block"] : ["",""];
   const rotate = stageId === 22 ? "animate-rotate" : "";
 
   if(stageId === 23) return <ImageMultiplicationAnomaly/>;
@@ -476,7 +477,7 @@ export default function Game() {
         </div>
         <div className={`flex justify-end mr-10`} id="nextBtn">
           <button
-            className={`bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80`}
+            className={`group bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80`}
             onClick={() => {
               chasing.current = false;
               if (imgRef.current) {
@@ -499,7 +500,8 @@ export default function Game() {
               }
             }}
           >
-            次へ →
+            <span className={`block ${nextButtonHover[0]}`}>次へ →</span>
+            <span className={`hidden ${nextButtonHover[1]}`}>０番へ →</span>
           </button>
         </div>
         <div className={`flex ml-10 ${rotate}`}>
