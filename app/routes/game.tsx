@@ -146,6 +146,25 @@ export default function Game() {
     };
   });
 
+  useEffect(() => {
+  if (stageId !== 26) return;
+  let scrollTimeout: ReturnType<typeof setTimeout>;
+
+  function scrollUp() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1000);
+  }
+  
+  window.addEventListener('scroll', scrollUp);
+  scrollUp();
+
+  return () => {
+    window.removeEventListener('scroll', scrollUp);
+  };
+}, [stageId]);
+
   // 異変の変数
 
   let ExampleButtonFunction: (...args: any[]) => void = () => {}; //二つ目のExampleに含まれているボタンに渡す関数を入れるための変数
@@ -226,22 +245,6 @@ export default function Game() {
   const rotate = stageId === 22 ? "animate-rotate" : "";
 
   if(stageId === 23) return <ImageMultiplicationAnomaly/>;
-
-  if(stageId === 26){
-    let scrollTimeout: ReturnType<typeof setTimeout>;
-
-    function handleScroll() {
-      clearTimeout(scrollTimeout);
-
-      scrollTimeout = setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 1000); 
-    }
-
-    window.addEventListener('scroll', handleScroll);
-
-    handleScroll();
-  }
 
   return (
     <div
