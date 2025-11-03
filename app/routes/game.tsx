@@ -48,9 +48,9 @@ export default function Game() {
   const location = useLocation();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
   const anomalyCount = Number(localStorage.getItem("anomalyCount")); //異変が連続で現れた回数
-  console.log(`anomalycount = ${anomalyCount}`)
-  const stageId = stages[biasedRandom(stages,anomalyCount)].id; // ページの種類のID
-  console.log(stageId);
+  console.log(`anomalycount = ${anomalyCount}`);
+  const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
+  console.log("stageId = " + stageId);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
 
@@ -198,11 +198,9 @@ export default function Game() {
       nextBtn.style.marginBottom = "100px";
 
       const topBtn = document.getElementById("topBtn")!;
-      const parent = topBtn.offsetParent as HTMLElement;
 
       const rect = topBtn.getBoundingClientRect();
-      const parentRect = parent.getBoundingClientRect();
-      const startTop = rect.top - parentRect.top - 100;
+      const startTop = rect.top + window.scrollY;
 
       topBtn.style.position = "absolute";
       topBtn.style.top = `${startTop}px`;
@@ -512,13 +510,13 @@ export default function Game() {
             <span className={`hidden ${nextButtonHover[1]}`}>０番へ →</span>
           </button>
         </div>
-        <div className={`flex ml-10 ${rotate}`}>
+        <div className={`flex ${rotate}`}>
           <button
-            className={`bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10`}
+            className={`bg-[orangered] text-3xl border-2 border-black cursor-pointer whitespace-pre-wrap rounded-full w-18 h-18 fixed bottom-5 left-5`}
             onClick={TopButtonFunction}
             id="topBtn"
           >
-            Topへ戻る
+            ↑
           </button>
         </div>
       </div>
