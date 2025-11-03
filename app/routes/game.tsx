@@ -180,13 +180,17 @@ export default function Game() {
   const backgroundColorSuddenlyToYellow = stageId === 3 ? "bg-[#FFF2B2]" : "";
   const bgColorGraduallyTurningGrey =
     stageId === 4 ? "gradual-grey" : "bg-[#091b0c]";
+
+    let buttonText = "Click me!"
   if (stageId === 5) {
+    buttonText = "Don't Click me!"
     ExampleButtonFunction = (e: React.MouseEvent<HTMLButtonElement>) => {
       const btn = e.currentTarget;
-      btn.classList.add("scale-200", "bg-red-500", "duration-300");
+      btn.classList.add("fullWidthButton");
+      btn.textContent = "Game Over";
       setTimeout(() => {
-        btn.classList.remove("scale-200", "bg-red-500", "duration-300");
-      }, 600);
+        navigate("/");
+      }, 3000);
     };
   }
   const errorMessageShow =
@@ -463,7 +467,7 @@ export default function Game() {
                 className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer ${rotate}`}
                 onClick={ExampleButtonFunction}
               >
-                Click me!
+                {buttonText}
               </button>
             }
             flexboxCollapse={flexboxCollapse}

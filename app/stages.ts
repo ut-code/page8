@@ -96,15 +96,17 @@ export let stages: StageType[] = [
   },
   {
     id: 5,
-    keyword: "ボタンをクリックすると大きくなる",
-    detail: `通常はクリックすると赤くなる仕様になっているボタンが、クリックすると大きくなってしまいます。`,
-    code: `(e)=>{
-    const btn = e.currentTarget;
-    btn.classList.add("scale-200","bg-red-500","duration-300");
-    setTimeout(()=>{
-      btn.classList.remove("scale-200", "bg-red-500","duration-300");
-      },600)
-    }`,
+    keyword: "押してはいけないボタン",
+    detail: `Don't Click me!と書いてあります。押したらゲームオーバー。フリじゃないよ`,
+    code: `buttonText = "Don't Click me!"
+    ExampleButtonFunction = (e: React.MouseEvent<HTMLButtonElement>) => {
+      const btn = e.currentTarget;
+      btn.classList.add("fullWidthButton");
+      btn.textContent = "Game Over";
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    };`,
     image: "",
     state: "isNotEncountered",
     weight: 6,
