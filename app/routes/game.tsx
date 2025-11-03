@@ -1,7 +1,7 @@
 "use client";
 import { createRef, useEffect, type ReactElement, useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { stages } from "~/stages";
+import { stages, type StageType } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
 import { biasedRandom, updateWeight0 } from "~/random";
 import ImageMultiplicationAnomaly from "./imageMultiplicationAnomaly";
@@ -222,10 +222,11 @@ export default function Game() {
   const capitalizeCode = stageId === 17 ? "uppercase" : "";
   const textJavaOrType = stageId === 18 ? "Type" : "Java";
   const programLanguageKind = stageId === 19 ? "Tailwind CSS" : "CSS";
-  const nextButtonHover = stageId === 20 ? ["group-hover:hidden","group-hover:block"] : ["",""];
+  const nextButtonHover =
+    stageId === 20 ? ["group-hover:hidden", "group-hover:block"] : ["", ""];
   const rotate = stageId === 22 ? "animate-rotate" : "";
 
-  if(stageId === 23) return <ImageMultiplicationAnomaly/>;
+  if (stageId === 23) return <ImageMultiplicationAnomaly />;
 
   return (
     <div
@@ -267,8 +268,13 @@ export default function Game() {
                 localStorage.setItem("pageNum", "0");
                 navigate("/game");
               } else {
-                stages.filter((s) => s.id === stageId && s.state !== "isDetected")[0].state = "isDetectedNew";
-                stages.filter((s) => s.id === stageId)[0].weight = 0;
+                const currentAnomaly = stages.find(
+                  (s) => s.id === stageId
+                ) as StageType;
+                if (currentAnomaly.state !== "isDetected") {
+                  currentAnomaly.state = "isDetectedNew";
+                }
+                currentAnomaly.weight = 0;
                 updateWeight0(stages);
                 if (pageNum === 8) {
                   navigate("/end");

@@ -2,7 +2,7 @@
 import { type ReactElement } from "react";
 import { useNavigate } from "react-router";
 import { updateWeight0 } from "~/random";
-import { stages } from "~/stages";
+import { stages, type StageType } from "~/stages";
 
 function Example({
   title,
@@ -58,8 +58,11 @@ export default function EnglishAnomaly() {
       <button
         className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
         onClick={() => {
-          stages.filter((s) => s.id === 11 && s.state !== "isDetected")[0].state = "isDetectedNew";
-          stages.filter((s) => s.id === 11)[0].weight = 0;
+          const currentAnomaly = stages.find((s) => s.id === 11) as StageType;
+          if (currentAnomaly.state !== "isDetected") {
+            currentAnomaly.state = "isDetectedNew";
+          }
+          currentAnomaly.weight = 0;
           updateWeight0(stages);
           if (pageNum === 8) {
             navigate("/end");
