@@ -227,6 +227,22 @@ export default function Game() {
 
   if(stageId === 23) return <ImageMultiplicationAnomaly/>;
 
+  if(stageId === 26){
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+
+    function handleScroll() {
+      clearTimeout(scrollTimeout);
+
+      scrollTimeout = setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 1000); 
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    handleScroll();
+  }
+
   return (
     <div
       key={location.key}

@@ -32,7 +32,8 @@ export let initialWeight = [
   { id: 20, weight: 6 },
   { id: 21, weight: 6 },
   { id: 22, weight: 6 },
-  { id: 23, weight: 6 }
+  { id: 23, weight: 6 },
+  { id: 26, weight: 6 }
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -470,6 +471,27 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
       };
       return <img src="/image.png" style={style} className="w-40 h-20 grayscale" />;
       }`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6
+  },
+  {
+    id: 26,
+    keyword: "勝手にスクロール",
+    detail: `スクロールしないと上に戻されます。`,
+    code: `  let scrollTimeout: ReturnType<typeof setTimeout>;
+
+  function handleScroll() {
+    clearTimeout(scrollTimeout);
+
+    scrollTimeout = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1000); 
+  }
+
+  window.addEventListener('scroll', handleScroll);
+
+  handleScroll();`,
     image: "",
     state: "isNotEncountered",
     weight: 6
