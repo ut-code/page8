@@ -47,7 +47,9 @@ export default function Game() {
   const navigate = useNavigate();
   const location = useLocation();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
-  const stageId = stages[biasedRandom(stages)].id; // ページの種類のID
+  const anomalyCount = Number(localStorage.getItem("anomalyCount")); //異変が連続で現れた回数
+  console.log(`anomalycount = ${anomalyCount}`)
+  const stageId = stages[biasedRandom(stages,anomalyCount)].id; // ページの種類のID
   console.log(stageId);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
