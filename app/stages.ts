@@ -98,11 +98,32 @@ export let stages: StageType[] = [
     id: 5,
     keyword: "押してはいけないボタン",
     detail: `Don't Click me!と書いてあります。押したらゲームオーバー。フリじゃないよ`,
-    code: `buttonText = "Don't Click me!"
+    code: `    buttonText = "Don't Click me!"
     ExampleButtonFunction = (e: React.MouseEvent<HTMLButtonElement>) => {
       const btn = e.currentTarget;
-      btn.classList.add("fullWidthButton");
+      const rect = btn.getBoundingClientRect();
+      const currentTop = rect.top + window.scrollY;
+      const currentLeft = rect.left + window.scrollX;
+
+      btn.style.position = "fixed";
+      btn.style.top = ‘＄{currentTop}px‘;
+      btn.style.left = ‘＄{currentLeft}px‘;
+
+      btn.style.width = ‘＄{rect.width}px‘;
+      btn.style.height = ‘＄{rect.height}px‘;
+
+      btn.style.transition = "all 0.5s ease"
       btn.textContent = "Game Over";
+      setTimeout(() => {
+        btn.style.top = "0px";
+        btn.style.left = "0px";
+        btn.style.width = "100vw";
+        btn.style.height = "100vh";
+        btn.style.backgroundColor = "#8B0000";
+        btn.style.zIndex = "9999";
+        btn.style.fontSize = "3rem";
+        btn.disabled = true;
+      }, 1000)
       setTimeout(() => {
         navigate("/");
       }, 3000);
