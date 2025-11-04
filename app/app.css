@@ -69,17 +69,3 @@ body {
   display: inline-block;
   animation: rotate 2s linear infinite;
 }
-
-.fullWidthButton{
-  position: fixed;  
-  top: 0;           
-  left: 0;          
-  width: 100vw;    
-  height: 100vh;   
-  z-index: 9999; 
-  font-size: 3rem;  
-  display: flex;   
-  align-items: center;
-  justify-content: center;
-  background-color: #b91c1c;
-}
