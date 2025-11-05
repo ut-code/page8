@@ -202,17 +202,18 @@ export default function ImageMultiplicationAnomaly() {
           次へ →
         </button>
       </div>
-      <div className="flex ml-10">
+      <div className={`flex`}>
         <button
-          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
+          className={`bg-[orangered] text-3xl border-2 border-black cursor-pointer whitespace-pre-wrap rounded-full w-18 h-18 fixed bottom-5 left-5`}
           onClick={() => {
             window.scrollTo({
               top: 0,
               behavior: "smooth",
             });
           }}
+          id="topBtn"
         >
-          トップへ戻る
+          ↑
         </button>
       </div>
     </div>

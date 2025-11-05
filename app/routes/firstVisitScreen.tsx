@@ -1,7 +1,5 @@
 "use client";
-import {
-  type ReactElement,
-} from "react";
+import { type ReactElement } from "react";
 import { useNavigate } from "react-router";
 
 function Example({
@@ -37,11 +35,12 @@ export default function Game() {
   const navigate = useNavigate();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
 
-
   return (
     <div className="text-white opacity-0 animate-fadeIn">
-      <div className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8"
-          style={{zIndex: 2}}>
+      <div
+        className="top-0 fixed bg-[#091b0c] border-b-2 border-gray-500 w-full h-20 flex items-center justify-between px-8"
+        style={{ zIndex: 2 }}
+      >
         <span>
           <span className="text-6xl text-yellow-400">{pageNum}. </span>
           <span className={"text-4xl"}>ようこそ</span>
@@ -158,17 +157,18 @@ export default function Game() {
           次へ →
         </button>
       </div>
-        <div className="flex ml-10">
+      <div className={`flex`}>
         <button
-          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
+          className={`bg-[orangered] text-3xl border-2 border-black cursor-pointer whitespace-pre-wrap rounded-full w-18 h-218 fixed bottom-5 left-5`}
           onClick={() => {
             window.scrollTo({
               top: 0,
               behavior: "smooth",
-            })
+            });
           }}
+          id="topBtn"
         >
-          Topへ戻る
+          ↑
         </button>
       </div>
     </div>
