@@ -159,7 +159,7 @@ export default function Game() {
       </div>
       <div className={`flex`}>
         <button
-          className={`bg-[orangered] text-3xl border-2 border-black cursor-pointer whitespace-pre-wrap rounded-full w-18 h-218 fixed bottom-5 left-5`}
+          className={`bg-[orangered] text-3xl border-2 border-black cursor-pointer whitespace-pre-wrap rounded-full w-18 h-18 fixed bottom-5 left-5`}
           onClick={() => {
             window.scrollTo({
               top: 0,
