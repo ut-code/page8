@@ -36,7 +36,8 @@ export let initialWeight = [
   { id: 24, weight: 6 },
   { id: 25, weight: 6 },
   { id: 28, weight: 3 },
-  { id: 29, weight: 3 }
+  { id: 29, weight: 3 },
+  { id: 31, weight: 6 },
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -510,7 +511,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
 `,
     image: "",
     state: "isNotEncountered",
-    weight: 6
+    weight: 6,
   },
   {
     id: 28,
@@ -525,7 +526,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
 `,
     image: "",
     state: "isNotEncountered",
-    weight: 3
+    weight: 3,
   },
   {
     id: 29,
@@ -539,6 +540,29 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
 `,
     image: "",
     state: "isNotEncountered",
-    weight: 3
+    weight: 3,
+  },
+  {
+    id: 31,
+    keyword: "画面が割れる",
+    detail: `画面にいきなりヒビが入ります。`,
+    code: `          <img
+            src="/crack.png"
+            style={{
+              position: "fixed",
+              top: "40%",
+              left: "40%",
+              transform: "translate(-50%, -50%)",
+              height: "500px",
+              width: "700px",
+              display: \`\${crackShow[0]}\`,
+              pointerEvents: "none",
+              zIndex: "5",
+            }}
+            className={\`\${crackShow[1]}\`}
+          />`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 3,
   },
 ];
