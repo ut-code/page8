@@ -56,6 +56,14 @@ body {
   animation: fadeIn 3s ease forwards;
 }
 
+.secret {
+  color: transparent;
+}
+
+.secret::selection {
+  color: red; /* 範囲選択時に表示される色 */
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
