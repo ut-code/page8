@@ -328,7 +328,6 @@ export default function End() {
 
   const startTime = parseInt(localStorage.getItem("startTime")!);
   const endTime = new Date().getTime();
-  console.log(endTime);
   const clearTime = Math.round((endTime-startTime)/1000);
 
   return (

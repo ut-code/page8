@@ -22,7 +22,10 @@ export default function AdvertisementAnomaly(){
             </h2>
             <button 
               className="mt-8 ml-40 bg-[orangered] text-2xl text-black p-3 border-2 border-black cursor-pointer mb-10"
-              onClick={() => navigate("/")}
+              onClick={() => {
+                localStorage.setItem("pageNum", "0");
+                navigate("/game");
+              }}
             >
               オワリハコチラ
             </button>

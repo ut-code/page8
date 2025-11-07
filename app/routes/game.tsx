@@ -200,7 +200,7 @@ export default function Game() {
       btn.style.height = `${rect.height}px`;
 
       btn.style.transition = "all 0.5s ease"
-      btn.textContent = "Game Over";
+      btn.textContent = "I told you not to press!";
       setTimeout(() => {
         btn.style.top = `0px`;
         btn.style.left = `0px`;
@@ -212,7 +212,8 @@ export default function Game() {
         btn.disabled = true;
       }, 1000)
       setTimeout(() => {
-        navigate("/");
+        localStorage.setItem("pageNum", "0");
+        navigate("/game");
       }, 3000);
     };
   }

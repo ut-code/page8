@@ -104,7 +104,6 @@ export default function Home() {
           }}
           onClick={() => {
             const startTime = new Date().getTime().toString();
-            console.log(startTime);
             localStorage.setItem("startTime", startTime);
             localStorage.setItem("pageNum", "0");
             stages.forEach((stage) => {
