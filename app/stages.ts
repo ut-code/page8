@@ -34,6 +34,7 @@ export let initialWeight = [
   { id: 22, weight: 6 },
   { id: 23, weight: 6 },
   { id: 24, weight: 6 },
+  { id: 25, weight: 6 },
   { id: 28, weight: 3 },
   { id: 29, weight: 3 }
 ]; //重み係数の初期値保存用
@@ -475,7 +476,16 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
       }`,
     image: "",
     state: "isNotEncountered",
-    weight: 6
+    weight: 6,
+  },
+  {
+    id: 25,
+    keyword: "偽ゴール",
+    detail: `8番でないのにゴールに行けると言ってきます。`,
+    code: `if (stageId === 25) return <FakeEnd />;`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6,
   },
   {
     id: 24,

@@ -77,3 +77,38 @@ body {
   display: inline-block;
   animation: rotate 2s linear infinite;
 }
+
+.speechBubble {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 24px 16px;
+  border: 2px solid #000000;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #000000;
+}
+
+.speechBubble::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  border-style: solid;
+  border-width: 20px 10px 0 10px;
+  border-color: #000000 transparent transparent;
+  translate: -50% 100%;
+}
+
+.speechBubble::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  border-style: solid;
+  border-width: 15.5px 7.8px 0 7.8px;
+  border-color: #ffffff transparent transparent;
+  translate: -50% 100%;
+}

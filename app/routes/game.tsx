@@ -5,6 +5,7 @@ import { stages, type StageType } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
 import { biasedRandom, updateWeight0 } from "~/random";
 import ImageMultiplicationAnomaly from "./imageMultiplicationAnomaly";
+import FakeEnd from "./fakeEnd";
 
 function Example({
   title,
@@ -230,12 +231,11 @@ export default function Game() {
   const nextButtonHover =
     stageId === 20 ? ["group-hover:hidden", "group-hover:block"] : ["", ""];
   const rotate = stageId === 22 ? "animate-rotate" : "";
-
   if (stageId === 23) return <ImageMultiplicationAnomaly />;
   const hiddenSentence = stageId === 24 ? ["—— ■■■■■ ——\n■■ : ■■ ■■■■■://■■■■■.■■■■■■.■■■\n■■■■■■■■■■\n■■■■■■■■■■■■■■■■■■",
   "■■■■ !\n■■■■■■■■■,\n■■■■ ↓\n■■\\■■■■■\\■■■■■\\■■■■■■■■■\n\\■■■■■■■■■.■■■■■■■■■■■■.■■■",
   "■■q■■■j■■\n■■■■■rr■■■■■■w■■v■■■\n▤▦■■■▧■☒■■■■\n■▦■■i■◪■■■■◩▩■■■□c■■■n■?\n>■■ -■■ ■"] : ["","",""];
-
+  if (stageId === 25) return <FakeEnd />;
   const buttonHoverMouseShape = stageId === 28 ? "not-allowed" : "pointer" ;
   if(stageId === 28){
     ExampleButtonFunction = () => {
@@ -251,7 +251,6 @@ export default function Game() {
       navigate("/game");
     }
   }
-
   const imageScale = stageId === 29 ? "scale-[10] duration-[60000ms]" : "" ;
 
   return (
