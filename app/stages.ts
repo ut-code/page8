@@ -32,7 +32,8 @@ export let initialWeight = [
   { id: 20, weight: 6 },
   { id: 21, weight: 6 },
   { id: 22, weight: 6 },
-  { id: 23, weight: 6 }
+  { id: 23, weight: 6 },
+  { id: 24, weight: 6 }
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -470,6 +471,31 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
       };
       return <img src="/image.png" style={style} className="w-40 h-20 grayscale" />;
       }`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6
+  },
+  {
+    id: 24,
+    keyword: "謎の文字列が隠れている",
+    detail: `選択すると謎の文字列が現れます。`,
+    code: `
+    -index.html-
+    <p className="secret whitespace-pre">
+    —— ■■■■■ ——
+    ■■ : ■■ ■■■■■://■■■■■.■■■■■■.■■■
+    ■■■■■■■■■■
+    ■■■■■■■■■■■■■■■■■■</p>
+    
+    -style.css-
+    .secret {
+      color: transparent;
+    }
+
+    .secret::selection {
+      color: red; /* 範囲選択時に表示される色 */
+    }
+`,
     image: "",
     state: "isNotEncountered",
     weight: 6

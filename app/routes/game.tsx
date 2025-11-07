@@ -9,6 +9,7 @@ import ImageMultiplicationAnomaly from "./imageMultiplicationAnomaly";
 function Example({
   title,
   description,
+  hiddenDescription,
   code,
   element,
   flexboxCollapse,
@@ -16,6 +17,7 @@ function Example({
 }: {
   title: string;
   description: string;
+  hiddenDescription:string;
   code: string;
   element: ReactElement;
   flexboxCollapse: string[];
@@ -25,7 +27,10 @@ function Example({
     <div className={`mt-5 mb-5 ml-20 mr-20`}>
       <div className={`text-2xl underline`}>{title}</div>
       <div className={`flex h-70`}>
-        <span className={`w-1/2 m-4`}>{description}</span>
+        <span className={`w-1/2 m-4`}>
+         <p>{description}</p>
+         <p className="secret whitespace-pre">{hiddenDescription}</p>
+        </span>
         <span className={`w-1/2 flex flex-col`}>
           <code
             className={`whitespace-pre-wrap p-4 bg-neutral-900 border border-gray-600 rounded-lg h-2/3 m-2 text-[0.8rem] ${capitalizeCode}`}
@@ -227,6 +232,9 @@ export default function Game() {
   const rotate = stageId === 22 ? "animate-rotate" : "";
 
   if (stageId === 23) return <ImageMultiplicationAnomaly />;
+  const hiddenSentence = stageId === 24 ? ["—— ■■■■■ ——\n■■ : ■■ ■■■■■://■■■■■.■■■■■■.■■■\n■■■■■■■■■■\n■■■■■■■■■■■■■■■■■■",
+  "■■■■ !\n■■■■■■■■■,\n■■■■ ↓\n■■\\■■■■■\\■■■■■\\■■■■■■■■■\n\\■■■■■■■■■.■■■■■■■■■■■■.■■■",
+  "■■q■■■j■■\n■■■■■rr■■■■■■w■■v■■■\n▤▦■■■▧■☒■■■■\n■▦■■i■◪■■■■◩▩■■■□c■■■n■?\n>■■ -■■ ■"] : ["","",""];
 
   return (
     <div
@@ -418,6 +426,7 @@ export default function Game() {
           <Example
             title="1. 文字のカスタマイズ"
             description="右の例では、colorという属性で文字色を、font-sizeという属性で文字の大きさを、font-weightという属性で文字の太さを指定しています。他にも、下線を引いたり、フォントを変えたりすることが可能です。"
+            hiddenDescription={hiddenSentence[0]}
             code={(() => {
               if (programLanguageKind === "CSS") {
                 return ".text {\n  color: blue;\n  font-size: 60px;\n  font-weight: 800;\n}";
@@ -438,6 +447,7 @@ export default function Game() {
           <Example
             title="2. ボタンのカスタマイズ"
             description="右の例では、borderで枠線を、box-shadowで影を表現しています。また、.button:activeと書かれた方には、ボタンが押されたときのスタイルを記述できます。ここでは、background-colorでボタンを赤くし、box-shadowにnone(何も無いこと)を指定して影を消しています。"
+            hiddenDescription={hiddenSentence[1]}
             code={(() => {
               if (programLanguageKind === "CSS") {
                 return ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}";
@@ -459,6 +469,7 @@ export default function Game() {
           <Example
             title="3. 画像のカスタマイズ"
             description="右の例では、widthとheightで画像の大きさを、transformで角度を指定し、filterで画像を白黒にしています。"
+            hiddenDescription={hiddenSentence[2]}
             code={(() => {
               if (programLanguageKind === "CSS") {
                 return ".img {\n  width: 200px;\n  height: 100px;\n  transform: rotate(6deg);\n  filter: grayscale(100%);\n}";
