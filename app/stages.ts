@@ -36,7 +36,7 @@ export let initialWeight = [
   { id: 24, weight: 6 },
   { id: 25, weight: 6 },
   { id: 26, weight: 6 },
-  { id: 27, weight: 6 }
+  { id: 27, weight: 6 },
   { id: 28, weight: 3 },
   { id: 29, weight: 3 }
 ]; //重み係数の初期値保存用
