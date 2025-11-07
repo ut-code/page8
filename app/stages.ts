@@ -33,7 +33,8 @@ export let initialWeight = [
   { id: 21, weight: 6 },
   { id: 22, weight: 6 },
   { id: 23, weight: 6 },
-  { id: 26, weight: 6 }
+  { id: 26, weight: 6 },
+  { id: 27, weight: 6 }
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -519,4 +520,13 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     state: "isNotEncountered",
     weight: 6
   },
+  {
+    id: 27,
+    keyword: "怖い広告",
+    detail: `ut.code();の広告が怖くなっています。`,
+    code: ``,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6
+  }
 ];

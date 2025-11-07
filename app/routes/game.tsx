@@ -270,6 +270,10 @@ export default function Game() {
   const programLanguageKind = stageId === 19 ? "Tailwind CSS" : "CSS";
   const nextButtonHover = stageId === 20 ? ["group-hover:hidden","group-hover:block"] : ["",""];
   const rotate = stageId === 22 ? "animate-rotate" : "";
+  let ad = <Advertisement/>;
+  if(stageId === 27){
+    ad = <AdvertisementAnomaly/>;
+  }
 
   if(stageId === 23) return <ImageMultiplicationAnomaly/>;
 
@@ -550,9 +554,8 @@ export default function Game() {
             <span className={`hidden ${nextButtonHover[1]}`}>０番へ →</span>
           </button>
         </div>
-
-        <Advertisement />
-        <AdvertisementAnomaly />
+        
+        { ad }
 
         <div className={`flex ml-10 ${rotate}`}>
           <button
