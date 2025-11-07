@@ -34,7 +34,8 @@ export let initialWeight = [
   { id: 22, weight: 6 },
   { id: 23, weight: 6 },
   { id: 24, weight: 6 },
-  { id: 28, weight: 3 }
+  { id: 28, weight: 3 },
+  { id: 29, weight: 3 }
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -511,6 +512,20 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     >
       Click me!
     </button>
+`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 3
+  },
+  {
+    id: 29,
+    keyword: "画像がどんどんおおきくなる",
+    detail: `画像が徐々に大きくなっていきます。`,
+    code: `
+    <img
+      src="/image.png"
+      className={"scale-[10] duration-[60000ms]"}
+    ></img>
 `,
     image: "",
     state: "isNotEncountered",

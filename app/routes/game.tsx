@@ -252,6 +252,8 @@ export default function Game() {
     }
   }
 
+  const imageScale = stageId === 29 ? "scale-[10] duration-[60000ms]" : "" ;
+
   return (
     <div
       key={location.key}
@@ -497,7 +499,7 @@ export default function Game() {
               <img
                 ref={imgRef}
                 src="/image.png"
-                className={`w-40 h-20 ${irasutoyaImageAngular} grayscale absolute ${rotate}`}
+                className={`w-40 h-20 ${irasutoyaImageAngular} grayscale absolute ${rotate} ${imageScale}`}
                 style={{
                   zIndex: "1",
                   pointerEvents: "none",
