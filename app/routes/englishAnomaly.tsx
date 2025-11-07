@@ -160,7 +160,7 @@ export default function EnglishAnomaly() {
       </div>
       <div className="flex justify-end mr-10">
         <button
-          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
+          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-20"
           onClick={() => {
             stages.filter((s) => s.id === 11)[0].state = "isNotDetected";
             localStorage.setItem("pageNum", "0");
@@ -170,6 +170,28 @@ export default function EnglishAnomaly() {
           Next →
         </button>
       </div>
+
+        <div className="mb-20 mx-auto w-[900px] h-[255px] bg-gray-100 text-black rounded-md flex">
+          <div className="my-auto w-[450px] h-[250px] relative group">
+            <img
+              src="/adPicture.webp"
+              className="w-100 h-full rounded-md absolute top-0 left-0"
+            />
+          </div>
+          <div className="my-auto w-[450px] h-[250px]">
+            <h1 className="pt-2 pl-4 text-2xl">Coding the Future, Powered by Students</h1>
+            <h2 className="pt-6 pr-4">
+              A student-driven dev community: 
+              Learn by building real apps and services, from tutorials to hackathons.
+            </h2>
+            <a href="https://utcode.net/" target="_blank">
+              <button className="mt-8 ml-40 bg-[orangered] text-2xl text-black p-3 border-2 border-black cursor-pointer mb-10">
+                Details
+              </button>
+            </a>
+          </div>
+        </div>
+
       <div className="flex ml-10">
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"

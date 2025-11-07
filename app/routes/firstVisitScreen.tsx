@@ -3,6 +3,7 @@ import {
   type ReactElement,
 } from "react";
 import { useNavigate } from "react-router";
+import Advertisement from "./advertisement";
 
 function Example({
   title,
@@ -149,7 +150,7 @@ export default function Game() {
       </div>
       <div className="flex justify-end mr-10">
         <button
-          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
+          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-20"
           onClick={() => {
             localStorage.setItem("pageNum", `${pageNum + 1}`);
             navigate("/game");
@@ -158,6 +159,9 @@ export default function Game() {
           次へ →
         </button>
       </div>
+
+      <Advertisement/>
+      
         <div className="flex ml-10">
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"

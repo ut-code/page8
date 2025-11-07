@@ -3,6 +3,7 @@ import { type ReactElement } from "react";
 import { useNavigate } from "react-router";
 import { updateWeight0 } from "~/random";
 import { stages } from "~/stages";
+import Advertisement from "./advertisement";
 
 function Example({
   title,
@@ -157,7 +158,7 @@ export default function Game() {
       </div>
       <div className="flex justify-end mr-10">
         <button
-          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80"
+          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-20"
           onClick={() => {
             stages.filter((s) => s.id === 15)[0].state = "isNotDetected";
             localStorage.setItem("pageNum", "0");
@@ -167,6 +168,9 @@ export default function Game() {
           次へ →
         </button>
       </div>
+
+      <Advertisement />
+      
       <div className="flex ml-10">
         <button
           className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
