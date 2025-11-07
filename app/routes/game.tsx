@@ -236,6 +236,22 @@ export default function Game() {
   "■■■■ !\n■■■■■■■■■,\n■■■■ ↓\n■■\\■■■■■\\■■■■■\\■■■■■■■■■\n\\■■■■■■■■■.■■■■■■■■■■■■.■■■",
   "■■q■■■j■■\n■■■■■rr■■■■■■w■■v■■■\n▤▦■■■▧■☒■■■■\n■▦■■i■◪■■■■◩▩■■■□c■■■n■?\n>■■ -■■ ■"] : ["","",""];
 
+  const buttonHoverMouseShape = stageId === 28 ? "not-allowed" : "pointer" ;
+  if(stageId === 28){
+    ExampleButtonFunction = () => {
+      chasing.current = false;
+      if (imgRef.current) {
+        imgRef.current.style.position = "";
+        imgRef.current.style.left = "";
+        imgRef.current.style.top = "";
+      }
+      stages.filter((s) => s.id === stageId)[0].state =
+        "isNotDetected";
+      localStorage.setItem("pageNum", "0");
+      navigate("/game");
+    }
+  }
+
   return (
     <div
       key={location.key}
@@ -457,7 +473,7 @@ export default function Game() {
             })()}
             element={
               <button
-                className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer ${rotate}`}
+                className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-${buttonHoverMouseShape} ${rotate}`}
                 onClick={ExampleButtonFunction}
               >
                 Click me!

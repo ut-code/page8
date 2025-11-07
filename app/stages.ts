@@ -33,7 +33,8 @@ export let initialWeight = [
   { id: 21, weight: 6 },
   { id: 22, weight: 6 },
   { id: 23, weight: 6 },
-  { id: 24, weight: 6 }
+  { id: 24, weight: 6 },
+  { id: 28, weight: 3 }
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -499,5 +500,20 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     image: "",
     state: "isNotEncountered",
     weight: 6
+  },
+  {
+    id: 28,
+    keyword: "マウスカーソルの形が変わる",
+    detail: `ボタンにマウスカーソルを合わせるとカーソルの形状が禁止の形になります`,
+    code: `
+    <button
+      className={"cursor-not-allowed"}
+    >
+      Click me!
+    </button>
+`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 3
   },
 ];
