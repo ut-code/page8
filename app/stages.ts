@@ -566,7 +566,8 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     image: "",
     state: "isNotEncountered",
     weight: 6
-  }
+  },
+  {
     id: 28,
     keyword: "マウスカーソルの形が変わる",
     detail: `ボタンにマウスカーソルを合わせるとカーソルの形状が禁止の形になります`,
