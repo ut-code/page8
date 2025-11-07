@@ -33,8 +33,12 @@ export let initialWeight = [
   { id: 21, weight: 6 },
   { id: 22, weight: 6 },
   { id: 23, weight: 6 },
+  { id: 24, weight: 6 },
+  { id: 25, weight: 6 },
   { id: 26, weight: 6 },
   { id: 27, weight: 6 }
+  { id: 28, weight: 3 },
+  { id: 29, weight: 3 }
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -497,7 +501,41 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
       }`,
     image: "",
     state: "isNotEncountered",
+    weight: 6,
+  },
+  {
+    id: 24,
+    keyword: "謎の文字列が隠れている",
+    detail: `選択すると謎の文字列が現れます。`,
+    code: `
+    -index.html-
+    <p className="secret whitespace-pre">
+    —— ■■■■■ ——
+    ■■ : ■■ ■■■■■://■■■■■.■■■■■■.■■■
+    ■■■■■■■■■■
+    ■■■■■■■■■■■■■■■■■■</p>
+    
+    -style.css-
+    .secret {
+      color: transparent;
+    }
+
+    .secret::selection {
+      color: red; /* 範囲選択時に表示される色 */
+    }
+`,
+    image: "",
+    state: "isNotEncountered",
     weight: 6
+  },
+　{
+    id: 25,
+    keyword: "偽ゴール",
+    detail: `8番でないのにゴールに行けると言ってきます。`,
+    code: `if (stageId === 25) return <FakeEnd />;`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6,
   },
   {
     id: 26,
@@ -529,4 +567,32 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     state: "isNotEncountered",
     weight: 6
   }
+    id: 28,
+    keyword: "マウスカーソルの形が変わる",
+    detail: `ボタンにマウスカーソルを合わせるとカーソルの形状が禁止の形になります`,
+    code: `
+    <button
+      className={"cursor-not-allowed"}
+    >
+      Click me!
+    </button>
+`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 3
+  },
+  {
+    id: 29,
+    keyword: "画像がどんどんおおきくなる",
+    detail: `画像が徐々に大きくなっていきます。`,
+    code: `
+    <img
+      src="/image.png"
+      className={"scale-[10] duration-[60000ms]"}
+    ></img>
+`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 3
+  },
 ];

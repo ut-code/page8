@@ -1,16 +1,18 @@
 "use client";
 import { createRef, useEffect, type ReactElement, useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { stages } from "~/stages";
+import { stages, type StageType } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
 import { biasedRandom, updateWeight0 } from "~/random";
 import ImageMultiplicationAnomaly from "./imageMultiplicationAnomaly";
 import Advertisement from "./advertisement";
 import AdvertisementAnomaly from "./advertisementAnomaly";
+import FakeEnd from "./fakeEnd";
 
 function Example({
   title,
   description,
+  hiddenDescription,
   code,
   element,
   flexboxCollapse,
@@ -18,6 +20,7 @@ function Example({
 }: {
   title: string;
   description: string;
+  hiddenDescription:string;
   code: string;
   element: ReactElement;
   flexboxCollapse: string[];
@@ -27,7 +30,10 @@ function Example({
     <div className={`mt-5 mb-5 ml-20 mr-20`}>
       <div className={`text-2xl underline`}>{title}</div>
       <div className={`flex h-70`}>
-        <span className={`w-1/2 m-4`}>{description}</span>
+        <span className={`w-1/2 m-4`}>
+         <p>{description}</p>
+         <p className="secret whitespace-pre">{hiddenDescription}</p>
+        </span>
         <span className={`w-1/2 flex flex-col`}>
           <code
             className={`whitespace-pre-wrap p-4 bg-neutral-900 border border-gray-600 rounded-lg h-2/3 m-2 text-[0.8rem] ${capitalizeCode}`}
@@ -49,8 +55,10 @@ export default function Game() {
   const navigate = useNavigate();
   const location = useLocation();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
-  const stageId = stages[biasedRandom(stages)].id; // ページの種類のID
-  console.log(stageId);
+  const anomalyCount = Number(localStorage.getItem("anomalyCount")); //異変が連続で現れた回数
+  console.log(`anomalycount = ${anomalyCount}`);
+  const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
+  console.log("stageId = " + stageId);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
 
@@ -243,11 +251,9 @@ export default function Game() {
       nextBtn.style.marginBottom = "100px";
 
       const topBtn = document.getElementById("topBtn")!;
-      const parent = topBtn.offsetParent as HTMLElement;
 
       const rect = topBtn.getBoundingClientRect();
-      const parentRect = parent.getBoundingClientRect();
-      const startTop = rect.top - parentRect.top - 100;
+      const startTop = rect.top + window.scrollY;
 
       topBtn.style.position = "absolute";
       topBtn.style.top = `${startTop}px`;
@@ -269,14 +275,34 @@ export default function Game() {
   const capitalizeCode = stageId === 17 ? "uppercase" : "";
   const textJavaOrType = stageId === 18 ? "Type" : "Java";
   const programLanguageKind = stageId === 19 ? "Tailwind CSS" : "CSS";
-  const nextButtonHover = stageId === 20 ? ["group-hover:hidden","group-hover:block"] : ["",""];
+  const nextButtonHover =
+    stageId === 20 ? ["group-hover:hidden", "group-hover:block"] : ["", ""];
   const rotate = stageId === 22 ? "animate-rotate" : "";
+  if (stageId === 23) return <ImageMultiplicationAnomaly />;
+  const hiddenSentence = stageId === 24 ? ["—— ■■■■■ ——\n■■ : ■■ ■■■■■://■■■■■.■■■■■■.■■■\n■■■■■■■■■■\n■■■■■■■■■■■■■■■■■■",
+  "■■■■ !\n■■■■■■■■■,\n■■■■ ↓\n■■\\■■■■■\\■■■■■\\■■■■■■■■■\n\\■■■■■■■■■.■■■■■■■■■■■■.■■■",
+  "■■q■■■j■■\n■■■■■rr■■■■■■w■■v■■■\n▤▦■■■▧■☒■■■■\n■▦■■i■◪■■■■◩▩■■■□c■■■n■?\n>■■ -■■ ■"] : ["","",""];
+  if (stageId === 25) return <FakeEnd />;
   let ad = <Advertisement/>;
   if(stageId === 27){
     ad = <AdvertisementAnomaly/>;
   }
-
-  if(stageId === 23) return <ImageMultiplicationAnomaly/>;
+  const buttonHoverMouseShape = stageId === 28 ? "not-allowed" : "pointer" ;
+  if(stageId === 28){
+    ExampleButtonFunction = () => {
+      chasing.current = false;
+      if (imgRef.current) {
+        imgRef.current.style.position = "";
+        imgRef.current.style.left = "";
+        imgRef.current.style.top = "";
+      }
+      stages.filter((s) => s.id === stageId)[0].state =
+        "isNotDetected";
+      localStorage.setItem("pageNum", "0");
+      navigate("/game");
+    }
+  }
+  const imageScale = stageId === 29 ? "scale-[10] duration-[60000ms]" : "" ;
 
   return (
     <div
@@ -318,8 +344,13 @@ export default function Game() {
                 localStorage.setItem("pageNum", "0");
                 navigate("/game");
               } else {
-                stages.filter((s) => s.id === stageId && s.state !== "isDetected")[0].state = "isDetectedNew";
-                stages.filter((s) => s.id === stageId)[0].weight = 0;
+                const currentAnomaly = stages.find(
+                  (s) => s.id === stageId
+                ) as StageType;
+                if (currentAnomaly.state !== "isDetected") {
+                  currentAnomaly.state = "isDetectedNew";
+                }
+                currentAnomaly.weight = 0;
                 updateWeight0(stages);
                 if (pageNum === 8) {
                   navigate("/end");
@@ -463,6 +494,7 @@ export default function Game() {
           <Example
             title="1. 文字のカスタマイズ"
             description="右の例では、colorという属性で文字色を、font-sizeという属性で文字の大きさを、font-weightという属性で文字の太さを指定しています。他にも、下線を引いたり、フォントを変えたりすることが可能です。"
+            hiddenDescription={hiddenSentence[0]}
             code={(() => {
               if (programLanguageKind === "CSS") {
                 return ".text {\n  color: blue;\n  font-size: 60px;\n  font-weight: 800;\n}";
@@ -483,6 +515,7 @@ export default function Game() {
           <Example
             title="2. ボタンのカスタマイズ"
             description="右の例では、borderで枠線を、box-shadowで影を表現しています。また、.button:activeと書かれた方には、ボタンが押されたときのスタイルを記述できます。ここでは、background-colorでボタンを赤くし、box-shadowにnone(何も無いこと)を指定して影を消しています。"
+            hiddenDescription={hiddenSentence[1]}
             code={(() => {
               if (programLanguageKind === "CSS") {
                 return ".button {\n  border: 2px solid black;\n  box-shadow: 2px 2px 5px;\n}\n.button:active {\n  background-color: red;\n  box-shadow: none;\n}";
@@ -492,7 +525,7 @@ export default function Game() {
             })()}
             element={
               <button
-                className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-pointer ${rotate}`}
+                className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-${buttonHoverMouseShape} ${rotate}`}
                 onClick={ExampleButtonFunction}
               >
                 {buttonText}
@@ -504,6 +537,7 @@ export default function Game() {
           <Example
             title="3. 画像のカスタマイズ"
             description="右の例では、widthとheightで画像の大きさを、transformで角度を指定し、filterで画像を白黒にしています。"
+            hiddenDescription={hiddenSentence[2]}
             code={(() => {
               if (programLanguageKind === "CSS") {
                 return ".img {\n  width: 200px;\n  height: 100px;\n  transform: rotate(6deg);\n  filter: grayscale(100%);\n}";
@@ -515,7 +549,7 @@ export default function Game() {
               <img
                 ref={imgRef}
                 src="/image.png"
-                className={`w-40 h-20 ${irasutoyaImageAngular} grayscale absolute ${rotate}`}
+                className={`w-40 h-20 ${irasutoyaImageAngular} grayscale absolute ${rotate} ${imageScale}`}
                 style={{
                   zIndex: "1",
                   pointerEvents: "none",
@@ -558,13 +592,13 @@ export default function Game() {
         
         { ad }
 
-        <div className={`flex ml-10 ${rotate}`}>
+        <div className={`flex ${rotate}`}>
           <button
-            className={`bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10`}
+            className={`bg-[orangered] text-3xl border-2 border-black cursor-pointer whitespace-pre-wrap rounded-full w-18 h-18 fixed bottom-5 left-5`}
             onClick={TopButtonFunction}
             id="topBtn"
           >
-            Topへ戻る
+            ↑
           </button>
         </div>
       </div>

@@ -2,8 +2,8 @@
 import { type ReactElement } from "react";
 import { useNavigate } from "react-router";
 import { updateWeight0 } from "~/random";
-import { stages } from "~/stages";
 import Advertisement from "./advertisement";
+import { stages, type StageType } from "~/stages";
 
 function Example({
   title,
@@ -59,8 +59,11 @@ export default function Game() {
       <button
         className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
         onClick={() => {
-          stages.filter((s) => s.id === 15 && s.state !== "isDetected")[0].state = "isDetectedNew";
-          stages.filter((s) => s.id === 15)[0].weight = 0;
+          const currentAnomaly = stages.find((s) => s.id === 15) as StageType;
+          if (currentAnomaly.state !== "isDetected") {
+            currentAnomaly.state = "isDetectedNew";
+          }
+          currentAnomaly.weight = 0;
           updateWeight0(stages);
           if (pageNum === 8) {
             navigate("/end");
@@ -170,18 +173,19 @@ export default function Game() {
       </div>
 
       <Advertisement />
-      
-      <div className="flex ml-10">
+
+      <div className={`flex`}>
         <button
-          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
+          className={`bg-[orangered] text-3xl border-2 border-black cursor-pointer whitespace-pre-wrap rounded-full w-18 h-18 fixed bottom-5 left-5`}
           onClick={() => {
             window.scrollTo({
               top: 0,
               behavior: "smooth",
             });
           }}
+          id="topBtn"
         >
-          Topへ戻る
+          ↑
         </button>
       </div>
     </div>

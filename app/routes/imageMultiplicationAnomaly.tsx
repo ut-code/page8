@@ -2,8 +2,8 @@
 import { type CSSProperties, type ReactElement } from "react";
 import { useNavigate } from "react-router";
 import { updateWeight0 } from "~/random";
-import { stages } from "~/stages";
 import Advertisement from "./advertisement";
+import { stages, type StageType } from "~/stages";
 
 function Example({
   title,
@@ -38,32 +38,33 @@ function Irasutoya({
   top,
   left,
   rotationAngle,
-  scale}:{
-    top: number;
-    left: number;
-    rotationAngle: number;
-    scale: number;
-  }){
-    const style: CSSProperties = {
-    position: 'absolute',
+  scale,
+}: {
+  top: number;
+  left: number;
+  rotationAngle: number;
+  scale: number;
+}) {
+  const style: CSSProperties = {
+    position: "absolute",
     top: top,
     left: left,
     transform: `rotate(${rotationAngle}deg) scale(${scale})`,
-    zIndex: 0
+    zIndex: 0,
   };
   return <img src="/image.png" style={style} className="w-40 h-20 grayscale" />;
-  }
+}
 
 export default function ImageMultiplicationAnomaly() {
   const navigate = useNavigate();
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
-  
+
   const irasutoyaData = Array.from({ length: 50 }, () => ({
     top: Math.random() * 1700,
     left: Math.random() * 810,
     rotationAngle: Math.random() * 360,
     scale: 0.5 + Math.random() * 1,
-  }));//いらすとやに対する乱数列
+  })); //いらすとやに対する乱数列
 
   return (
     <div className="text-white opacity-0 animate-fadeIn">
@@ -86,8 +87,11 @@ export default function ImageMultiplicationAnomaly() {
       <button
         className="bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer"
         onClick={() => {
-          stages.filter((s) => s.id === 23 && s.state !== "isDetected")[0].state = "isDetectedNew";
-          stages.filter((s) => s.id === 23)[0].weight = 0;
+          const currentAnomaly = stages.find((s) => s.id === 23) as StageType;
+          if (currentAnomaly.state !== "isDetected") {
+            currentAnomaly.state = "isDetectedNew";
+          }
+          currentAnomaly.weight = 0;
           updateWeight0(stages);
           if (pageNum === 8) {
             navigate("/end");
@@ -99,7 +103,8 @@ export default function ImageMultiplicationAnomaly() {
       >
         ← 戻る
       </button>
-      <div className="w-4/5 ml-auto mr-auto relative">{/*いらすとやに対する親*/}
+      <div className="w-4/5 ml-auto mr-auto relative">
+        {/*いらすとやに対する親*/}
         {irasutoyaData.map((data, index) => (
           <Irasutoya key={index} {...data} />
         ))}
@@ -119,9 +124,7 @@ export default function ImageMultiplicationAnomaly() {
             <li className="p-4 border border-gray-600 rounded-lg">
               <dl>
                 <dt className="font-bold text-2xl text-[orangered]">HTML</dt>
-                <dd className="mt-1 text-lg">
-                  ウェブページの骨格を作る言語。
-                </dd>
+                <dd className="mt-1 text-lg">ウェブページの骨格を作る言語。</dd>
               </dl>
             </li>
             <li className="p-4 border border-gray-600 rounded-lg">
@@ -202,17 +205,19 @@ export default function ImageMultiplicationAnomaly() {
       </div>
 
       <Advertisement/>
-      <div className="flex ml-10">
+
+      <div className={`flex`}>
         <button
-          className="bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-10"
+          className={`bg-[orangered] text-3xl border-2 border-black cursor-pointer whitespace-pre-wrap rounded-full w-18 h-18 fixed bottom-5 left-5`}
           onClick={() => {
             window.scrollTo({
               top: 0,
               behavior: "smooth",
             });
           }}
+          id="topBtn"
         >
-          トップへ戻る
+          ↑
         </button>
       </div>
     </div>
