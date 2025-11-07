@@ -5,6 +5,7 @@ import { stages, type StageType } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
 import { biasedRandom, updateWeight0 } from "~/random";
 import ImageMultiplicationAnomaly from "./imageMultiplicationAnomaly";
+import FakeEnd from "./fakeEnd";
 
 function Example({
   title,
@@ -229,6 +230,7 @@ export default function Game() {
   const rotate = stageId === 22 ? "animate-rotate" : "";
 
   if (stageId === 23) return <ImageMultiplicationAnomaly />;
+  if (stageId === 25) return <FakeEnd />;
 
   return (
     <div
