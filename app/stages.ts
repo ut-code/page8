@@ -9,7 +9,7 @@ export type StageType = {
 };
 
 export let initialWeight = [
-  { id: 0, weight: 50 },
+  { id: 0, weight: 25 },
   { id: 1, weight: 6 },
   { id: 2, weight: 6 },
   { id: 3, weight: 3 },
@@ -46,7 +46,7 @@ export let stages: StageType[] = [
     code: "",
     image: "",
     state: "isDetected",
-    weight: 50,
+    weight: 25,
   },
   {
     id: 1,
