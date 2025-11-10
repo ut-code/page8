@@ -175,7 +175,7 @@ export default function EnglishAnomaly() {
         </button>
       </div>
 
-      <div className="mb-20 mx-auto w-[900px] h-[255px] bg-gray-100 text-black rounded-md flex">
+      <div className="mb-20 mx-auto w-[900px] h-[260px] font-sans bg-gray-100 text-black rounded-md flex">
         <div className="my-auto w-[450px] h-[250px] relative group">
           <img
             src="/adPicture.webp"
@@ -184,6 +184,7 @@ export default function EnglishAnomaly() {
         </div>
         <div className="my-auto w-[450px] h-[250px]">
           <h1 className="pt-2 pl-4 text-2xl">
+            <img src="/utcode_logo.svg" className="w-[120px]"/>
             Coding the Future, Powered by Students
           </h1>
           <h2 className="pt-6 pr-4">
@@ -191,7 +192,7 @@ export default function EnglishAnomaly() {
             services, from tutorials to hackathons.
           </h2>
           <a href="https://utcode.net/" target="_blank">
-            <button className="mt-8 ml-40 bg-[orangered] text-2xl text-black p-3 border-2 border-black cursor-pointer mb-10">
+            <button className="mt-6 ml-[125px] bg-gradient-to-r from-orange-400 to-red-500 hover:scale-105 transform transition-all text-white font-bold text-xl py-3 px-6 rounded-lg shadow-lg border-2 border-black">
               Details
             </button>
           </a>
