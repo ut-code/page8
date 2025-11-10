@@ -64,6 +64,31 @@ export default function Game() {
   ).current;
   const replacedFlags: boolean[] = Array(15).fill(false);
 
+  const toRoman = (n:number) => {
+    switch (n){
+      case 0:
+        return "N";
+      case 1:
+        return "I";
+      case 2:
+        return "II";
+      case 3:
+        return "III";
+      case 4:
+        return "IV";
+      case 5:
+        return "V";
+      case 6:
+        return "VI";
+      case 7:
+        return "VII";
+      case 8:
+        return "VIII";
+      default:
+        return "X";
+    }
+  }
+
   const x = useRef(0); // 現在位置
   const y = useRef(0);
   const mouseX = useRef(0); // マウス位置
@@ -253,6 +278,7 @@ export default function Game() {
   }
 
   const imageScale = stageId === 29 ? "scale-[10] duration-[60000ms]" : "" ;
+  const pageNumShow = stageId === 33 ? toRoman(pageNum) : pageNum;
 
   return (
     <div
@@ -269,7 +295,7 @@ export default function Game() {
           id="Header"
         >
           <span className={`${rotate}`}>
-            <span className={`text-6xl text-yellow-400`}>{pageNum}. </span>
+            <span className={`text-6xl text-yellow-400`}>{pageNumShow}. </span>
             <span className={`text-4xl`}>{changedTitle}</span>
           </span>
 
