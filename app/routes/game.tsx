@@ -20,7 +20,7 @@ function Example({
 }: {
   title: string;
   description: string;
-  hiddenDescription:string;
+  hiddenDescription: string;
   code: string;
   element: ReactElement;
   flexboxCollapse: string[];
@@ -31,8 +31,8 @@ function Example({
       <div className={`text-2xl underline`}>{title}</div>
       <div className={`flex h-70`}>
         <span className={`w-1/2 m-4`}>
-         <p>{description}</p>
-         <p className="secret whitespace-pre">{hiddenDescription}</p>
+          <p>{description}</p>
+          <p className="secret whitespace-pre">{hiddenDescription}</p>
         </span>
         <span className={`w-1/2 flex flex-col`}>
           <code
@@ -279,16 +279,21 @@ export default function Game() {
     stageId === 20 ? ["group-hover:hidden", "group-hover:block"] : ["", ""];
   const rotate = stageId === 22 ? "animate-rotate" : "";
   if (stageId === 23) return <ImageMultiplicationAnomaly />;
-  const hiddenSentence = stageId === 24 ? ["—— ■■■■■ ——\n■■ : ■■ ■■■■■://■■■■■.■■■■■■.■■■\n■■■■■■■■■■\n■■■■■■■■■■■■■■■■■■",
-  "■■■■ !\n■■■■■■■■■,\n■■■■ ↓\n■■\\■■■■■\\■■■■■\\■■■■■■■■■\n\\■■■■■■■■■.■■■■■■■■■■■■.■■■",
-  "■■q■■■j■■\n■■■■■rr■■■■■■w■■v■■■\n▤▦■■■▧■☒■■■■\n■▦■■i■◪■■■■◩▩■■■□c■■■n■?\n>■■ -■■ ■"] : ["","",""];
+  const hiddenSentence =
+    stageId === 24
+      ? [
+          "—— ■■■■■ ——\n■■ : ■■ ■■■■■://■■■■■.■■■■■■.■■■\n■■■■■■■■■■\n■■■■■■■■■■■■■■■■■■",
+          "■■■■ !\n■■■■■■■■■,\n■■■■ ↓\n■■\\■■■■■\\■■■■■\\■■■■■■■■■\n\\■■■■■■■■■.■■■■■■■■■■■■.■■■",
+          "■■q■■■j■■\n■■■■■rr■■■■■■w■■v■■■\n▤▦■■■▧■☒■■■■\n■▦■■i■◪■■■■◩▩■■■□c■■■n■?\n>■■ -■■ ■",
+        ]
+      : ["", "", ""];
   if (stageId === 25) return <FakeEnd />;
   let ad = <Advertisement/>;
   if(stageId === 27){
     ad = <AdvertisementAnomaly/>;
   }
-  const buttonHoverMouseShape = stageId === 28 ? "not-allowed" : "pointer" ;
-  if(stageId === 28){
+  const buttonHoverMouseShape = stageId === 28 ? "not-allowed" : "pointer";
+  if (stageId === 28) {
     ExampleButtonFunction = () => {
       chasing.current = false;
       if (imgRef.current) {
@@ -296,13 +301,13 @@ export default function Game() {
         imgRef.current.style.left = "";
         imgRef.current.style.top = "";
       }
-      stages.filter((s) => s.id === stageId)[0].state =
-        "isNotDetected";
+      stages.filter((s) => s.id === stageId)[0].state = "isNotDetected";
       localStorage.setItem("pageNum", "0");
       navigate("/game");
-    }
+    };
   }
-  const imageScale = stageId === 29 ? "scale-[10] duration-[60000ms]" : "" ;
+  const imageScale = stageId === 29 ? "scale-[10] duration-[60000ms]" : "";
+  const crackShow = stageId === 31 ? ["flex", "show-after-5s"] : ["none", ""];
 
   return (
     <div
@@ -411,6 +416,21 @@ export default function Game() {
               </div>
             }
           </div>
+          <img
+            src="/crack.png"
+            style={{
+              position: "fixed",
+              top: "40%",
+              left: "40%",
+              transform: "translate(-50%, -50%)",
+              height: "500px",
+              width: "700px",
+              display: `${crackShow[0]}`,
+              pointerEvents: "none",
+              zIndex: "5",
+            }}
+            className={`${crackShow[1]}`}
+          />
           <div
             className={`font-bold text-center text-8xl underline decoration-[orangered] ${rotate}`}
           >
