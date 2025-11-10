@@ -549,7 +549,43 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     keyword: "カウントダウン",
     detail: `一定以上スクロールするとカウントダウンが始まります。`,
     code: `
-    <span>I</span>
+    useEffect(() => {
+        if (stageId !== 34) return;
+    
+        const timer = setInterval(() => {
+          if (countdown.current) {
+            const pageNumEle = document.getElementById("pageNumber");
+            const pageTitleEle =document.getElementById("pageTitle");
+            if(pageNumEle && pageTitleEle){
+              pageNumEle.textContent = String(countRef.current)        //カウントダウンを表示
+              pageNumEle.style.fontSize = "120px";
+              pageNumEle.style.color = "red";
+              pageTitleEle.style.display = "none";
+            };
+    
+            if (countRef.current <= 0){    //強制的にリセット
+              chasing.current = false;
+              countdown.current = false;
+              if (imgRef.current) {
+                imgRef.current.style.position = "";
+                imgRef.current.style.left = "";
+                imgRef.current.style.top = "";
+              }
+              stages.filter((s) => s.id === stageId)[0].state =
+                "isNotDetected";
+              localStorage.setItem("pageNum", "0");
+              navigate("/game");
+            };
+    
+            countRef.current -= 1;
+          };
+        }, 1000);    //1秒ずつ行う
+    
+        return () => {
+          window.removeEventListener("scroll",handleCountdown);
+          clearInterval(timer)
+        };
+      });
 `,
     image: "",
     state: "isNotEncountered",
