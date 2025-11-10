@@ -48,7 +48,7 @@ export let stages: StageType[] = [
     code: "",
     image: "",
     state: "isDetected",
-    weight: 25,
+    weight: 15,
   },
   {
     id: 1,
