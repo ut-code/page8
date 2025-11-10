@@ -9,7 +9,7 @@ export type StageType = {
 };
 
 export let initialWeight = [
-  { id: 0, weight: 25 },
+  { id: 0, weight: 15 },
   { id: 1, weight: 6 },
   { id: 2, weight: 6 },
   { id: 3, weight: 3 },
