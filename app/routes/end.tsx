@@ -46,7 +46,7 @@ function StatsPanel({
           <dd>{foundCount}個</dd>
         </div>
         <div className="mb-4 flex justify-center items-center space-x-2">
-          <dt>未発見の異変</dt>
+          <dt>見落とした異変</dt>
           <span>:</span>
           <dd>{notFoundCount}個</dd>
         </div>
@@ -134,11 +134,11 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
         <div className="max-w-[1056px] m-auto mb-16">
           <h2 className="p-2 text-2xl">
             <span className="border-b-3 border-[#FF4500] pb-1">
-              未発見の異変の一覧
+              見落とした異変の一覧
             </span>
           </h2>
           <p className="p-2">
-            未発見の異変があるようです。…知りたい方は、そっとカーソルを
+            見落とした異変があるようです。…知りたい方は、そっとカーソルを
           </p>
           <div className="grid grid-cols-4 gap-8 justify-center">
             {notDetectedAnomalies.map((anomaly) => (
@@ -234,7 +234,7 @@ function NotDetectedCard({
       className="rounded-xl w-[240px] h-[160px] bg-[#000000] text-black flex flex-col items-start justify-center px-4 py-3 gap-2 cursor-pointer
         hover:bg-[#5C0A0A] hover:text-white duration-800 ease-in-out shadow-sm"
     >
-      <div className="text-sm text-gray-500">未発見の異変</div>
+      <div className="text-sm text-gray-500">見落とした異変</div>
       <div className="text-lg font-bold">{keyword}</div>
       <div className="mt-auto text-sm underline self-end cursor-pointer">
         詳細を見る
@@ -332,30 +332,86 @@ export default function End() {
 
   return (
     <div className="w-full min-h-screen bg-[#091b0c] text-white font-serif opacity-0 animate-fadeIn">
-      <header className="mb-8">
-        <h1 className="p-2 underline decoration-[#FF4500] text-3xl">
-          8番ページ
-        </h1>
+      <header className="w-full fixed bg-[#091b0c] border-b-2 border-gray-700">
+        <div className="mr-auto ml-[10px] cursor-pointer"
+          style={{
+            display: "inline-flex",
+            justifyContent: "left",
+            paddingBottom: "10px",
+            color: "#CCCCCC",
+            fontFamily: "serif",
+            textDecoration: "underline",
+            textDecorationColor: "gray",
+          }}
+          onClick={() => navigate("/")}
+        >
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "73px 67px 20px", // 219px 200px 60px → 1/3
+              gridTemplateRows: "27px 27px",         // 80px 80px → 1/3
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "46px", // 137px → 1/3
+                gridColumn: "1/2",
+                gridRow: "1/3",
+              }}
+            >
+              8番
+            </div>
+            <div
+              style={{
+                fontSize: "22px", // 65px → 1/3
+                gridColumn: "2/3",
+                gridRow: "1/2",
+              }}
+            >
+              ページ
+            </div>
+            <div
+              style={{
+                fontSize: "27px", // 80px → 1/3
+                gridColumn: "2/3",
+                gridRow: "2/3",
+                justifySelf: "center",
+              }}
+            >
+              Page
+            </div>
+            <div
+              style={{
+                fontSize: "57px", // 170px → 1/3
+                gridColumn: "3/4",
+                gridRow: "1/3",
+              }}
+            >
+              8
+            </div>
+          </div>
+        </div>
       </header>
 
-      <div className="mb-16 text-center">
+      <div className="pt-[80px] mb-16 text-center">
         <h2 className="mb-8 text-3xl">
-          <span className="underline decoration-[#FF4500]">8/8</span>
+          <span className="text-4xl underline decoration-[#FF4500]">8/8</span>
           <br />
           クリアおめでとう
         </h2>
         <div>
-          8番ページからの脱出おめでとう。
+          8番ページからの脱出おめでとう!
           <br />
-          君たちが目にした異変はすべてCSSによって引き起こされたものだ。
-          <br />
-          <br />
-          もしも、まだ異変をすべて見つけ切れていないのならば
-          <br />
-          今一度、異変の正体を確かめてみよう。
+          君たちが目にした異変はすべてCSSやJavaScriptを使って仕組まれたものだ。
           <br />
           <br />
-          異変をすべて見つけ、異変マスターに、そしてCSSマスターになるのだ。
+          まだすべての異変を見つけていないのならば
+          <br />
+          もう一度その正体を確かめてみよう。
+          <br />
+          <br />
+          異変をすべて見つけ、異変マスターに、そしてWebページマスターになろう!
         </div>
       </div>
 

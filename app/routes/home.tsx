@@ -18,7 +18,7 @@ export default function Home() {
     <div
       style={{
         backgroundColor: "#091b0c",
-        width: "100vw",
+        width: "100%",
         height: "100vh",
         display:"flex",
         flexDirection:"column",
@@ -117,25 +117,35 @@ export default function Home() {
           ゲームスタート
         </button>
       </div>
-      <div style={{
-        color:"white",
-        display:"flex",
-        justifyContent:"center",
-      }}>
-        <ul>
-          <li>
-            ・異変を絶対に見逃さないこと
-          </li>
-          <li>
-            ・異変を見つけたらすぐに前のページに戻ること
-          </li>
-          <li>
-            ・異変が見つからなかったら次のページに進むこと
-          </li>
-          <li>
-            ・8番ページから脱出すること
-          </li>
-        </ul>
+      <div className="flex justify-center">
+        <div className="w-[500px] mb-8 p-4 bg-white text-black border-[6px] border-gray-500 box-border"
+          style={{
+            borderImage: "linear-gradient(145deg, #999999, #777777, #555555) 1",
+            boxShadow: "2px 2px 5px rgba(0,0,0,0.3)",
+          }}
+        >
+          <h2 className="mb-4 text-3xl text-center text-white">
+            <span className="p-1 bg-black">ご案内 Guide</span>
+          </h2>
+          <ul className="space-y-4">
+            <li>
+              <p className="font-bold text-[16px]">異変を絶対に見逃さないこと</p>
+              <p className="font-thin text-[12px]">Never overlook any anomalies.</p>
+            </li>
+            <li>
+              <p className="font-bold text-[16px]">異変を見つけたらすぐに前のページに戻ること</p>
+              <p className="font-thin text-[12px]">If you find any anomalies, go back immediately to the previous page.</p>
+            </li>
+            <li>
+              <p className="font-bold text-[16px]">異変が見つからなかったら次のページに進むこと</p>
+              <p className="font-thin text-[12px]">If you don't find any anomalies, move on to the next page.</p>
+            </li>
+            <li>
+              <p className="font-bold text-[16px]">8番ページから脱出すること</p>
+              <p className="font-thin text-[12px]">Escape from Page8</p>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
