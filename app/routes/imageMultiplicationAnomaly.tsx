@@ -94,6 +94,7 @@ export default function ImageMultiplicationAnomaly() {
           currentAnomaly.weight = 0;
           updateWeight0(stages);
           if (pageNum === 8) {
+            localStorage.setItem("isEndedLegally", "true");
             navigate("/end");
           } else {
             localStorage.setItem("pageNum", `${pageNum + 1}`);
@@ -204,7 +205,7 @@ export default function ImageMultiplicationAnomaly() {
         </button>
       </div>
 
-      <Advertisement/>
+      <Advertisement />
 
       <div className={`flex`}>
         <button
