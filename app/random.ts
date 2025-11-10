@@ -4,10 +4,7 @@ let p0 = initialWeight[0].weight / initialWeight.reduce((sum, item) => sum + ite
 
 export function biasedRandom(stages: StageType[] , anomalyCount:number): number {
   if(stages.length != initialWeight.length) console.log("stages and initialWeight have a different length. Check it!");
-  if (anomalyCount >= 7){
-    localStorage.setItem("anomalyCount","0");
-    return 0;
-  }
+  
   let totalWeight = stages.reduce((sum, stage) => sum + stage.weight, 0);
   if(stages.slice(1).reduce((sum, stage) => sum + stage.weight, 0) === 0){
     stages.forEach((stage, index)=>{
@@ -17,6 +14,10 @@ export function biasedRandom(stages: StageType[] , anomalyCount:number): number 
   }
   let r = Math.random() * totalWeight;
 
+  if (anomalyCount >= 7){
+    localStorage.setItem("anomalyCount","0");
+    return 0;
+  }
   for (let i = 0; i < stages.length; i++) {
     if (r < stages[i].weight) {
       if(i === 0){

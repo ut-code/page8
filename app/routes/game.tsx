@@ -67,6 +67,31 @@ export default function Game() {
   ).current;
   const replacedFlags: boolean[] = Array(15).fill(false);
 
+  const toRoman = (n:number) => {
+    switch (n){
+      case 0:
+        return "N";
+      case 1:
+        return "I";
+      case 2:
+        return "II";
+      case 3:
+        return "III";
+      case 4:
+        return "IV";
+      case 5:
+        return "V";
+      case 6:
+        return "VI";
+      case 7:
+        return "VII";
+      case 8:
+        return "VIII";
+      default:
+        return "X";
+    }
+  }
+
   const x = useRef(0); // 現在位置
   const y = useRef(0);
   const mouseX = useRef(0); // マウス位置
@@ -75,6 +100,12 @@ export default function Game() {
   let imgHightHalf = 0; //画像の上端から下端までの長さの半分
 
   const chasing = useRef(false);
+
+  const countRef = useRef(5); //カウントダウンの初期値
+  if (stageId === 34){
+    countRef.current = 5
+  }
+  const countdown = useRef(false);
 
   useEffect(() => {
     if (stageId !== 14) return;
@@ -174,6 +205,52 @@ export default function Game() {
       window.removeEventListener("scroll", scrollUp);
     };
   }, [stageId]);
+
+  useEffect(() => {
+    if (stageId !== 34) return;
+
+    const handleCountdown = () => {
+      if (window.scrollY >= 1200){
+        countdown.current = true;
+      };
+    };
+
+    window.addEventListener("scroll",handleCountdown);
+
+    const timer = setInterval(() => {
+      if (countdown.current) {
+        const pageNumEle = document.getElementById("pageNumber");
+        const pageTitleEle =document.getElementById("pageTitle");
+        if(pageNumEle && pageTitleEle){
+          pageNumEle.textContent = String(countRef.current)
+          pageNumEle.style.fontSize = "120px";
+          pageNumEle.style.color = "red";
+          pageTitleEle.style.display = "none";
+        };
+
+        if (countRef.current <= 0){
+          chasing.current = false;
+          countdown.current = false;
+          if (imgRef.current) {
+            imgRef.current.style.position = "";
+            imgRef.current.style.left = "";
+            imgRef.current.style.top = "";
+          }
+          stages.filter((s) => s.id === stageId)[0].state =
+            "isNotDetected";
+          localStorage.setItem("pageNum", "0");
+          navigate("/game");
+        };
+
+        countRef.current -= 1;
+      };
+    }, 1000);
+
+    return () => {
+      window.removeEventListener("scroll",handleCountdown);
+      clearInterval(timer)
+    };
+  });
 
   // 異変の変数
 
@@ -296,6 +373,7 @@ export default function Game() {
   if (stageId === 28) {
     ExampleButtonFunction = () => {
       chasing.current = false;
+      countdown.current = false;
       if (imgRef.current) {
         imgRef.current.style.position = "";
         imgRef.current.style.left = "";
@@ -306,9 +384,11 @@ export default function Game() {
       navigate("/game");
     };
   }
+  
   const imageScale = stageId === 29 ? "scale-[10] duration-[60000ms]" : "";
   const crackShow = stageId === 31 ? ["flex", "show-after-5s"] : ["none", ""];
   const shakeScreen = stageId === 32 ? "shake-after-3s" : "";
+  let pageNumShow = stageId === 33 ? toRoman(pageNum) : pageNum;
 
   return (
     <div
@@ -325,8 +405,8 @@ export default function Game() {
           id="Header"
         >
           <span className={`${rotate}`}>
-            <span className={`text-6xl text-yellow-400`}>{pageNum}. </span>
-            <span className={`text-4xl`}>{changedTitle}</span>
+            <span id="pageNumber" className={`text-6xl text-yellow-400`}>{pageNumShow}. </span>
+            <span id="pageTitle" className={`text-4xl`}>{changedTitle}</span>
           </span>
 
           <button
@@ -341,6 +421,7 @@ export default function Game() {
             className={`bg-[orangered] text-2xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer`}
             onClick={() => {
               chasing.current = false;
+              countdown.current = false;
               if (imgRef.current) {
                 imgRef.current.style.position = "";
                 imgRef.current.style.left = "";
@@ -586,6 +667,7 @@ export default function Game() {
             className={`group bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-20`} //mb-80との返還を後でする
             onClick={() => {
               chasing.current = false;
+              countdown.current = false;
               if (imgRef.current) {
                 imgRef.current.style.position = "";
                 imgRef.current.style.left = "";

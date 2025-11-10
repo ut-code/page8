@@ -9,7 +9,7 @@ export type StageType = {
 };
 
 export let initialWeight = [
-  { id: 0, weight: 50 },
+  { id: 0, weight: 15 },
   { id: 1, weight: 6 },
   { id: 2, weight: 6 },
   { id: 3, weight: 3 },
@@ -41,6 +41,8 @@ export let initialWeight = [
   { id: 29, weight: 3 },
   { id: 31, weight: 6 },
   { id: 32, weight: 3 },
+  { id: 33, weight: 6 },
+  { id: 34, weight: 6 }
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -51,7 +53,7 @@ export let stages: StageType[] = [
     code: "",
     image: "",
     state: "isDetected",
-    weight: 50,
+    weight: 15,
   },
   {
     id: 1,
@@ -653,5 +655,63 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     image: "",
     state: "isNotEncountered",
     weight: 6,
+  },
+  {
+    id: 33,
+    keyword: "ローマ数字になってる",
+    detail: `左上の進行度の数字がローマ数字になっています`,
+    code: `
+    <span>I</span>
+`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6
+  },
+  {
+    id: 34,
+    keyword: "カウントダウン",
+    detail: `一定以上スクロールするとカウントダウンが始まります。`,
+    code: `
+    useEffect(() => {
+        if (stageId !== 34) return;
+    
+        const timer = setInterval(() => {
+          if (countdown.current) {
+            const pageNumEle = document.getElementById("pageNumber");
+            const pageTitleEle =document.getElementById("pageTitle");
+            if(pageNumEle && pageTitleEle){
+              pageNumEle.textContent = String(countRef.current)        //カウントダウンを表示
+              pageNumEle.style.fontSize = "120px";
+              pageNumEle.style.color = "red";
+              pageTitleEle.style.display = "none";
+            };
+    
+            if (countRef.current <= 0){    //強制的にリセット
+              chasing.current = false;
+              countdown.current = false;
+              if (imgRef.current) {
+                imgRef.current.style.position = "";
+                imgRef.current.style.left = "";
+                imgRef.current.style.top = "";
+              }
+              stages.filter((s) => s.id === stageId)[0].state =
+                "isNotDetected";
+              localStorage.setItem("pageNum", "0");
+              navigate("/game");
+            };
+    
+            countRef.current -= 1;
+          };
+        }, 1000);    //1秒ずつ行う
+    
+        return () => {
+          window.removeEventListener("scroll",handleCountdown);
+          clearInterval(timer)
+        };
+      });
+`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6
   },
 ];
