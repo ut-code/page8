@@ -46,7 +46,7 @@ function StatsPanel({
           <dd>{foundCount}個</dd>
         </div>
         <div className="mb-4 flex justify-center items-center space-x-2">
-          <dt>未発見の異変</dt>
+          <dt>見落とした異変</dt>
           <span>:</span>
           <dd>{notFoundCount}個</dd>
         </div>
@@ -134,11 +134,11 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
         <div className="max-w-[1056px] m-auto mb-16">
           <h2 className="p-2 text-2xl">
             <span className="border-b-3 border-[#FF4500] pb-1">
-              未発見の異変の一覧
+              見落とした異変の一覧
             </span>
           </h2>
           <p className="p-2">
-            未発見の異変があるようです。…知りたい方は、そっとカーソルを
+            見落とした異変があるようです。…知りたい方は、そっとカーソルを
           </p>
           <div className="grid grid-cols-4 gap-8 justify-center">
             {notDetectedAnomalies.map((anomaly) => (
@@ -396,22 +396,22 @@ export default function End() {
 
       <div className="pt-[80px] mb-16 text-center">
         <h2 className="mb-8 text-3xl">
-          <span className="underline decoration-[#FF4500]">8/8</span>
+          <span className="text-4xl underline decoration-[#FF4500]">8/8</span>
           <br />
           クリアおめでとう
         </h2>
         <div>
-          8番ページからの脱出おめでとう。
+          8番ページからの脱出おめでとう!
           <br />
-          君たちが目にした異変はすべてCSSによって引き起こされたものだ。
-          <br />
-          <br />
-          もしも、まだ異変をすべて見つけ切れていないのならば
-          <br />
-          今一度、異変の正体を確かめてみよう。
+          君たちが目にした異変はすべてCSSやJavaScriptを使って仕組まれたものだ。
           <br />
           <br />
-          異変をすべて見つけ、異変マスターに、そしてCSSマスターになるのだ。
+          まだすべての異変を見つけていないのならば
+          <br />
+          もう一度その正体を確かめてみよう。
+          <br />
+          <br />
+          異変をすべて見つけ、異変マスターに、そしてWebページマスターになろう!
         </div>
       </div>
 
