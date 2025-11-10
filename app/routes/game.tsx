@@ -5,6 +5,8 @@ import { stages, type StageType } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
 import { biasedRandom, updateWeight0 } from "~/random";
 import ImageMultiplicationAnomaly from "./imageMultiplicationAnomaly";
+import Advertisement from "./advertisement";
+import AdvertisementAnomaly from "./advertisementAnomaly";
 import FakeEnd from "./fakeEnd";
 
 function Example({
@@ -154,6 +156,25 @@ export default function Game() {
     };
   });
 
+  useEffect(() => {
+  if (stageId !== 26) return;
+  let scrollTimeout: ReturnType<typeof setTimeout>;
+
+  function scrollUp() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1000);
+  }
+  
+  window.addEventListener('scroll', scrollUp);
+  scrollUp();
+
+  return () => {
+    window.removeEventListener('scroll', scrollUp);
+  };
+}, [stageId]);
+
   // 異変の変数
 
   let ExampleButtonFunction: (...args: any[]) => void = () => {}; //二つ目のExampleに含まれているボタンに渡す関数を入れるための変数
@@ -169,13 +190,39 @@ export default function Game() {
   const backgroundColorSuddenlyToYellow = stageId === 3 ? "bg-[#FFF2B2]" : "";
   const bgColorGraduallyTurningGrey =
     stageId === 4 ? "gradual-grey" : "bg-[#091b0c]";
+
+    let buttonText = "Click me!"
   if (stageId === 5) {
+    buttonText = "Don't Click me!"
     ExampleButtonFunction = (e: React.MouseEvent<HTMLButtonElement>) => {
       const btn = e.currentTarget;
-      btn.classList.add("scale-200", "bg-red-500", "duration-300");
+      const rect = btn.getBoundingClientRect();
+      const currentTop = rect.top + window.scrollY;
+      const currentLeft = rect.left + window.scrollX;
+
+      btn.style.position = "fixed";
+      btn.style.top = `${currentTop}px`;
+      btn.style.left = `${currentLeft}px`;
+
+      btn.style.width = `${rect.width}px`;
+      btn.style.height = `${rect.height}px`;
+
+      btn.style.transition = "all 0.5s ease"
+      btn.textContent = "I told you not to press!";
       setTimeout(() => {
-        btn.classList.remove("scale-200", "bg-red-500", "duration-300");
-      }, 600);
+        btn.style.top = `0px`;
+        btn.style.left = `0px`;
+        btn.style.width = "100vw";
+        btn.style.height = "100vh";
+        btn.style.backgroundColor = "#8B0000";
+        btn.style.zIndex = "9999";
+        btn.style.fontSize = "3rem";
+        btn.disabled = true;
+      }, 1000)
+      setTimeout(() => {
+        localStorage.setItem("pageNum", "0");
+        navigate("/game");
+      }, 3000);
     };
   }
   const errorMessageShow =
@@ -241,6 +288,10 @@ export default function Game() {
         ]
       : ["", "", ""];
   if (stageId === 25) return <FakeEnd />;
+  let ad = <Advertisement/>;
+  if(stageId === 27){
+    ad = <AdvertisementAnomaly/>;
+  }
   const buttonHoverMouseShape = stageId === 28 ? "not-allowed" : "pointer";
   if (stageId === 28) {
     ExampleButtonFunction = () => {
@@ -497,7 +548,7 @@ export default function Game() {
                 className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-${buttonHoverMouseShape} ${rotate}`}
                 onClick={ExampleButtonFunction}
               >
-                Click me!
+                {buttonText}
               </button>
             }
             flexboxCollapse={flexboxCollapse}
@@ -531,7 +582,7 @@ export default function Game() {
         </div>
         <div className={`flex justify-end mr-10`} id="nextBtn">
           <button
-            className={`group bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80`}
+            className={`group bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-20`}//mb-80との返還を後でする
             onClick={() => {
               chasing.current = false;
               if (imgRef.current) {
@@ -558,6 +609,9 @@ export default function Game() {
             <span className={`hidden ${nextButtonHover[1]}`}>０番へ →</span>
           </button>
         </div>
+        
+        { ad }
+
         <div className={`flex ${rotate}`}>
           <button
             className={`bg-[orangered] text-3xl border-2 border-black cursor-pointer whitespace-pre-wrap rounded-full w-18 h-18 fixed bottom-5 left-5`}
