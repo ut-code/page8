@@ -35,6 +35,7 @@ export default function FakeEnd() {
           currentAnomaly.weight = 0;
           updateWeight0(stages);
           if (pageNum === 8) {
+            localStorage.setItem("isEndedLegally", "true");
             navigate("/end");
           } else {
             localStorage.setItem("pageNum", `${pageNum + 1}`);

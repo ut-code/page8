@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { stages, type StageType } from "~/stages";
 
 function StatsPanel({
@@ -13,7 +13,9 @@ function StatsPanel({
     (anomaly) => anomaly.state === "isDetectedNew" && anomaly.id != 0
   ).length;
   const foundCount = anomalies.filter(
-    (anomaly) => (anomaly.state === "isDetected" || anomaly.state === "isDetectedNew") && anomaly.id != 0
+    (anomaly) =>
+      (anomaly.state === "isDetected" || anomaly.state === "isDetectedNew") &&
+      anomaly.id != 0
   ).length;
   const notFoundCount = anomalies.filter(
     (anomaly) => anomaly.state === "isNotDetected"
@@ -167,26 +169,27 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
             この異変は、今回のプレイでは現れなかったようです。もし気になるなら、そっと覗いてみてください。
           </p>
           <div className="grid grid-cols-4 gap-8 justify-center">
-            {showList && notEncounteredAnomalies.map((anomaly) => (
-              <NotEncounteredCard
-                key={anomaly.id}
-                keyword={anomaly.keyword}
-                onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                  e.stopPropagation();
-                  setSelectedAnomaly(anomaly);
-                  console.log("Selected Anomaly:", anomaly);
-                }}
-              />
-            ))}
+            {showList &&
+              notEncounteredAnomalies.map((anomaly) => (
+                <NotEncounteredCard
+                  key={anomaly.id}
+                  keyword={anomaly.keyword}
+                  onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                    e.stopPropagation();
+                    setSelectedAnomaly(anomaly);
+                    console.log("Selected Anomaly:", anomaly);
+                  }}
+                />
+              ))}
           </div>
-        <div className="mt-8 text-center">
-          <button
-            onClick={() => setShowList((prev) => !prev)}
-            className="mt-8 bg-[#FF4500]  text-2xl text-white cursor-pointer transition"
-          >
-            {showList ? "一覧を閉じる" : "遭遇していない異変を表示"}
-          </button>
-        </div>
+          <div className="mt-8 text-center">
+            <button
+              onClick={() => setShowList((prev) => !prev)}
+              className="mt-8 bg-[#FF4500]  text-2xl text-white cursor-pointer transition"
+            >
+              {showList ? "一覧を閉じる" : "遭遇していない異変を表示"}
+            </button>
+          </div>
         </div>
       )}
 
@@ -328,7 +331,34 @@ export default function End() {
 
   const startTime = parseInt(localStorage.getItem("startTime")!);
   const endTime = new Date().getTime();
-  const clearTime = Math.round((endTime-startTime)/1000);
+  const clearTime = Math.round((endTime - startTime) / 1000);
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("isEndedLegally");
+    };
+  }, []);
+
+  if (!localStorage.getItem("isEndedLegally"))
+    return (
+      <>
+        <div className="text-white font-serif text-center text-3xl mt-10">
+          🫵きみ、ズルをしようとしたね？
+        </div>
+        <div className="text-red-500 font-serif text-center text-6xl mt-20 font-bold">
+          逃げられないよ。
+        </div>
+        <button
+          className={`bg-[orangered] text-3xl p-3 border-2 border-black mt-30 ml-10 cursor-pointer text-white`}
+          onClick={() => {
+            localStorage.setItem("pageNum", "0");
+            navigate("/game");
+          }}
+        >
+          ← 戻れ
+        </button>
+      </>
+    );
 
   return (
     <div className="w-full min-h-screen bg-[#091b0c] text-white font-serif opacity-0 animate-fadeIn">

@@ -65,6 +65,7 @@ export default function EnglishAnomaly() {
           currentAnomaly.weight = 0;
           updateWeight0(stages);
           if (pageNum === 8) {
+            localStorage.setItem("isEndedLegally", "true");
             navigate("/end");
           } else {
             localStorage.setItem("pageNum", `${pageNum + 1}`);
@@ -174,27 +175,29 @@ export default function EnglishAnomaly() {
         </button>
       </div>
 
-        <div className="mb-20 mx-auto w-[900px] h-[255px] bg-gray-100 text-black rounded-md flex">
-          <div className="my-auto w-[450px] h-[250px] relative group">
-            <img
-              src="/adPicture.webp"
-              className="w-100 h-full rounded-md absolute top-0 left-0"
-            />
-          </div>
-          <div className="my-auto w-[450px] h-[250px]">
-            <h1 className="pt-2 pl-4 text-2xl">Coding the Future, Powered by Students</h1>
-            <h2 className="pt-6 pr-4">
-              A student-driven dev community: 
-              Learn by building real apps and services, from tutorials to hackathons.
-            </h2>
-            <a href="https://utcode.net/" target="_blank">
-              <button className="mt-8 ml-40 bg-[orangered] text-2xl text-black p-3 border-2 border-black cursor-pointer mb-10">
-                Details
-              </button>
-            </a>
-          </div>
+      <div className="mb-20 mx-auto w-[900px] h-[255px] bg-gray-100 text-black rounded-md flex">
+        <div className="my-auto w-[450px] h-[250px] relative group">
+          <img
+            src="/adPicture.webp"
+            className="w-100 h-full rounded-md absolute top-0 left-0"
+          />
         </div>
-        
+        <div className="my-auto w-[450px] h-[250px]">
+          <h1 className="pt-2 pl-4 text-2xl">
+            Coding the Future, Powered by Students
+          </h1>
+          <h2 className="pt-6 pr-4">
+            A student-driven dev community: Learn by building real apps and
+            services, from tutorials to hackathons.
+          </h2>
+          <a href="https://utcode.net/" target="_blank">
+            <button className="mt-8 ml-40 bg-[orangered] text-2xl text-black p-3 border-2 border-black cursor-pointer mb-10">
+              Details
+            </button>
+          </a>
+        </div>
+      </div>
+
       <div className={`flex`}>
         <button
           className={`bg-[orangered] text-3xl border-2 border-black cursor-pointer whitespace-pre-wrap rounded-full w-18 h-18 fixed bottom-5 left-5`}
