@@ -234,7 +234,7 @@ function NotDetectedCard({
       className="rounded-xl w-[240px] h-[160px] bg-[#000000] text-black flex flex-col items-start justify-center px-4 py-3 gap-2 cursor-pointer
         hover:bg-[#5C0A0A] hover:text-white duration-800 ease-in-out shadow-sm"
     >
-      <div className="text-sm text-gray-500">未発見の異変</div>
+      <div className="text-sm text-gray-500">見落とした異変</div>
       <div className="text-lg font-bold">{keyword}</div>
       <div className="mt-auto text-sm underline self-end cursor-pointer">
         詳細を見る
@@ -332,13 +332,69 @@ export default function End() {
 
   return (
     <div className="w-full min-h-screen bg-[#091b0c] text-white font-serif opacity-0 animate-fadeIn">
-      <header className="mb-8">
-        <h1 className="p-2 underline decoration-[#FF4500] text-3xl">
-          8番ページ
-        </h1>
+      <header className="w-full fixed bg-[#091b0c] border-b-2 border-gray-700">
+        <div className="mr-auto ml-[10px] cursor-pointer"
+          style={{
+            display: "inline-flex",
+            justifyContent: "left",
+            paddingBottom: "10px",
+            color: "#CCCCCC",
+            fontFamily: "serif",
+            textDecoration: "underline",
+            textDecorationColor: "gray",
+          }}
+          onClick={() => navigate("/")}
+        >
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "73px 67px 20px", // 219px 200px 60px → 1/3
+              gridTemplateRows: "27px 27px",         // 80px 80px → 1/3
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "46px", // 137px → 1/3
+                gridColumn: "1/2",
+                gridRow: "1/3",
+              }}
+            >
+              8番
+            </div>
+            <div
+              style={{
+                fontSize: "22px", // 65px → 1/3
+                gridColumn: "2/3",
+                gridRow: "1/2",
+              }}
+            >
+              ページ
+            </div>
+            <div
+              style={{
+                fontSize: "27px", // 80px → 1/3
+                gridColumn: "2/3",
+                gridRow: "2/3",
+                justifySelf: "center",
+              }}
+            >
+              Page
+            </div>
+            <div
+              style={{
+                fontSize: "57px", // 170px → 1/3
+                gridColumn: "3/4",
+                gridRow: "1/3",
+              }}
+            >
+              8
+            </div>
+          </div>
+        </div>
       </header>
 
-      <div className="mb-16 text-center">
+      <div className="pt-[80px] mb-16 text-center">
         <h2 className="mb-8 text-3xl">
           <span className="underline decoration-[#FF4500]">8/8</span>
           <br />
