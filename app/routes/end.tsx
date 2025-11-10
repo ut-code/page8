@@ -326,6 +326,10 @@ function Popup({
 export default function End() {
   const navigate = useNavigate();
 
+  const startTime = parseInt(localStorage.getItem("startTime")!);
+  const endTime = new Date().getTime();
+  const clearTime = Math.round((endTime-startTime)/1000);
+
   return (
     <div className="w-full min-h-screen bg-[#091b0c] text-white font-serif opacity-0 animate-fadeIn">
       <header className="mb-8">
@@ -355,7 +359,7 @@ export default function End() {
         </div>
       </div>
 
-      <StatsPanel clearTime={760} anomalies={stages} />
+      <StatsPanel clearTime={clearTime} anomalies={stages} />
 
       <AnomalyList anomalies={stages} />
 

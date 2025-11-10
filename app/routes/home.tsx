@@ -103,6 +103,8 @@ export default function Home() {
             cursor: "pointer",
           }}
           onClick={() => {
+            const startTime = new Date().getTime().toString();
+            localStorage.setItem("startTime", startTime);
             localStorage.setItem("pageNum", "0");
             stages.forEach((stage) => {
               if (stage.id != 0 && (stage.state === "isDetectedNew")) {//前回新しく見つけた異変を引き継ぎ、Newを外す.

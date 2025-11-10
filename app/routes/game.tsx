@@ -5,6 +5,9 @@ import { stages, type StageType } from "~/stages";
 import EnglishAnomaly from "./englishAnomaly";
 import { biasedRandom, updateWeight0 } from "~/random";
 import ImageMultiplicationAnomaly from "./imageMultiplicationAnomaly";
+import Advertisement from "./advertisement";
+import AdvertisementAnomaly from "./advertisementAnomaly";
+import FakeEnd from "./fakeEnd";
 
 function Example({
   title,
@@ -17,7 +20,7 @@ function Example({
 }: {
   title: string;
   description: string;
-  hiddenDescription:string;
+  hiddenDescription: string;
   code: string;
   element: ReactElement;
   flexboxCollapse: string[];
@@ -28,8 +31,8 @@ function Example({
       <div className={`text-2xl underline`}>{title}</div>
       <div className={`flex h-70`}>
         <span className={`w-1/2 m-4`}>
-         <p>{description}</p>
-         <p className="secret whitespace-pre">{hiddenDescription}</p>
+          <p>{description}</p>
+          <p className="secret whitespace-pre">{hiddenDescription}</p>
         </span>
         <span className={`w-1/2 flex flex-col`}>
           <code
@@ -185,6 +188,25 @@ export default function Game() {
   });
 
   useEffect(() => {
+    if (stageId !== 26) return;
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+
+    function scrollUp() {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 1000);
+    }
+
+    window.addEventListener("scroll", scrollUp);
+    scrollUp();
+
+    return () => {
+      window.removeEventListener("scroll", scrollUp);
+    };
+  }, [stageId]);
+
+  useEffect(() => {
     if (stageId !== 34) return;
 
     const handleCountdown = () => {
@@ -245,13 +267,39 @@ export default function Game() {
   const backgroundColorSuddenlyToYellow = stageId === 3 ? "bg-[#FFF2B2]" : "";
   const bgColorGraduallyTurningGrey =
     stageId === 4 ? "gradual-grey" : "bg-[#091b0c]";
+
+  let buttonText = "Click me!";
   if (stageId === 5) {
+    buttonText = "Don't Click me!";
     ExampleButtonFunction = (e: React.MouseEvent<HTMLButtonElement>) => {
       const btn = e.currentTarget;
-      btn.classList.add("scale-200", "bg-red-500", "duration-300");
+      const rect = btn.getBoundingClientRect();
+      const currentTop = rect.top + window.scrollY;
+      const currentLeft = rect.left + window.scrollX;
+
+      btn.style.position = "fixed";
+      btn.style.top = `${currentTop}px`;
+      btn.style.left = `${currentLeft}px`;
+
+      btn.style.width = `${rect.width}px`;
+      btn.style.height = `${rect.height}px`;
+
+      btn.style.transition = "all 0.5s ease";
+      btn.textContent = "I told you not to press!";
       setTimeout(() => {
-        btn.classList.remove("scale-200", "bg-red-500", "duration-300");
-      }, 600);
+        btn.style.top = `0px`;
+        btn.style.left = `0px`;
+        btn.style.width = "100vw";
+        btn.style.height = "100vh";
+        btn.style.backgroundColor = "#8B0000";
+        btn.style.zIndex = "9999";
+        btn.style.fontSize = "3rem";
+        btn.disabled = true;
+      }, 1000);
+      setTimeout(() => {
+        localStorage.setItem("pageNum", "0");
+        navigate("/game");
+      }, 3000);
     };
   }
   const errorMessageShow =
@@ -307,14 +355,22 @@ export default function Game() {
   const nextButtonHover =
     stageId === 20 ? ["group-hover:hidden", "group-hover:block"] : ["", ""];
   const rotate = stageId === 22 ? "animate-rotate" : "";
-
   if (stageId === 23) return <ImageMultiplicationAnomaly />;
-  const hiddenSentence = stageId === 24 ? ["—— ■■■■■ ——\n■■ : ■■ ■■■■■://■■■■■.■■■■■■.■■■\n■■■■■■■■■■\n■■■■■■■■■■■■■■■■■■",
-  "■■■■ !\n■■■■■■■■■,\n■■■■ ↓\n■■\\■■■■■\\■■■■■\\■■■■■■■■■\n\\■■■■■■■■■.■■■■■■■■■■■■.■■■",
-  "■■q■■■j■■\n■■■■■rr■■■■■■w■■v■■■\n▤▦■■■▧■☒■■■■\n■▦■■i■◪■■■■◩▩■■■□c■■■n■?\n>■■ -■■ ■"] : ["","",""];
-
-  const buttonHoverMouseShape = stageId === 28 ? "not-allowed" : "pointer" ;
-  if(stageId === 28){
+  const hiddenSentence =
+    stageId === 24
+      ? [
+          "—— ■■■■■ ——\n■■ : ■■ ■■■■■://■■■■■.■■■■■■.■■■\n■■■■■■■■■■\n■■■■■■■■■■■■■■■■■■",
+          "■■■■ !\n■■■■■■■■■,\n■■■■ ↓\n■■\\■■■■■\\■■■■■\\■■■■■■■■■\n\\■■■■■■■■■.■■■■■■■■■■■■.■■■",
+          "■■q■■■j■■\n■■■■■rr■■■■■■w■■v■■■\n▤▦■■■▧■☒■■■■\n■▦■■i■◪■■■■◩▩■■■□c■■■n■?\n>■■ -■■ ■",
+        ]
+      : ["", "", ""];
+  if (stageId === 25) return <FakeEnd />;
+  let ad = <Advertisement />;
+  if (stageId === 27) {
+    ad = <AdvertisementAnomaly />;
+  }
+  const buttonHoverMouseShape = stageId === 28 ? "not-allowed" : "pointer";
+  if (stageId === 28) {
     ExampleButtonFunction = () => {
       chasing.current = false;
       countdown.current = false;
@@ -323,14 +379,15 @@ export default function Game() {
         imgRef.current.style.left = "";
         imgRef.current.style.top = "";
       }
-      stages.filter((s) => s.id === stageId)[0].state =
-        "isNotDetected";
+      stages.filter((s) => s.id === stageId)[0].state = "isNotDetected";
       localStorage.setItem("pageNum", "0");
       navigate("/game");
-    }
+    };
   }
-
-  const imageScale = stageId === 29 ? "scale-[10] duration-[60000ms]" : "" ;
+  
+  const imageScale = stageId === 29 ? "scale-[10] duration-[60000ms]" : "";
+  const crackShow = stageId === 31 ? ["flex", "show-after-5s"] : ["none", ""];
+  const shakeScreen = stageId === 32 ? "shake-after-3s" : "";
   let pageNumShow = stageId === 33 ? toRoman(pageNum) : pageNum;
 
   return (
@@ -339,7 +396,7 @@ export default function Game() {
       className={`text-white relative opacity-0 animate-fadeIn`}
     >
       <div
-        className={`${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow}`}
+        className={`${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} ${shakeScreen}`}
         id="PageWrapper"
       >
         <div
@@ -441,6 +498,21 @@ export default function Game() {
               </div>
             }
           </div>
+          <img
+            src="/crack.png"
+            style={{
+              position: "fixed",
+              top: "40%",
+              left: "40%",
+              transform: "translate(-50%, -50%)",
+              height: "500px",
+              width: "700px",
+              display: `${crackShow[0]}`,
+              pointerEvents: "none",
+              zIndex: "5",
+            }}
+            className={`${crackShow[1]}`}
+          />
           <div
             className={`font-bold text-center text-8xl underline decoration-[orangered] ${rotate}`}
           >
@@ -558,7 +630,7 @@ export default function Game() {
                 className={`border-2 border-black shadow-[2px_2px_5px] ${colorChangOnHover} active:bg-red-500 active:shadow-none font-sans text-black cursor-${buttonHoverMouseShape} ${rotate}`}
                 onClick={ExampleButtonFunction}
               >
-                Click me!
+                {buttonText}
               </button>
             }
             flexboxCollapse={flexboxCollapse}
@@ -592,7 +664,7 @@ export default function Game() {
         </div>
         <div className={`flex justify-end mr-10`} id="nextBtn">
           <button
-            className={`group bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-80`}
+            className={`group bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-20`} //mb-80との返還を後でする
             onClick={() => {
               chasing.current = false;
               countdown.current = false;
@@ -620,6 +692,9 @@ export default function Game() {
             <span className={`hidden ${nextButtonHover[1]}`}>０番へ →</span>
           </button>
         </div>
+
+        {ad}
+
         <div className={`flex ${rotate}`}>
           <button
             className={`bg-[orangered] text-3xl border-2 border-black cursor-pointer whitespace-pre-wrap rounded-full w-18 h-18 fixed bottom-5 left-5`}

@@ -34,8 +34,13 @@ export let initialWeight = [
   { id: 22, weight: 6 },
   { id: 23, weight: 6 },
   { id: 24, weight: 6 },
+  { id: 25, weight: 6 },
+  { id: 26, weight: 6 },
+  { id: 27, weight: 6 },
   { id: 28, weight: 3 },
   { id: 29, weight: 3 },
+  { id: 31, weight: 6 },
+  { id: 32, weight: 3 },
   { id: 33, weight: 6 },
   { id: 34, weight: 6 }
 ]; //重み係数の初期値保存用
@@ -100,15 +105,38 @@ export let stages: StageType[] = [
   },
   {
     id: 5,
-    keyword: "ボタンをクリックすると大きくなる",
-    detail: `通常はクリックすると赤くなる仕様になっているボタンが、クリックすると大きくなってしまいます。`,
-    code: `(e)=>{
-    const btn = e.currentTarget;
-    btn.classList.add("scale-200","bg-red-500","duration-300");
-    setTimeout(()=>{
-      btn.classList.remove("scale-200", "bg-red-500","duration-300");
-      },600)
-    }`,
+    keyword: "押してはいけないボタン",
+    detail: `Don't Click me!と書いてあります。押したらゲームオーバー。フリじゃないよ`,
+    code: `    buttonText = "Don't Click me!"
+    ExampleButtonFunction = (e: React.MouseEvent<HTMLButtonElement>) => {
+      const btn = e.currentTarget;
+      const rect = btn.getBoundingClientRect();
+      const currentTop = rect.top + window.scrollY;
+      const currentLeft = rect.left + window.scrollX;
+
+      btn.style.position = "fixed";
+      btn.style.top = ‘＄{currentTop}px‘;
+      btn.style.left = ‘＄{currentLeft}px‘;
+
+      btn.style.width = ‘＄{rect.width}px‘;
+      btn.style.height = ‘＄{rect.height}px‘;
+
+      btn.style.transition = "all 0.5s ease"
+      btn.textContent = "Game Over";
+      setTimeout(() => {
+        btn.style.top = "0px";
+        btn.style.left = "0px";
+        btn.style.width = "100vw";
+        btn.style.height = "100vh";
+        btn.style.backgroundColor = "#8B0000";
+        btn.style.zIndex = "9999";
+        btn.style.fontSize = "3rem";
+        btn.disabled = true;
+      }, 1000)
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    };`,
     image: "",
     state: "isNotEncountered",
     weight: 6,
@@ -477,7 +505,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
       }`,
     image: "",
     state: "isNotEncountered",
-    weight: 6
+    weight: 6,
   },
   {
     id: 24,
@@ -502,7 +530,46 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
 `,
     image: "",
     state: "isNotEncountered",
-    weight: 6
+    weight: 6,
+  },
+  {
+    id: 25,
+    keyword: "偽ゴール",
+    detail: `8番でないのにゴールに行けると言ってきます。`,
+    code: `if (stageId === 25) return <FakeEnd />;`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6,
+  },
+  {
+    id: 26,
+    keyword: "勝手にスクロール",
+    detail: `スクロールしないと上に戻されます。`,
+    code: `  let scrollTimeout: ReturnType<typeof setTimeout>;
+
+  function handleScroll() {
+    clearTimeout(scrollTimeout);
+
+    scrollTimeout = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1000); 
+  }
+
+  window.addEventListener('scroll', handleScroll);
+
+  handleScroll();`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6,
+  },
+  {
+    id: 27,
+    keyword: "怖い広告",
+    detail: `ut.code();の広告が怖くなっています。`,
+    code: ``,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6,
   },
   {
     id: 28,
@@ -517,7 +584,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
 `,
     image: "",
     state: "isNotEncountered",
-    weight: 3
+    weight: 3,
   },
   {
     id: 29,
@@ -531,7 +598,63 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
 `,
     image: "",
     state: "isNotEncountered",
-    weight: 3
+    weight: 3,
+  },
+  {
+    id: 31,
+    keyword: "画面が割れる",
+    detail: `画面にいきなりヒビが入ります。`,
+    code: `          <img
+            src="/crack.png"
+            style={{
+              position: "fixed",
+              top: "40%",
+              left: "40%",
+              transform: "translate(-50%, -50%)",
+              height: "500px",
+              width: "700px",
+              display: \`\${crackShow[0]}\`,
+              pointerEvents: "none",
+              zIndex: "5",
+            }}
+            className={\`\${crackShow[1]}\`}
+          />`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6,
+  },
+  {
+    id: 32,
+    keyword: "画面が揺れる",
+    detail: `画面が一瞬揺れます。`,
+    code: `
+    @keyframes shakeAfter3s {
+  20% {
+    margin: 30px 0 0 60px;
+  }
+  40% {
+    margin: 0;
+  }
+  55% {
+    margin: 60px 0 0 20px;
+  }
+  70% {
+    margin: 0;
+  }
+  85% {
+    margin: 10px 0 0 20px;
+  }
+  100% {
+    margin: 0;
+  }
+}
+  .shake-after-3s {
+  animation: shakeAfter3s 250ms linear;
+  animation-delay: 3s;
+}`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6,
   },
   {
     id: 33,
