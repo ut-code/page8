@@ -157,23 +157,23 @@ export default function Game() {
   });
 
   useEffect(() => {
-  if (stageId !== 26) return;
-  let scrollTimeout: ReturnType<typeof setTimeout>;
+    if (stageId !== 26) return;
+    let scrollTimeout: ReturnType<typeof setTimeout>;
 
-  function scrollUp() {
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 1000);
-  }
-  
-  window.addEventListener('scroll', scrollUp);
-  scrollUp();
+    function scrollUp() {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 1000);
+    }
 
-  return () => {
-    window.removeEventListener('scroll', scrollUp);
-  };
-}, [stageId]);
+    window.addEventListener("scroll", scrollUp);
+    scrollUp();
+
+    return () => {
+      window.removeEventListener("scroll", scrollUp);
+    };
+  }, [stageId]);
 
   // 異変の変数
 
@@ -191,9 +191,9 @@ export default function Game() {
   const bgColorGraduallyTurningGrey =
     stageId === 4 ? "gradual-grey" : "bg-[#091b0c]";
 
-    let buttonText = "Click me!"
+  let buttonText = "Click me!";
   if (stageId === 5) {
-    buttonText = "Don't Click me!"
+    buttonText = "Don't Click me!";
     ExampleButtonFunction = (e: React.MouseEvent<HTMLButtonElement>) => {
       const btn = e.currentTarget;
       const rect = btn.getBoundingClientRect();
@@ -207,7 +207,7 @@ export default function Game() {
       btn.style.width = `${rect.width}px`;
       btn.style.height = `${rect.height}px`;
 
-      btn.style.transition = "all 0.5s ease"
+      btn.style.transition = "all 0.5s ease";
       btn.textContent = "I told you not to press!";
       setTimeout(() => {
         btn.style.top = `0px`;
@@ -218,7 +218,7 @@ export default function Game() {
         btn.style.zIndex = "9999";
         btn.style.fontSize = "3rem";
         btn.disabled = true;
-      }, 1000)
+      }, 1000);
       setTimeout(() => {
         localStorage.setItem("pageNum", "0");
         navigate("/game");
@@ -288,9 +288,9 @@ export default function Game() {
         ]
       : ["", "", ""];
   if (stageId === 25) return <FakeEnd />;
-  let ad = <Advertisement/>;
-  if(stageId === 27){
-    ad = <AdvertisementAnomaly/>;
+  let ad = <Advertisement />;
+  if (stageId === 27) {
+    ad = <AdvertisementAnomaly />;
   }
   const buttonHoverMouseShape = stageId === 28 ? "not-allowed" : "pointer";
   if (stageId === 28) {
@@ -308,6 +308,7 @@ export default function Game() {
   }
   const imageScale = stageId === 29 ? "scale-[10] duration-[60000ms]" : "";
   const crackShow = stageId === 31 ? ["flex", "show-after-5s"] : ["none", ""];
+  const shakeScreen = stageId === 32 ? "shake-after-3s" : "";
 
   return (
     <div
@@ -315,7 +316,7 @@ export default function Game() {
       className={`text-white relative opacity-0 animate-fadeIn`}
     >
       <div
-        className={`${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow}`}
+        className={`${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} ${shakeScreen}`}
         id="PageWrapper"
       >
         <div
@@ -582,7 +583,7 @@ export default function Game() {
         </div>
         <div className={`flex justify-end mr-10`} id="nextBtn">
           <button
-            className={`group bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-20`}//mb-80との返還を後でする
+            className={`group bg-[orangered] text-2xl p-3 border-2 border-black cursor-pointer mb-20`} //mb-80との返還を後でする
             onClick={() => {
               chasing.current = false;
               if (imgRef.current) {
@@ -609,8 +610,8 @@ export default function Game() {
             <span className={`hidden ${nextButtonHover[1]}`}>０番へ →</span>
           </button>
         </div>
-        
-        { ad }
+
+        {ad}
 
         <div className={`flex ${rotate}`}>
           <button
