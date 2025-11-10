@@ -40,6 +40,7 @@ export let initialWeight = [
   { id: 28, weight: 3 },
   { id: 29, weight: 3 },
   { id: 31, weight: 6 },
+  { id: 32, weight: 3 },
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -529,7 +530,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     state: "isNotEncountered",
     weight: 6,
   },
-　{
+  {
     id: 25,
     keyword: "偽ゴール",
     detail: `8番でないのにゴールに行けると言ってきます。`,
@@ -557,7 +558,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
   handleScroll();`,
     image: "",
     state: "isNotEncountered",
-    weight: 6
+    weight: 6,
   },
   {
     id: 27,
@@ -566,7 +567,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     code: ``,
     image: "",
     state: "isNotEncountered",
-    weight: 6
+    weight: 6,
   },
   {
     id: 28,
@@ -618,6 +619,39 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
           />`,
     image: "",
     state: "isNotEncountered",
-    weight: 3,
+    weight: 6,
+  },
+  {
+    id: 32,
+    keyword: "画面が揺れる",
+    detail: `画面が一瞬揺れます。`,
+    code: `
+    @keyframes shakeAfter3s {
+  20% {
+    margin: 30px 0 0 60px;
+  }
+  40% {
+    margin: 0;
+  }
+  55% {
+    margin: 60px 0 0 20px;
+  }
+  70% {
+    margin: 0;
+  }
+  85% {
+    margin: 10px 0 0 20px;
+  }
+  100% {
+    margin: 0;
+  }
+}
+  .shake-after-3s {
+  animation: shakeAfter3s 250ms linear;
+  animation-delay: 3s;
+}`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6,
   },
 ];
