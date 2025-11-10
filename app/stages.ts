@@ -36,7 +36,8 @@ export let initialWeight = [
   { id: 24, weight: 6 },
   { id: 28, weight: 3 },
   { id: 29, weight: 3 },
-  { id: 33, weight: 6 }
+  { id: 33, weight: 6 },
+  { id: 34, weight: 6 }
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -536,6 +537,17 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     id: 33,
     keyword: "ローマ数字になってる",
     detail: `左上の進行度の数字がローマ数字になっています`,
+    code: `
+    <span>I</span>
+`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6
+  },
+  {
+    id: 34,
+    keyword: "カウントダウン",
+    detail: `一定以上スクロールするとカウントダウンが始まります。`,
     code: `
     <span>I</span>
 `,
