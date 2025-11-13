@@ -57,7 +57,8 @@ export default function Game() {
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
   const anomalyCount = Number(localStorage.getItem("anomalyCount")); //異変が連続で現れた回数
   console.log(`anomalycount = ${anomalyCount}`);
-  const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
+  //const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
+  let stageId = 5;
   console.log("stageId = " + stageId);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
@@ -284,8 +285,9 @@ export default function Game() {
       btn.style.width = `${rect.width}px`;
       btn.style.height = `${rect.height}px`;
 
-      btn.style.transition = "all 0.5s ease";
+      btn.style.transition = "all 0s ease";
       btn.textContent = "I told you not to press!";
+      btn.style.fontFamily = "Ink Free";
       setTimeout(() => {
         btn.style.top = `0px`;
         btn.style.left = `0px`;
