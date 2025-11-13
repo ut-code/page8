@@ -58,7 +58,7 @@ export default function Game() {
   const anomalyCount = Number(localStorage.getItem("anomalyCount")); //異変が連続で現れた回数
   console.log(`anomalycount = ${anomalyCount}`);
   //const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
-  let stageId = 5;
+  let stageId = 29;
   console.log("stageId = " + stageId);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
@@ -387,7 +387,15 @@ export default function Game() {
     };
   }
   
-  const imageScale = stageId === 29 ? "scale-[10] duration-[60000ms]" : "";
+  useEffect(() => {
+    if (stageId === 29) {
+      const el = document.getElementById("targetImage");
+      if (el) {
+        el.classList.add("scale-[10]");
+      }
+    }
+  });
+
   const crackShow = stageId === 31 ? ["flex", "show-after-5s"] : ["none", ""];
   const shakeScreen = stageId === 32 ? "shake-after-3s" : "";
   let pageNumShow = stageId === 33 ? toRoman(pageNum) : pageNum;
@@ -652,9 +660,10 @@ export default function Game() {
             })()}
             element={
               <img
+                id="targetImage"
                 ref={imgRef}
                 src="/image.png"
-                className={`w-40 h-20 ${irasutoyaImageAngular} grayscale absolute ${rotate} ${imageScale}`}
+                className={`w-40 h-20 ${irasutoyaImageAngular} grayscale absolute ${rotate} transform transition-transform duration-[60000ms] scale-100`}
                 style={{
                   zIndex: "1",
                   pointerEvents: "none",
