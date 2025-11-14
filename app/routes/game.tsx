@@ -57,8 +57,7 @@ export default function Game() {
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
   const anomalyCount = Number(localStorage.getItem("anomalyCount")); //異変が連続で現れた回数
   console.log(`anomalycount = ${anomalyCount}`);
-  //const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
-  let stageId = 14;
+  const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
   console.log("stageId = " + stageId);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
@@ -98,15 +97,64 @@ export default function Game() {
   const mouseX = useRef(0); // マウス位置
   const mouseY = useRef(0);
   let imgWidthHalf = 0; //画像の左端から右端までの長さの半分
-  let imgHightHalf = 0; //画像の上端から下端までの長さの半分
+  let imgHeightHalf = 0; //画像の上端から下端までの長さの半分
 
   const chasing = useRef(false);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const sandStormStarted = useRef(false);
 
   const countRef = useRef(5); //カウントダウンの初期値
   if (stageId === 34){
     countRef.current = 5
   }
   const countdown = useRef(false);
+
+  const showSandStorm = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let animationId:number;
+    const renderSandStorm = () => {
+      const imageData = ctx.createImageData(canvas.width, canvas.height);
+      const buf = imageData.data;
+
+      for (let i = 0; i < buf.length; i += 4) {
+        const v = Math.random() * 255;
+        buf[i] = v;
+        buf[i + 1] = v;
+        buf[i + 2] = v;
+        buf[i + 3] = 255;
+      }
+
+      ctx.putImageData(imageData,0,0);
+      animationId = requestAnimationFrame(renderSandStorm);
+    };
+
+    renderSandStorm();
+
+    //2秒後に砂嵐終了
+    const timer = setTimeout(() => {
+      cancelAnimationFrame(animationId);
+
+      chasing.current = false;
+      countdown.current = false;
+      sandStormStarted.current = false;
+      if (imgRef.current) {
+        imgRef.current.style.position = "";
+        imgRef.current.style.left = "";
+        imgRef.current.style.top = "";
+      }
+      stages.filter((s) => s.id === stageId)[0].state =
+        "isNotDetected";
+      localStorage.setItem("pageNum", "0");
+      navigate("/game");
+    },2000)
+  };
 
   useEffect(() => {
     if (stageId !== 14) return;
@@ -119,20 +167,20 @@ export default function Game() {
       if (!chasing.current && imgRef.current) {
         const rect = imgRef.current.getBoundingClientRect();
         imgWidthHalf = rect.width / 2;
-        imgHightHalf = rect.height / 2;
+        imgHeightHalf = rect.height / 2;
         const imgCenterX = rect.left + window.scrollX + imgWidthHalf;
-        const imgCenterY = rect.top + window.scrollY + imgHightHalf;
+        const imgCenterY = rect.top + window.scrollY + imgHeightHalf;
         const dist =
           ((mouseX.current - imgCenterX) ** 2 +
             (mouseY.current - imgCenterY) ** 2) **
           0.5;
 
-        if (dist < 200) {
+        if (dist < 400) {
           chasing.current = true;
 
           const rect = imgRef.current.getBoundingClientRect();
           x.current = rect.left + window.scrollX + imgWidthHalf;
-          y.current = rect.top + window.screenY + imgHightHalf;
+          y.current = rect.top + window.scrollY + imgHeightHalf;
 
           imgRef.current.style.position = "absolute";
           imgRef.current.style.left = `${x.current}px`;
@@ -149,33 +197,24 @@ export default function Game() {
       if (imgRef.current && chasing.current) {
         const rect = imgRef.current.getBoundingClientRect();
         imgWidthHalf = rect.width / 2;
-        imgHightHalf = rect.height / 2;
+        imgHeightHalf = rect.height / 2;
         const imgCenterX = rect.left + window.scrollX + imgWidthHalf;
-        const imgCenterY = rect.top + window.scrollY + imgHightHalf;
+        const imgCenterY = rect.top + window.scrollY + imgHeightHalf;
         const dist =
           ((mouseX.current - imgCenterX) ** 2 +
             (mouseY.current - imgCenterY) ** 2) **
           0.5;
 
-        if(dist < 50){
-          chasing.current = false;
-          countdown.current = false;
-          if (imgRef.current) {
-            imgRef.current.style.position = "";
-            imgRef.current.style.left = "";
-            imgRef.current.style.top = "";
-          }
-          stages.filter((s) => s.id === stageId)[0].state =
-            "isNotDetected";
-          localStorage.setItem("pageNum", "0");
-          navigate("/game");
+        if(dist < 50 && !sandStormStarted.current){
+          sandStormStarted.current = true;
+          showSandStorm();
         }
 
         x.current += (mouseX.current - x.current) * speed;
         y.current += (mouseY.current - y.current) * speed;
 
         imgRef.current.style.left = `${x.current - imgWidthHalf}px`;
-        imgRef.current.style.top = `${y.current - imgHightHalf}px`;
+        imgRef.current.style.top = `${y.current - imgHeightHalf}px`;
       }
       animId = requestAnimationFrame(chase);
     };
@@ -185,7 +224,7 @@ export default function Game() {
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animId);
     };
-  });
+  },[stageId]);
 
   useEffect(() => {
     if (stageId === 15) {
@@ -429,6 +468,16 @@ export default function Game() {
       key={location.key}
       className={`text-white relative opacity-0 animate-fadeIn`}
     >
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: "fixed",
+          width: "100vw", 
+          height: "100vh",
+          zIndex: 20,
+          pointerEvents: "none",
+        }}
+      />
       <div
         className={`${bgColorGraduallyTurningGrey} ${backgroundColorSuddenlyToYellow} ${shakeScreen}`}
         id="PageWrapper"
