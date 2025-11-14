@@ -58,7 +58,7 @@ export default function Game() {
   const anomalyCount = Number(localStorage.getItem("anomalyCount")); //異変が連続で現れた回数
   console.log(`anomalycount = ${anomalyCount}`);
   //const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
-  let stageId = 29;
+  let stageId = 14;
   console.log("stageId = " + stageId);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
@@ -147,6 +147,30 @@ export default function Game() {
     let animId: number;
     const chase = () => {
       if (imgRef.current && chasing.current) {
+        const rect = imgRef.current.getBoundingClientRect();
+        imgWidthHalf = rect.width / 2;
+        imgHightHalf = rect.height / 2;
+        const imgCenterX = rect.left + window.scrollX + imgWidthHalf;
+        const imgCenterY = rect.top + window.scrollY + imgHightHalf;
+        const dist =
+          ((mouseX.current - imgCenterX) ** 2 +
+            (mouseY.current - imgCenterY) ** 2) **
+          0.5;
+
+        if(dist < 50){
+          chasing.current = false;
+          countdown.current = false;
+          if (imgRef.current) {
+            imgRef.current.style.position = "";
+            imgRef.current.style.left = "";
+            imgRef.current.style.top = "";
+          }
+          stages.filter((s) => s.id === stageId)[0].state =
+            "isNotDetected";
+          localStorage.setItem("pageNum", "0");
+          navigate("/game");
+        }
+
         x.current += (mouseX.current - x.current) * speed;
         y.current += (mouseY.current - y.current) * speed;
 
