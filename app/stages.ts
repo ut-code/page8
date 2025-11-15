@@ -43,7 +43,8 @@ export let initialWeight = [
   { id: 32, weight: 3 },
   { id: 33, weight: 6 },
   { id: 34, weight: 6 },
-  { id: 35, weight: 6 }
+  { id: 35, weight: 6 },
+  { id: 36, weight: 6 },
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -602,6 +603,25 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     weight: 3,
   },
   {
+    id: 30,
+    keyword: "スクロールバーの色が変",
+    detail: `スクロールバーが暗い赤色になっています。`,
+    code: `  useEffect(() => {
+        if (stageId === 30) {
+          document.documentElement.style.setProperty(
+            "--scroll-color",
+            "linear-gradient(#000 0%, #800 80%, #600 100%)"
+          );
+          return () => {
+            document.documentElement.style.setProperty("--scroll-color", "#666");
+          };
+        }
+      });`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6,
+  },
+  {
     id: 31,
     keyword: "画面が割れる",
     detail: `画面にいきなりヒビが入ります。`,
@@ -666,7 +686,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
 `,
     image: "",
     state: "isNotEncountered",
-    weight: 6
+    weight: 6,
   },
   {
     id: 34,
@@ -713,7 +733,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
 `,
     image: "",
     state: "isNotEncountered",
-    weight: 6
+    weight: 6,
   },
   {
     id: 35,
@@ -729,6 +749,23 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
 `,
     image: "",
     state: "isNotEncountered",
-    weight: 6
+    weight: 6,
+  },
+  {
+    id: 36,
+    keyword: "ファビコン変化",
+    detail: `ファビコンとは、ブラウザのタブにあるアイコンのことです。普段は数字の「8」のアイコンですが、横向きの「8」になってしまっています。`,
+    code: `  useEffect(() => {
+        const favicon = document.querySelector("link[rel='icon']");
+        if (stageId === 36 && favicon instanceof HTMLLinkElement)
+          favicon.href = "/favicon (1).ico";
+    
+        return () => {
+          if (favicon instanceof HTMLLinkElement) favicon.href = "/favicon.ico";
+        };
+      }, [stageId]);`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6,
   },
 ];

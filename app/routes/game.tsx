@@ -68,8 +68,8 @@ export default function Game() {
   ).current;
   const replacedFlags: boolean[] = Array(15).fill(false);
 
-  const toRoman = (n:number) => {
-    switch (n){
+  const toRoman = (n: number) => {
+    switch (n) {
       case 0:
         return "N";
       case 1:
@@ -91,11 +91,11 @@ export default function Game() {
       default:
         return "X";
     }
-  }
+  };
 
   const x = useRef(0); // 現在位置
   const y = useRef(0);
-  const originMouseX = useRef(0);//マウス位置（画面上部からの座標）
+  const originMouseX = useRef(0); //マウス位置（画面上部からの座標）
   const originMouseY = useRef(0);
   const mouseX = useRef(0); // マウス位置（ウェブページ全体からの座標）
   const mouseY = useRef(0);
@@ -107,8 +107,8 @@ export default function Game() {
   const sandStormStarted = useRef(false);
 
   const countRef = useRef(5); //カウントダウンの初期値
-  if (stageId === 34){
-    countRef.current = 5
+  if (stageId === 34) {
+    countRef.current = 5;
   }
   const countdown = useRef(false);
 
@@ -121,7 +121,7 @@ export default function Game() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let animationId:number;
+    let animationId: number;
     const renderSandStorm = () => {
       const imageData = ctx.createImageData(canvas.width, canvas.height);
       const buf = imageData.data;
@@ -134,7 +134,7 @@ export default function Game() {
         buf[i + 3] = 255;
       }
 
-      ctx.putImageData(imageData,0,0);
+      ctx.putImageData(imageData, 0, 0);
       animationId = requestAnimationFrame(renderSandStorm);
     };
 
@@ -152,11 +152,10 @@ export default function Game() {
         imgRef.current.style.left = "";
         imgRef.current.style.top = "";
       }
-      stages.filter((s) => s.id === stageId)[0].state =
-        "isNotDetected";
+      stages.filter((s) => s.id === stageId)[0].state = "isNotDetected";
       localStorage.setItem("pageNum", "0");
       navigate("/game");
-    },2000)
+    }, 2000);
   };
 
   useEffect(() => {
@@ -199,9 +198,9 @@ export default function Game() {
     const handleScrollMove = () => {
       mouseX.current = originMouseX.current + window.scrollX;
       mouseY.current = originMouseY.current + window.scrollY;
-    }
+    };
 
-    window.addEventListener("scroll",handleScrollMove);
+    window.addEventListener("scroll", handleScrollMove);
 
     const speed = 5;
     let animId: number;
@@ -217,13 +216,13 @@ export default function Game() {
             (mouseY.current - imgCenterY) ** 2) **
           0.5;
 
-        if(dist < 50 && !sandStormStarted.current){
+        if (dist < 50 && !sandStormStarted.current) {
           sandStormStarted.current = true;
           showSandStorm();
         }
 
-        x.current += (mouseX.current - x.current) * speed / dist;
-        y.current += (mouseY.current - y.current) * speed / dist;
+        x.current += ((mouseX.current - x.current) * speed) / dist;
+        y.current += ((mouseY.current - y.current) * speed) / dist;
 
         imgRef.current.style.left = `${x.current - imgWidthHalf}px`;
         imgRef.current.style.top = `${y.current - imgHeightHalf}px`;
@@ -234,10 +233,10 @@ export default function Game() {
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("scroll",handleScrollMove);
+      window.removeEventListener("scroll", handleScrollMove);
       cancelAnimationFrame(animId);
     };
-  },[stageId]);
+  }, [stageId]);
 
   useEffect(() => {
     if (stageId === 15) {
@@ -287,25 +286,25 @@ export default function Game() {
     if (stageId !== 34) return;
 
     const handleCountdown = () => {
-      if (window.scrollY >= 1200){
+      if (window.scrollY >= 1200) {
         countdown.current = true;
-      };
+      }
     };
 
-    window.addEventListener("scroll",handleCountdown);
+    window.addEventListener("scroll", handleCountdown);
 
     const timer = setInterval(() => {
       if (countdown.current) {
         const pageNumEle = document.getElementById("pageNumber");
-        const pageTitleEle =document.getElementById("pageTitle");
-        if(pageNumEle && pageTitleEle){
-          pageNumEle.textContent = String(countRef.current)
+        const pageTitleEle = document.getElementById("pageTitle");
+        if (pageNumEle && pageTitleEle) {
+          pageNumEle.textContent = String(countRef.current);
           pageNumEle.style.fontSize = "120px";
           pageNumEle.style.color = "red";
           pageTitleEle.style.display = "none";
-        };
+        }
 
-        if (countRef.current <= 0){
+        if (countRef.current <= 0) {
           chasing.current = false;
           countdown.current = false;
           if (imgRef.current) {
@@ -313,19 +312,18 @@ export default function Game() {
             imgRef.current.style.left = "";
             imgRef.current.style.top = "";
           }
-          stages.filter((s) => s.id === stageId)[0].state =
-            "isNotDetected";
+          stages.filter((s) => s.id === stageId)[0].state = "isNotDetected";
           localStorage.setItem("pageNum", "0");
           navigate("/game");
-        };
+        }
 
         countRef.current -= 1;
-      };
+      }
     }, 1000);
 
     return () => {
-      window.removeEventListener("scroll",handleCountdown);
-      clearInterval(timer)
+      window.removeEventListener("scroll", handleCountdown);
+      clearInterval(timer);
     };
   });
 
@@ -462,7 +460,7 @@ export default function Game() {
       navigate("/game");
     };
   }
-  
+
   useEffect(() => {
     if (stageId === 29) {
       const el = document.getElementById("targetImage");
@@ -472,10 +470,32 @@ export default function Game() {
     }
   });
 
+  useEffect(() => {
+    if (stageId === 30) {
+      document.documentElement.style.setProperty(
+        "--scroll-color",
+        "linear-gradient(#000 0%, #800 80%, #600 100%)"
+      );
+      return () => {
+        document.documentElement.style.setProperty("--scroll-color", "#666");
+      };
+    }
+  });
+
   const crackShow = stageId === 31 ? ["flex", "show-after-5s"] : ["none", ""];
   const shakeScreen = stageId === 32 ? "shake-after-3s" : "";
   let pageNumShow = stageId === 33 ? toRoman(pageNum) : pageNum;
-  const isLiElementShow = stageId === 35 ? false : true ;
+  const isLiElementShow = stageId === 35 ? false : true;
+
+  useEffect(() => {
+    const favicon = document.querySelector("link[rel='icon']");
+    if (stageId === 36 && favicon instanceof HTMLLinkElement)
+      favicon.href = "/favicon (1).ico";
+
+    return () => {
+      if (favicon instanceof HTMLLinkElement) favicon.href = "/favicon.ico";
+    };
+  }, [stageId]);
 
   isNextbuttonClicked.current = false;
 
@@ -488,7 +508,7 @@ export default function Game() {
         ref={canvasRef}
         style={{
           position: "fixed",
-          width: "100vw", 
+          width: "100vw",
           height: "100vh",
           zIndex: 20,
           pointerEvents: "none",
@@ -504,8 +524,12 @@ export default function Game() {
           id="Header"
         >
           <span className={`${rotate}`}>
-            <span id="pageNumber" className={`text-6xl text-yellow-400`}>{pageNumShow}. </span>
-            <span id="pageTitle" className={`text-4xl`}>{changedTitle}</span>
+            <span id="pageNumber" className={`text-6xl text-yellow-400`}>
+              {pageNumShow}.{" "}
+            </span>
+            <span id="pageTitle" className={`text-4xl`}>
+              {changedTitle}
+            </span>
           </span>
 
           <button
@@ -514,7 +538,7 @@ export default function Game() {
               chasing.current = false;
               countdown.current = false;
               sandStormStarted.current = false;
-              navigate("/")
+              navigate("/");
             }}
           >
             ゲーム中断

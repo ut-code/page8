@@ -363,7 +363,8 @@ export default function End() {
   return (
     <div className="w-full min-h-screen bg-[#091b0c] text-white font-serif opacity-0 animate-fadeIn">
       <header className="w-full fixed bg-[#091b0c] border-b-2 border-gray-700">
-        <div className="mr-auto ml-[10px] cursor-pointer"
+        <div
+          className="mr-auto ml-[10px] cursor-pointer"
           style={{
             display: "inline-flex",
             justifyContent: "left",
@@ -379,13 +380,13 @@ export default function End() {
             style={{
               display: "grid",
               gridTemplateColumns: "73px 67px 20px", // 219px 200px 60px → 1/3
-              gridTemplateRows: "27px 27px",         // 80px 80px → 1/3
+              gridTemplateRows: "27px 27px", // 80px 80px → 1/3
               alignItems: "center",
             }}
           >
             <div
               style={{
-                fontSize: "46px", // 137px → 1/3
+                fontSize: "45px", // 137px → 1/3
                 gridColumn: "1/2",
                 gridRow: "1/3",
               }}

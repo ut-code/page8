@@ -10,7 +10,15 @@ html,
 body {
   @apply bg-[#091b0c] font-serif;
 }
-
+:root {
+  --scroll-color: #666;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-color);
+}
 @keyframes gradual-grey-anim {
   from {
     background-color: #091b0c;
