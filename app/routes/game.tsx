@@ -57,10 +57,12 @@ export default function Game() {
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
   const anomalyCount = Number(localStorage.getItem("anomalyCount")); //異変が連続で現れた回数
   console.log(`anomalycount = ${anomalyCount}`);
-  const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
+  //const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
+  let stageId = 14;
   console.log("stageId = " + stageId);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
+  const isNextbuttonClicked = useRef(false);
 
   const changeWhenScrollingBackRefs = useRef(
     Array.from({ length: 15 }, () => createRef<HTMLDivElement>())
@@ -164,7 +166,7 @@ export default function Game() {
       mouseX.current = e.pageX;
       mouseY.current = e.pageY;
 
-      if (!chasing.current && imgRef.current) {
+      if (!chasing.current && imgRef.current && !isNextbuttonClicked.current) {
         const rect = imgRef.current.getBoundingClientRect();
         imgWidthHalf = rect.width / 2;
         imgHeightHalf = rect.height / 2;
@@ -463,6 +465,8 @@ export default function Game() {
   const shakeScreen = stageId === 32 ? "shake-after-3s" : "";
   let pageNumShow = stageId === 33 ? toRoman(pageNum) : pageNum;
 
+  isNextbuttonClicked.current = false;
+
   return (
     <div
       key={location.key}
@@ -494,7 +498,12 @@ export default function Game() {
 
           <button
             className={`bg-red-500 text-2xl p-3 border-2 border-black cursor-pointer ${rotate}`}
-            onClick={() => navigate("/")}
+            onClick={() => {
+              chasing.current = false;
+              countdown.current = false;
+              sandStormStarted.current = false;
+              navigate("/")
+            }}
           >
             ゲーム中断
           </button>
@@ -505,6 +514,7 @@ export default function Game() {
             onClick={() => {
               chasing.current = false;
               countdown.current = false;
+              sandStormStarted.current = false;
               if (imgRef.current) {
                 imgRef.current.style.position = "";
                 imgRef.current.style.left = "";
@@ -753,6 +763,8 @@ export default function Game() {
             onClick={() => {
               chasing.current = false;
               countdown.current = false;
+              sandStormStarted.current = false;
+              isNextbuttonClicked.current = true;
               if (imgRef.current) {
                 imgRef.current.style.position = "";
                 imgRef.current.style.left = "";
