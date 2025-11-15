@@ -96,7 +96,9 @@ export default function Game() {
 
   const x = useRef(0); // 現在位置
   const y = useRef(0);
-  const mouseX = useRef(0); // マウス位置
+  const originMouseX = useRef(0);//マウス位置（画面上部からの座標）
+  const originMouseY = useRef(0);
+  const mouseX = useRef(0); // マウス位置（ウェブページ全体からの座標）
   const mouseY = useRef(0);
   let imgWidthHalf = 0; //画像の左端から右端までの長さの半分
   let imgHeightHalf = 0; //画像の上端から下端までの長さの半分
@@ -165,6 +167,8 @@ export default function Game() {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.current = e.pageX;
       mouseY.current = e.pageY;
+      originMouseX.current = mouseX.current - window.scrollX;
+      originMouseY.current = mouseY.current - window.scrollY;
 
       if (!chasing.current && imgRef.current && !isNextbuttonClicked.current) {
         const rect = imgRef.current.getBoundingClientRect();
@@ -193,7 +197,14 @@ export default function Game() {
 
     window.addEventListener("mousemove", handleMouseMove);
 
-    const speed = 0.05;
+    const handleScrollMove = () => {
+      mouseX.current = originMouseX.current + window.scrollX;
+      mouseY.current = originMouseY.current + window.scrollY;
+    }
+
+    window.addEventListener("scroll",handleScrollMove);
+
+    const speed = 5;
     let animId: number;
     const chase = () => {
       if (imgRef.current && chasing.current) {
@@ -212,8 +223,8 @@ export default function Game() {
           showSandStorm();
         }
 
-        x.current += (mouseX.current - x.current) * speed;
-        y.current += (mouseY.current - y.current) * speed;
+        x.current += (mouseX.current - x.current) * speed / dist;
+        y.current += (mouseY.current - y.current) * speed / dist;
 
         imgRef.current.style.left = `${x.current - imgWidthHalf}px`;
         imgRef.current.style.top = `${y.current - imgHeightHalf}px`;
@@ -224,6 +235,7 @@ export default function Game() {
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll",handleScrollMove);
       cancelAnimationFrame(animId);
     };
   },[stageId]);
