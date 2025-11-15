@@ -725,6 +725,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
         <li
           className={"p-4 border border-gray-600 rounded-lg"}
         >
+          ...
 `,
     image: "",
     state: "isNotEncountered",
