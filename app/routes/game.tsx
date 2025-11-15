@@ -61,6 +61,7 @@ export default function Game() {
   console.log("stageId = " + stageId);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
+  const isNextbuttonClicked = useRef(false);
 
   const changeWhenScrollingBackRefs = useRef(
     Array.from({ length: 15 }, () => createRef<HTMLDivElement>())
@@ -94,7 +95,9 @@ export default function Game() {
 
   const x = useRef(0); // 現在位置
   const y = useRef(0);
-  const mouseX = useRef(0); // マウス位置
+  const originMouseX = useRef(0);//マウス位置（画面上部からの座標）
+  const originMouseY = useRef(0);
+  const mouseX = useRef(0); // マウス位置（ウェブページ全体からの座標）
   const mouseY = useRef(0);
   let imgWidthHalf = 0; //画像の左端から右端までの長さの半分
   let imgHeightHalf = 0; //画像の上端から下端までの長さの半分
@@ -163,8 +166,10 @@ export default function Game() {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.current = e.pageX;
       mouseY.current = e.pageY;
+      originMouseX.current = mouseX.current - window.scrollX;
+      originMouseY.current = mouseY.current - window.scrollY;
 
-      if (!chasing.current && imgRef.current) {
+      if (!chasing.current && imgRef.current && !isNextbuttonClicked.current) {
         const rect = imgRef.current.getBoundingClientRect();
         imgWidthHalf = rect.width / 2;
         imgHeightHalf = rect.height / 2;
@@ -191,7 +196,14 @@ export default function Game() {
 
     window.addEventListener("mousemove", handleMouseMove);
 
-    const speed = 0.05;
+    const handleScrollMove = () => {
+      mouseX.current = originMouseX.current + window.scrollX;
+      mouseY.current = originMouseY.current + window.scrollY;
+    }
+
+    window.addEventListener("scroll",handleScrollMove);
+
+    const speed = 5;
     let animId: number;
     const chase = () => {
       if (imgRef.current && chasing.current) {
@@ -210,8 +222,8 @@ export default function Game() {
           showSandStorm();
         }
 
-        x.current += (mouseX.current - x.current) * speed;
-        y.current += (mouseY.current - y.current) * speed;
+        x.current += (mouseX.current - x.current) * speed / dist;
+        y.current += (mouseY.current - y.current) * speed / dist;
 
         imgRef.current.style.left = `${x.current - imgWidthHalf}px`;
         imgRef.current.style.top = `${y.current - imgHeightHalf}px`;
@@ -222,6 +234,7 @@ export default function Game() {
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll",handleScrollMove);
       cancelAnimationFrame(animId);
     };
   },[stageId]);
@@ -462,6 +475,9 @@ export default function Game() {
   const crackShow = stageId === 31 ? ["flex", "show-after-5s"] : ["none", ""];
   const shakeScreen = stageId === 32 ? "shake-after-3s" : "";
   let pageNumShow = stageId === 33 ? toRoman(pageNum) : pageNum;
+  const isLiElementShow = stageId === 35 ? false : true ;
+
+  isNextbuttonClicked.current = false;
 
   return (
     <div
@@ -494,7 +510,12 @@ export default function Game() {
 
           <button
             className={`bg-red-500 text-2xl p-3 border-2 border-black cursor-pointer ${rotate}`}
-            onClick={() => navigate("/")}
+            onClick={() => {
+              chasing.current = false;
+              countdown.current = false;
+              sandStormStarted.current = false;
+              navigate("/")
+            }}
           >
             ゲーム中断
           </button>
@@ -505,6 +526,7 @@ export default function Game() {
             onClick={() => {
               chasing.current = false;
               countdown.current = false;
+              sandStormStarted.current = false;
               if (imgRef.current) {
                 imgRef.current.style.position = "";
                 imgRef.current.style.left = "";
@@ -621,52 +643,54 @@ export default function Game() {
             <div className={`mb-5`} ref={changeWhenScrollingBackRefs[2]}>
               ウェブ開発では、主に以下の3つの言語が使われています。
             </div>
-            <ul className={`space-y-6 flex flex-col`}>
-              <li
-                className={`p-4 border border-gray-600 rounded-lg order-${LiElementHTMLOrder} ${rotate}`}
-              >
-                <dl>
-                  <dt className={`font-bold text-2xl text-[orangered]`}>
-                    <div ref={changeWhenScrollingBackRefs[3]}>HTML</div>
-                  </dt>
-                  <dd className={`mt-1 text-lg`}>
-                    <div ref={changeWhenScrollingBackRefs[4]}>
-                      ウェブページの骨格を作る言語。
-                    </div>
-                  </dd>
-                </dl>
-              </li>
-              <li
-                className={`p-4 border border-gray-600 rounded-lg order-1 ${rotate}`}
-              >
-                <dl>
-                  <dt className={`font-bold text-2xl text-[orangered]`}>
-                    <div ref={changeWhenScrollingBackRefs[5]}>CSS</div>
-                  </dt>
-                  <dd className={`mt-1 text-lg`}>
-                    <div ref={changeWhenScrollingBackRefs[6]}>
-                      ウェブページの見た目を決める言語。
-                    </div>
-                  </dd>
-                </dl>
-              </li>
-              <li
-                className={`p-4 border border-gray-600 rounded-lg order-3 ${rotate}`}
-              >
-                <dl>
-                  <dt className={`font-bold text-2xl text-[orangered]`}>
-                    <div ref={changeWhenScrollingBackRefs[7]}>
-                      {textJavaOrType}Script
-                    </div>
-                  </dt>
-                  <dd className={`mt-1 text-lg`}>
-                    <div ref={changeWhenScrollingBackRefs[8]}>
-                      ウェブページに動きをつけたり、複雑な処理をさせたりする言語。
-                    </div>
-                  </dd>
-                </dl>
-              </li>
-            </ul>
+            {isLiElementShow && (
+              <ul className={`space-y-6 flex flex-col`}>
+                <li
+                  className={`p-4 border border-gray-600 rounded-lg order-${LiElementHTMLOrder} ${rotate}`}
+                >
+                  <dl>
+                    <dt className={`font-bold text-2xl text-[orangered]`}>
+                      <div ref={changeWhenScrollingBackRefs[3]}>HTML</div>
+                    </dt>
+                    <dd className={`mt-1 text-lg`}>
+                      <div ref={changeWhenScrollingBackRefs[4]}>
+                        ウェブページの骨格を作る言語。
+                      </div>
+                    </dd>
+                  </dl>
+                </li>
+                <li
+                  className={`p-4 border border-gray-600 rounded-lg order-1 ${rotate}`}
+                >
+                  <dl>
+                    <dt className={`font-bold text-2xl text-[orangered]`}>
+                      <div ref={changeWhenScrollingBackRefs[5]}>CSS</div>
+                    </dt>
+                    <dd className={`mt-1 text-lg`}>
+                      <div ref={changeWhenScrollingBackRefs[6]}>
+                        ウェブページの見た目を決める言語。
+                      </div>
+                    </dd>
+                  </dl>
+                </li>
+                <li
+                  className={`p-4 border border-gray-600 rounded-lg order-3 ${rotate}`}
+                >
+                  <dl>
+                    <dt className={`font-bold text-2xl text-[orangered]`}>
+                      <div ref={changeWhenScrollingBackRefs[7]}>
+                        {textJavaOrType}Script
+                      </div>
+                    </dt>
+                    <dd className={`mt-1 text-lg`}>
+                      <div ref={changeWhenScrollingBackRefs[8]}>
+                        ウェブページに動きをつけたり、複雑な処理をさせたりする言語。
+                      </div>
+                    </dd>
+                  </dl>
+                </li>
+              </ul>
+            )}
             <div className={`mt-10`} ref={changeWhenScrollingBackRefs[9]}>
               CSSは、ウェブページのデザインを整える上で欠かせません。以下で、CSSの具体的な例を見ていきましょう。
             </div>
@@ -753,6 +777,8 @@ export default function Game() {
             onClick={() => {
               chasing.current = false;
               countdown.current = false;
+              sandStormStarted.current = false;
+              isNextbuttonClicked.current = true;
               if (imgRef.current) {
                 imgRef.current.style.position = "";
                 imgRef.current.style.left = "";
