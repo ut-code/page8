@@ -42,7 +42,8 @@ export let initialWeight = [
   { id: 31, weight: 6 },
   { id: 32, weight: 3 },
   { id: 33, weight: 6 },
-  { id: 34, weight: 6 }
+  { id: 34, weight: 6 },
+  { id: 35, weight: 6 }
 ]; //重み係数の初期値保存用
 
 export let stages: StageType[] = [
@@ -709,6 +710,21 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
           clearInterval(timer)
         };
       });
+`,
+    image: "",
+    state: "isNotEncountered",
+    weight: 6
+  },
+  {
+    id: 35,
+    keyword: "要素がない",
+    detail: `HTML、CSS、JavaScriptの説明が書いてあった要素がなくなっています。`,
+    code: `
+    {isLiElementShow && (                         //isLiElementShowがtrueなら見える、falseなら描画されない
+      <ul className={"space-y-6 flex flex-col"}>
+        <li
+          className={"p-4 border border-gray-600 rounded-lg"}
+        >
 `,
     image: "",
     state: "isNotEncountered",

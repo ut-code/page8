@@ -57,8 +57,7 @@ export default function Game() {
   const pageNum = Number(localStorage.getItem("pageNum")); // ページ番号0~8
   const anomalyCount = Number(localStorage.getItem("anomalyCount")); //異変が連続で現れた回数
   console.log(`anomalycount = ${anomalyCount}`);
-  //const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
-  let stageId = 14;
+  const stageId = stages[biasedRandom(stages, anomalyCount)].id; // ページの種類のID
   console.log("stageId = " + stageId);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
@@ -476,6 +475,7 @@ export default function Game() {
   const crackShow = stageId === 31 ? ["flex", "show-after-5s"] : ["none", ""];
   const shakeScreen = stageId === 32 ? "shake-after-3s" : "";
   let pageNumShow = stageId === 33 ? toRoman(pageNum) : pageNum;
+  const isLiElementShow = stageId === 35 ? false : true ;
 
   isNextbuttonClicked.current = false;
 
@@ -643,52 +643,54 @@ export default function Game() {
             <div className={`mb-5`} ref={changeWhenScrollingBackRefs[2]}>
               ウェブ開発では、主に以下の3つの言語が使われています。
             </div>
-            <ul className={`space-y-6 flex flex-col`}>
-              <li
-                className={`p-4 border border-gray-600 rounded-lg order-${LiElementHTMLOrder} ${rotate}`}
-              >
-                <dl>
-                  <dt className={`font-bold text-2xl text-[orangered]`}>
-                    <div ref={changeWhenScrollingBackRefs[3]}>HTML</div>
-                  </dt>
-                  <dd className={`mt-1 text-lg`}>
-                    <div ref={changeWhenScrollingBackRefs[4]}>
-                      ウェブページの骨格を作る言語。
-                    </div>
-                  </dd>
-                </dl>
-              </li>
-              <li
-                className={`p-4 border border-gray-600 rounded-lg order-1 ${rotate}`}
-              >
-                <dl>
-                  <dt className={`font-bold text-2xl text-[orangered]`}>
-                    <div ref={changeWhenScrollingBackRefs[5]}>CSS</div>
-                  </dt>
-                  <dd className={`mt-1 text-lg`}>
-                    <div ref={changeWhenScrollingBackRefs[6]}>
-                      ウェブページの見た目を決める言語。
-                    </div>
-                  </dd>
-                </dl>
-              </li>
-              <li
-                className={`p-4 border border-gray-600 rounded-lg order-3 ${rotate}`}
-              >
-                <dl>
-                  <dt className={`font-bold text-2xl text-[orangered]`}>
-                    <div ref={changeWhenScrollingBackRefs[7]}>
-                      {textJavaOrType}Script
-                    </div>
-                  </dt>
-                  <dd className={`mt-1 text-lg`}>
-                    <div ref={changeWhenScrollingBackRefs[8]}>
-                      ウェブページに動きをつけたり、複雑な処理をさせたりする言語。
-                    </div>
-                  </dd>
-                </dl>
-              </li>
-            </ul>
+            {isLiElementShow && (
+              <ul className={`space-y-6 flex flex-col`}>
+                <li
+                  className={`p-4 border border-gray-600 rounded-lg order-${LiElementHTMLOrder} ${rotate}`}
+                >
+                  <dl>
+                    <dt className={`font-bold text-2xl text-[orangered]`}>
+                      <div ref={changeWhenScrollingBackRefs[3]}>HTML</div>
+                    </dt>
+                    <dd className={`mt-1 text-lg`}>
+                      <div ref={changeWhenScrollingBackRefs[4]}>
+                        ウェブページの骨格を作る言語。
+                      </div>
+                    </dd>
+                  </dl>
+                </li>
+                <li
+                  className={`p-4 border border-gray-600 rounded-lg order-1 ${rotate}`}
+                >
+                  <dl>
+                    <dt className={`font-bold text-2xl text-[orangered]`}>
+                      <div ref={changeWhenScrollingBackRefs[5]}>CSS</div>
+                    </dt>
+                    <dd className={`mt-1 text-lg`}>
+                      <div ref={changeWhenScrollingBackRefs[6]}>
+                        ウェブページの見た目を決める言語。
+                      </div>
+                    </dd>
+                  </dl>
+                </li>
+                <li
+                  className={`p-4 border border-gray-600 rounded-lg order-3 ${rotate}`}
+                >
+                  <dl>
+                    <dt className={`font-bold text-2xl text-[orangered]`}>
+                      <div ref={changeWhenScrollingBackRefs[7]}>
+                        {textJavaOrType}Script
+                      </div>
+                    </dt>
+                    <dd className={`mt-1 text-lg`}>
+                      <div ref={changeWhenScrollingBackRefs[8]}>
+                        ウェブページに動きをつけたり、複雑な処理をさせたりする言語。
+                      </div>
+                    </dd>
+                  </dl>
+                </li>
+              </ul>
+            )}
             <div className={`mt-10`} ref={changeWhenScrollingBackRefs[9]}>
               CSSは、ウェブページのデザインを整える上で欠かせません。以下で、CSSの具体的な例を見ていきましょう。
             </div>
