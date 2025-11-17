@@ -39,6 +39,7 @@ export let initialWeight = [
   { id: 27, weight: 6 },
   { id: 28, weight: 3 },
   { id: 29, weight: 3 },
+  { id: 30, weight: 6 },
   { id: 31, weight: 6 },
   { id: 32, weight: 3 },
   { id: 33, weight: 6 },

@@ -158,6 +158,7 @@ export default function Game() {
     }, 2000);
   };
 
+  // 異変のUseEffect
   useEffect(() => {
     if (stageId !== 14) return;
     if (!imgRef.current) return;
@@ -327,6 +328,37 @@ export default function Game() {
     };
   });
 
+  useEffect(() => {
+    if (stageId === 29) {
+      const el = document.getElementById("targetImage");
+      if (el) {
+        el.classList.add("scale-[10]");
+      }
+    }
+  });
+
+  useEffect(() => {
+    if (stageId === 30) {
+      document.documentElement.style.setProperty(
+        "--scroll-color",
+        "linear-gradient(#000 0%, #800 80%, #600 100%)"
+      );
+      return () => {
+        document.documentElement.style.setProperty("--scroll-color", "#666");
+      };
+    }
+  });
+
+  useEffect(() => {
+    const favicon = document.querySelector("link[rel='icon']");
+    if (stageId === 36 && favicon instanceof HTMLLinkElement)
+      favicon.href = "/favicon (1).ico";
+
+    return () => {
+      if (favicon instanceof HTMLLinkElement) favicon.href = "/favicon.ico";
+    };
+  }, [stageId]);
+
   // 異変の変数
 
   let ExampleButtonFunction: (...args: any[]) => void = () => {}; //二つ目のExampleに含まれているボタンに渡す関数を入れるための変数
@@ -461,41 +493,10 @@ export default function Game() {
     };
   }
 
-  useEffect(() => {
-    if (stageId === 29) {
-      const el = document.getElementById("targetImage");
-      if (el) {
-        el.classList.add("scale-[10]");
-      }
-    }
-  });
-
-  useEffect(() => {
-    if (stageId === 30) {
-      document.documentElement.style.setProperty(
-        "--scroll-color",
-        "linear-gradient(#000 0%, #800 80%, #600 100%)"
-      );
-      return () => {
-        document.documentElement.style.setProperty("--scroll-color", "#666");
-      };
-    }
-  });
-
   const crackShow = stageId === 31 ? ["flex", "show-after-5s"] : ["none", ""];
   const shakeScreen = stageId === 32 ? "shake-after-3s" : "";
   let pageNumShow = stageId === 33 ? toRoman(pageNum) : pageNum;
   const isLiElementShow = stageId === 35 ? false : true;
-
-  useEffect(() => {
-    const favicon = document.querySelector("link[rel='icon']");
-    if (stageId === 36 && favicon instanceof HTMLLinkElement)
-      favicon.href = "/favicon (1).ico";
-
-    return () => {
-      if (favicon instanceof HTMLLinkElement) favicon.href = "/favicon.ico";
-    };
-  }, [stageId]);
 
   isNextbuttonClicked.current = false;
 
