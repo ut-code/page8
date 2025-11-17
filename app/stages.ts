@@ -305,7 +305,7 @@ export let stages: StageType[] = [
   requestAnimationFrame(() => {
     topBtn.style.top = ‘＄{stopTop}px‘;
   })`,
-    image: "",
+    image: "/anomalyimgs/13.png",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -367,7 +367,7 @@ useEffect(() => {
     };
   });
 `,
-    image: "",
+    image: "/anomalyimgs/14.png",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -380,7 +380,7 @@ useEffect(() => {
 if (stageId === 15) {
   navigate("/引き返せ引き返せ引き返せ引き返せ引き返せ引き返せ");
 }`,
-    image: "",
+    image: "/anomalyimgs/15.png",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -392,7 +392,7 @@ if (stageId === 15) {
   <span className="group-hover:hidden">ようこそ</span>
   <span className={"hidden text-6xl group-hover:block"}>繧医≧縺薙◎</span>
 </div>`,
-    image: "",
+    image: "/anomalyimgs/16.png",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -401,7 +401,7 @@ if (stageId === 15) {
     keyword: "大文字になる",
     detail: `CSSのコードが大文字になってしまいます。`,
     code: `text-transform: uppercase;`,
-    image: "",
+    image: "/anomalyimgs/17.png",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -412,7 +412,7 @@ if (stageId === 15) {
     code: `<dt className="font-bold text-2xl text-[orangered]">
             TypeScript
           </dt>`,
-    image: "",
+    image: "/anomalyimgs/18.png",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -425,7 +425,7 @@ if (stageId === 15) {
 className='\n border-2 border-black\n shadow-[2px_2px_5px]\n active:\n bg-red-500\n active:shadow-none'\n
 ~
 className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
-    image: "",
+    image: "/anomalyimgs/19.png",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -435,7 +435,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     detail: `次へ →ボタンが０番へ →ボタンになっています`,
     code: `<span className="block group-hover:hidden">次へ →</span>
             <span className="hidden group-hover:block">０番へ →</span>`,
-    image: "",
+    image: "/anomalyimgs/20.png",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -458,7 +458,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };`,
-    image: "",
+    image: "/anomalyimgs/21.png",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -479,7 +479,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
   display: inline-block;
   animation: rotate 2s linear infinite;
 }`,
-    image: "",
+    image: "/anomalyimgs/22.png",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -506,7 +506,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
       };
       return <img src="/image.png" style={style} className="w-40 h-20 grayscale" />;
       }`,
-    image: "",
+    image: "/anomalyimgs/23.png",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -531,7 +531,7 @@ className=\n 'w-[200px]\n h-[100px]\n rotate-[6deg]\n grayscale'\n`,
       color: red; /* 範囲選択時に表示される色 */
     }
 `,
-    image: "",
+    image: "/anomalyimgs/24.png",
     state: "isNotEncountered",
     weight: 6,
   },
