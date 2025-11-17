@@ -63,7 +63,7 @@ export let stages: StageType[] = [
     keyword: "文字の色変化",
     detail: '"Hello!"の文字が青ではなく緑色になっています。',
     code: `color: green;`,
-    image: "",
+    image: "/anomalyImgs/1.jpeg",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -72,7 +72,7 @@ export let stages: StageType[] = [
     keyword: "画像の傾きが変",
     detail: `CSS利用例の3.画像のカスタマイズの画像が、通常時よりも半回転多く傾いています。`,
     code: `{transform: rotate(186deg);`,
-    image: "",
+    image: "/anomalyImgs/2.jpeg",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -81,7 +81,7 @@ export let stages: StageType[] = [
     keyword: "背景色の急変化",
     detail: "背景色が急に明るい色に変わっています",
     code: "background-color : #FFF2B2",
-    image: "",
+    image: "/anomalyImgs/3.jpeg",
     state: "isNotEncountered",
     weight: 3,
   },
@@ -102,7 +102,7 @@ export let stages: StageType[] = [
   animation-duration: 20s;
   animation-fill-mode: forwards;
 }`,
-    image: "",
+    image: "/anomalyImgs/4.jpeg",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -140,7 +140,7 @@ export let stages: StageType[] = [
         navigate("/");
       }, 3000);
     };`,
-    image: "",
+    image: "/anomalyImgs/5.jpeg",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -189,7 +189,7 @@ export let stages: StageType[] = [
           </div>
         )}
         </div>`,
-    image: "",
+    image: "/anomalyImgs/6.jpeg",
     state: "isNotEncountered",
     weight: 3,
   },
@@ -201,7 +201,7 @@ export let stages: StageType[] = [
     code: `.button:hover {
   background-color: red;
 }`,
-    image: "",
+    image: "/anomalyImgs/7.jpeg",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -213,7 +213,7 @@ export let stages: StageType[] = [
       display: flex;
       justify-content: flex-start;
     }`,
-    image: "",
+    image: "/anomalyImgs/8.jpeg",
     state: "isNotEncountered",
     weight: 3,
   },
@@ -228,7 +228,7 @@ export let stages: StageType[] = [
         欢迎     //要素の中身を記述するところ
       </div>
     `,
-    image: "",
+    image: "/anomalyImgs/9.jpeg",
     state: "isNotEncountered",
     weight: 3,
   },
@@ -240,7 +240,7 @@ export let stages: StageType[] = [
   color: black;
   background-color: #b91c1c;
 }`,
-    image: "",
+    image: "/anomalyImgs/10.jpeg",
     state: "isNotEncountered",
     weight: 6,
   },
@@ -254,7 +254,7 @@ export let stages: StageType[] = [
           return <EnglishAnomaly />;   //<EnglishAnomaly />は英語で書かれたコンポーネント（構成要素）
       }
       `,
-    image: "",
+    image: "/anomalyImgs/11.jpeg",
     state: "isNotEncountered",
     weight: 3,
   },
@@ -276,7 +276,7 @@ export let stages: StageType[] = [
                 </dd>
               </dl>
             </li>`,
-    image: "",
+    image: "/anomalyImgs/12.jpeg",
     state: "isNotEncountered",
     weight: 6,
   },
