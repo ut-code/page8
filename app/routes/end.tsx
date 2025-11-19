@@ -66,7 +66,7 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
   const [selectedAnomaly, setSelectedAnomaly] = useState<StageType | null>(
     null
   );
-  console.log(selectedAnomaly);
+  //console.log(selectedAnomaly);
 
   const [showList, setShowList] = useState(false);
 
@@ -100,7 +100,7 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
                 onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                   e.stopPropagation();
                   setSelectedAnomaly(anomaly);
-                  console.log("Selected Anomaly:", anomaly);
+                  //console.log("Selected Anomaly:", anomaly);
                 }}
               />
             ))}
@@ -124,7 +124,7 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
                 onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                   e.stopPropagation();
                   setSelectedAnomaly(anomaly);
-                  console.log("Selected Anomaly:", anomaly);
+                  //console.log("Selected Anomaly:", anomaly);
                 }}
               />
             ))}
@@ -150,7 +150,7 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
                 onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                   e.stopPropagation();
                   setSelectedAnomaly(anomaly);
-                  console.log("Selected Anomaly:", anomaly);
+                  //console.log("Selected Anomaly:", anomaly);
                 }}
               />
             ))}
@@ -177,7 +177,7 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
                   onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                     e.stopPropagation();
                     setSelectedAnomaly(anomaly);
-                    console.log("Selected Anomaly:", anomaly);
+                    //console.log("Selected Anomaly:", anomaly);
                   }}
                 />
               ))}
@@ -312,7 +312,11 @@ function Popup({
             <p className="mb-8 text-xl text-center">
               <span className="border-b-[1.5px]">実際の画面</span>
             </p>
-            <img className="mx-auto" src={anomaly.image} />
+            {/* <img className="mx-auto" src={anomaly.image} /> */}
+            {anomaly.image.endsWith(".mp4") ? 
+            <video className="mx-auto" autoPlay muted loop playsInline src={anomaly.image} /> : 
+            <img className="mx-auto" src={anomaly.image} /> 
+            }
           </div>
         </div>
         <button
