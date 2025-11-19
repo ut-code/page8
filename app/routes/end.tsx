@@ -88,7 +88,7 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
         <div className="max-w-[1056px] m-auto mb-16">
           <h2 className="p-2 text-2xl">
             <span className="border-b-3 border-[#FF4500] pb-1">
-              新しく発見した異変の一覧
+              新しく発見した異変：{newDetectedAnomalies.length}個
             </span>
           </h2>
           <p className="p-2">異変の正体をどうぞ確かめていってください</p>
@@ -112,7 +112,7 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
         <div className="max-w-[1056px] m-auto mb-16">
           <h2 className="p-2 text-2xl">
             <span className="border-b-3 border-[#FF4500] pb-1">
-              これまで発見した異変の一覧
+              これまで発見した異変：{detectedAnomalies.length}個
             </span>
           </h2>
           <p className="p-2">異変の正体をどうぞ確かめていってください</p>
@@ -136,7 +136,7 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
         <div className="max-w-[1056px] m-auto mb-16">
           <h2 className="p-2 text-2xl">
             <span className="border-b-3 border-[#FF4500] pb-1">
-              見落とした異変の一覧
+              見落とした異変：{notDetectedAnomalies.length}個
             </span>
           </h2>
           <p className="p-2">
@@ -162,11 +162,11 @@ function AnomalyList({ anomalies }: { anomalies: StageType[] }) {
         <div className="max-w-[1056px] m-auto mb-16">
           <h2 className="p-2 text-2xl">
             <span className="border-b-3 border-[#FF4500] pb-1">
-              遭遇していない異変の一覧
+              遭遇していない異変：{notEncounteredAnomalies.length}個
             </span>
           </h2>
           <p className="p-2">
-            この異変は、今回のプレイでは現れなかったようです。もし気になるなら、そっと覗いてみてください。
+            この異変は、まだ現れていないようです。もし気になるなら、そっと覗いてみてください。
           </p>
           <div className="grid grid-cols-4 gap-8 justify-center">
             {showList &&
@@ -313,10 +313,18 @@ function Popup({
               <span className="border-b-[1.5px]">実際の画面</span>
             </p>
             {/* <img className="mx-auto" src={anomaly.image} /> */}
-            {anomaly.image.endsWith(".mp4") ? 
-            <video className="mx-auto" autoPlay muted loop playsInline src={anomaly.image} /> : 
-            <img className="mx-auto" src={anomaly.image} /> 
-            }
+            {anomaly.image.endsWith(".mp4") ? (
+              <video
+                className="mx-auto"
+                autoPlay
+                muted
+                loop
+                playsInline
+                src={anomaly.image}
+              />
+            ) : (
+              <img className="mx-auto" src={anomaly.image} />
+            )}
           </div>
         </div>
         <button
